@@ -3,6 +3,8 @@ package com.example.sergeherkul.bustrackeradmin;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,6 +20,33 @@ public class MainActivity extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance();
         mainaccessor = new Accessories(MainActivity.this);
+
+        getSupportActionBar().setTitle("Admin | Safet");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.profile:
+                startActivity(new Intent(MainActivity.this,Profile.class));
+                break;
+
+            case R.id.notifications:
+                break;
+
+            case R.id.logout:
+                break;
+
+            case R.id.drivers:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

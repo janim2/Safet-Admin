@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="270dp"
+    android:layout_height="350dp"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:background="@drawable/curved_top_">
+
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="X"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:id="@+id/cancel"
+        android:background="@drawable/cancel_background"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter School Code to continue"
+        android:layout_marginTop="20dp"
+        android:id="@+id/school_code_text"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:maxLength="1"
+            android:textSize="15sp"
+            android:inputType="text"
+            android:id="@+id/code_number_one"
+            android:gravity="center"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColor="@android:color/black"
+            android:background="@android:drawable/editbox_background"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:maxLength="1"
+            android:inputType="number"
+            android:textSize="15sp"
+            android:id="@+id/code_number_two"
+            android:gravity="center"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColor="@android:color/black"
+            android:background="@android:drawable/editbox_background"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:maxLength="1"
+            android:inputType="number"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:id="@+id/code_number_three"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColor="@android:color/black"
+            android:background="@android:drawable/editbox_background"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="0"
+            android:maxLength="1"
+            android:inputType="text"
+            android:textSize="15sp"
+            android:id="@+id/code_number_four"
+            android:gravity="center"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColor="@android:color/black"
+            android:background="@android:drawable/editbox_background"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="success"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/success_message"
+        android:visibility="gone"
+        android:textSize="13sp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/verify_school_button"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:text="VERIFY"/>
+
+</LinearLayout>

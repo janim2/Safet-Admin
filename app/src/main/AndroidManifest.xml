@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Verify_School"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Profile"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".Verify_School"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterSchool"
             android:screenOrientation="portrait"
@@ -18,8 +21,7 @@
         <activity
             android:name=".Login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
