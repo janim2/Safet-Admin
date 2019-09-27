@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity" >
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="@drawable/curved_top_">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:id="@+id/today_date"
+                    android:text="10th September 2019"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:id="@+id/bus_status_text"
+                    android:textColor="@android:color/black"
+                    android:text="BUS STATUS"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/security_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:padding="8dp"
+                        android:textSize="13sp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:text="Security issue" />
+
+                    <RadioButton
+                        android:id="@+id/distress_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/button_background"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:padding="8dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/red"
+                        android:text="In Distress" />
+
+                    <RadioButton
+                        android:id="@+id/good_radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:textSize="13sp"
+                        android:textColor="@color/green"
+                        android:padding="8dp"
+                        android:text="Good" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="START TRIP"
+                android:textSize="13sp"
+                android:id="@+id/start_trip"
+                android:layout_gravity="bottom"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"/>
+        </FrameLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

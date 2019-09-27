@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Driver_Details">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logo"
+                android:layout_marginTop="-20dp"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:text="Driver Details"
+                android:id="@+id/schooldetails_text"
+                android:textSize="15sp"
+                android:layout_marginTop="-10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/sname_text"
+                        android:text="Name"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:id="@+id/the_school_name"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Name"
+                        android:visibility="gone"
+                        android:id="@+id/the_school_name_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/semail_text"
+                        android:layout_marginTop="10dp"
+                        android:text="Email"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="google@google.com"
+                        android:id="@+id/the_school_email"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Email"
+                        android:visibility="gone"
+                        android:id="@+id/the_school_email_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/sphonenumber_text"
+                        android:layout_marginTop="10dp"
+                        android:text="Phone Number"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+233 26 000 0000"
+                        android:id="@+id/theschool_number"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Phone Number"
+                        android:maxLength="10"
+                        android:visibility="gone"
+                        android:id="@+id/the_school_number_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/slocation_text"
+                        android:layout_marginTop="10dp"
+                        android:text="Location"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Address here"
+                        android:id="@+id/theschool_address"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Address"
+                        android:visibility="gone"
+                        android:id="@+id/the_school_address_editText"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:padding="20dp"
+                    android:src="@drawable/driver"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:text="Bus Details"
+                android:id="@+id/busdetails_text"
+                android:textSize="15sp"
+                android:layout_marginTop="-10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/bus_brand_text"
+                        android:text="Brand"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Brand"
+                        android:id="@+id/the_bus_brand"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Brand"
+                        android:visibility="gone"
+                        android:id="@+id/the_bus_brand_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/bus_model_text"
+                        android:layout_marginTop="10dp"
+                        android:text="Model"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Model"
+                        android:id="@+id/the_bus_model"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Model"
+                        android:visibility="gone"
+                        android:id="@+id/the_bus_model_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/bus_chasis_number"
+                        android:layout_marginTop="10dp"
+                        android:text="Chasis Number"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Number"
+                        android:id="@+id/thebus_chasis"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Chasis number"
+                        android:visibility="gone"
+                        android:id="@+id/the_chasis_no_editText"
+                        android:textSize="13sp"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/bus_number_plate"
+                        android:layout_marginTop="10dp"
+                        android:text="Number Plate"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Number"
+                        android:id="@+id/the_bus_number_plate"
+                        android:textSize="12sp"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Number Plate"
+                        android:visibility="gone"
+                        android:id="@+id/the_number_plate_editText"
+                        android:textSize="13sp"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:padding="20dp"
+                    android:src="@drawable/bus"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="right|center"
+                android:layout_marginRight="20dp"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:text="Request for driver verification code"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="EDIT"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:id="@+id/edit_button"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"/>
+</FrameLayout>

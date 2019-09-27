@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.Random;
 
 public class RegisterSchool extends AppCompatActivity {
@@ -150,17 +151,33 @@ public class RegisterSchool extends AppCompatActivity {
                             mdatabase.child("email").setValue(school_email);
                             mdatabase.child("location").setValue(school_address);
                             mdatabase.child("telephone").setValue(school_phone_number);
+                            addToNotifications();
                             loading.setVisibility(View.GONE);
                             success_message.setVisibility(View.VISIBLE);
                             success_message.setTextColor(getResources().getColor(R.color.green));
                             success_message.setText("Registration successful");
                             FirebaseAuth.getInstance().signOut();
-                            Intent goToLogin  = new Intent(RegisterSchool.this, Login.class);
+                            Intent goToLogin  = new Intent(RegisterSchool.this, Admin_Login.class);
                             goToLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(goToLogin);
                         }
                     }
                 });
+    }
+
+    private void addToNotifications() {
+        try {
+            Random random = new Random();
+            int a = random.nextInt(987654);
+            String notificationID = "notification" + a+"";
+            mdatabase = FirebaseDatabase.getInstance().getReference("notifications").child(s_code).child(auth.getCurrentUser().getUid()).child(notificationID);
+            mdatabase.child("image").setValue("WM");
+            mdatabase.child("message").setValue("Welcome to Safet. The most secure bus tracker system for your school. Your kids safety is our number one concern");
+            mdatabase.child("title").setValue("Welcome to Safet");
+            mdatabase.child("time").setValue(new Date().toString());
+        }catch (NullPointerException e){
+
+        }
     }
 
     private boolean isNetworkAvailable() {

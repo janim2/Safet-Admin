@@ -205,7 +205,7 @@ public class Verify_School extends AppCompatActivity {
                                 code_verified_text.setVisibility(View.VISIBLE);
                                 code_verified_text.setTextColor(getResources().getColor(R.color.green));
                                 code_verified_text.setText("Code Verification Complete");
-                                Intent goto_main = new Intent(Verify_School.this,MainActivity.class);
+                                Intent goto_main = new Intent(Verify_School.this, Admin_MainActivity.class);
                                 goto_main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(goto_main);
                                 verify_school_accessor.put("isverified",true);
