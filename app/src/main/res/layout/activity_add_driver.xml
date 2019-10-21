@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add_driver">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:src="@drawable/logo"
+        android:layout_marginTop="-20dp"
+        android:layout_gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:text="Driver Details"
+        android:id="@+id/driverdetails_text"
+        android:textSize="15sp"
+        android:layout_marginTop="-10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/dname_text"
+                    android:text="First name"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="first name"
+                    android:id="@+id/the_driver_fname_editText"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/lname_text"
+                    android:text="Last name"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Last name"
+                    android:id="@+id/the_driver_lname_editText"
+                    android:textSize="13sp"/>
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="13sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:id="@+id/semail_text"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="Email"/>-->
+
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="google@google.com"-->
+                <!--android:id="@+id/the_school_email"-->
+                <!--android:textSize="12sp"/>-->
+
+                <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:background="@android:drawable/editbox_background"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textColorHint="@android:color/darker_gray"-->
+                <!--android:hint="Email"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/the_school_email_editText"-->
+                <!--android:textSize="13sp"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/dphonenumber_text"
+                    android:layout_marginTop="10dp"
+                    android:text="Phone Number"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Phone Number"
+                    android:id="@+id/the_driver_number_editText"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/demail_text"
+                    android:layout_marginTop="10dp"
+                    android:text="Email"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Email"
+                    android:id="@+id/the_email_editText"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/dlocation_text"
+                    android:layout_marginTop="10dp"
+                    android:text="Location"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Address"
+                    android:id="@+id/the_driver_address_editText"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:padding="20dp"
+                android:src="@drawable/driver"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:text="Bus Details"
+            android:id="@+id/busdetails_text"
+            android:textSize="15sp"
+            android:layout_marginTop="-10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:text="This bus would be assigned to this particular driver"
+            android:id="@+id/bus_assignment_text"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/bus_brand_text"
+                    android:text="Brand"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Brand"
+                    android:id="@+id/the_bus_brand_editText"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/bus_model_text"
+                    android:layout_marginTop="10dp"
+                    android:text="Model"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Model"
+                    android:id="@+id/the_bus_model_editText"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/bus_chasis_number"
+                    android:layout_marginTop="10dp"
+                    android:text="Chasis Number"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Chasis number"
+                    android:id="@+id/the_chasis_no_editText"
+                    android:textSize="13sp"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:id="@+id/bus_number_plate"
+                    android:layout_marginTop="10dp"
+                    android:text="Number Plate"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:hint="Number Plate"
+                    android:id="@+id/the_number_plate_editText"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:padding="20dp"
+                android:src="@drawable/bus"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/loading"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Success"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/green"
+            android:id="@+id/success_message"/>
+    </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="ADD DRIVER"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:id="@+id/add_button"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"/>
+</FrameLayout>

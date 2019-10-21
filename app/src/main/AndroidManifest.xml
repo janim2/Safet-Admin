@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Driver_Details"
-            android:parentActivityName=".Registered_Drivers"></activity>
-        <activity android:name=".Registered_Drivers"
-            android:parentActivityName=".Admin_MainActivity"/>
+        <activity android:name=".Add_driver"
+            android:parentActivityName=".Driver_Details"></activity>
+        <activity
+            android:name=".Driver_Details"
+            android:parentActivityName=".Registered_Drivers" />
+        <activity
+            android:name=".Registered_Drivers"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
             android:name=".Login_Selector"
             android:screenOrientation="portrait"
@@ -31,12 +35,12 @@
             android:name=".Admin_Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Notifications"
-            android:parentActivityName=".MapsActivity"></activity>
-
-        <activity android:name=".Driver_Profile"
-            android:parentActivityName=".MapsActivity"/>
+        <activity
+            android:name=".Notifications"
+            android:parentActivityName=".MapsActivity" />
+        <activity
+            android:name=".Driver_Profile"
+            android:parentActivityName=".MapsActivity" />
         <activity
             android:name=".Driver_Verification"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -47,10 +51,7 @@
             android:name=".Phone_number_Verification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Driver_Login" />
-
-        <activity
-            android:name=".MapsActivity">
-        </activity>
+        <activity android:name=".MapsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

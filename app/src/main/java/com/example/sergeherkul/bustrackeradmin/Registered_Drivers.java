@@ -1,13 +1,16 @@
 package com.example.sergeherkul.bustrackeradmin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ public class Registered_Drivers extends AppCompatActivity {
 
     private Accessories registered_accessor;
     private TextView no_drivers;
+    private ImageView add_driver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,7 @@ public class Registered_Drivers extends AppCompatActivity {
         school_id = registered_accessor.getString("school_code");
 
         drivers_RecyclerView = findViewById(R.id.drivers_recyclerView);
+        add_driver = findViewById(R.id.add_driver);
         no_drivers = findViewById(R.id.no_drivers);
 
         if(isNetworkAvailable()){
@@ -53,11 +59,19 @@ public class Registered_Drivers extends AppCompatActivity {
             Toast.makeText(Registered_Drivers.this,"No Internet Connection",Toast.LENGTH_LONG).show();
         }
         drivers_RecyclerView.setHasFixedSize(true);
+        drivers_RecyclerView.addItemDecoration(new DividerItemDecoration(Registered_Drivers.this,
+                DividerItemDecoration.VERTICAL));
 
         drivers_Adapter = new DriversAdapter(getFromDatabase(),Registered_Drivers.this);
         drivers_RecyclerView.setAdapter(drivers_Adapter);
 
-
+        //setting an onclick for the add driver button
+        add_driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Registered_Drivers.this, Add_driver.class));
+            }
+        });
     }
 
     private void get_Registered_Drivers() {

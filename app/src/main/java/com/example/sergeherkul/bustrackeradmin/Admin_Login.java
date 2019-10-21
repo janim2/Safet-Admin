@@ -73,12 +73,12 @@ public class Admin_Login extends AppCompatActivity {
                                         loading.setVisibility(View.GONE);
                                         success_message.setVisibility(View.VISIBLE);
                                         success_message.setTextColor(getResources().getColor(R.color.red));
-                                        success_message.setText("Admin_Login failed");
+                                        success_message.setText("Login failed");
                                     }else{
                                         loading.setVisibility(View.GONE);
                                         success_message.setVisibility(View.VISIBLE);
                                         success_message.setTextColor(getResources().getColor(R.color.green));
-                                        success_message.setText("Admin_Login successful");
+                                        success_message.setText("Login successful");
                                         Intent gotoVerification = new Intent(Admin_Login.this,Verify_School.class);
 //                                        gotoVerification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(gotoVerification);
