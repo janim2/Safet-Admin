@@ -147,6 +147,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="Phone Number"
+                    android:inputType="number"
                     android:id="@+id/the_driver_number_editText"
                     android:textSize="13sp"/>
 
@@ -166,6 +167,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="Email"
+                    android:inputType="textEmailAddress"
                     android:id="@+id/the_email_editText"
                     android:textSize="13sp"/>
 
@@ -185,6 +187,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="Address"
+                    android:inputType="textMultiLine"
                     android:id="@+id/the_driver_address_editText"
                     android:textSize="13sp"/>
 

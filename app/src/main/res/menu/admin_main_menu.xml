@@ -13,6 +13,10 @@
         android:title="Drivers"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/parents"
+        android:title="Parents"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/admin_logout"
         android:title="Log Out"
         app:showAsAction="never"/>

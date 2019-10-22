@@ -43,6 +43,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
@@ -321,10 +322,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //        update location of driver
             try{
                 String  userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DatabaseReference drivers = FirebaseDatabase.getInstance().getReference("bus");
+                DatabaseReference drivers = FirebaseDatabase.getInstance().getReference("bus_location").child(school_code);
                 GeoFire geoFireAvailable = new GeoFire(drivers);
 
-                geoFireAvailable.setLocation(userid, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
+                geoFireAvailable.setLocation(driver_code, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                     @Override
                     public void onComplete(String s, DatabaseError databaseError) {
                     }

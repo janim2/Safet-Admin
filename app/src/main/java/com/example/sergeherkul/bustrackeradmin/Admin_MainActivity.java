@@ -9,16 +9,24 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.sergeherkul.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
+import com.example.sergeherkul.bustrackeradmin.Model.ItemObjects;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Admin_MainActivity extends AppCompatActivity {
 
     FirebaseAuth mauth;
     Accessories mainaccessor;
+    private StaggeredGridLayoutManager gaggeredGridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,25 @@ public class Admin_MainActivity extends AppCompatActivity {
         mainaccessor = new Accessories(Admin_MainActivity.this);
 
         getSupportActionBar().setTitle("Admin | Safet");
+
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
+
+        List<ItemObjects> gaggeredList = getListItemData();
+
+        SolventRecyclerViewAdapter rcAdapter = new SolventRecyclerViewAdapter(Admin_MainActivity.this, gaggeredList);
+        recyclerView.setAdapter(rcAdapter);
+    }
+
+    private List<ItemObjects> getListItemData(){
+        List<ItemObjects> listViewItems = new ArrayList<ItemObjects>();
+        listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus));
+        listViewItems.add(new ItemObjects("Drivers",R.drawable.driver));
+        listViewItems.add(new ItemObjects("Children",R.drawable.children1));
+        return listViewItems;
     }
 
     @Override
@@ -51,6 +78,12 @@ public class Admin_MainActivity extends AppCompatActivity {
             case R.id.admin_the_drivers:
                 startActivity(new Intent(Admin_MainActivity.this,Registered_Drivers.class));
                 break;
+
+            case R.id.parents:
+                startActivity(new Intent(Admin_MainActivity.this,Registered_Parents.class));
+                break;
+
+
 
             case R.id.admin_logout:
                 final AlertDialog.Builder logout = new AlertDialog.Builder(Admin_MainActivity.this, R.style.Myalert);
