@@ -94,7 +94,7 @@ public class Notifications extends AppCompatActivity {
 
     private void getAdminNotifications_ID() {
         try{
-            DatabaseReference get_admin_notifications = FirebaseDatabase.getInstance().getReference("notifications").child(school_id).child(mauth.getCurrentUser().getUid());
+            DatabaseReference get_admin_notifications = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_id);//.child(mauth.getCurrentUser().getUid());
             get_admin_notifications.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -163,7 +163,7 @@ public class Notifications extends AppCompatActivity {
     }
 
     private void Fetch_Admin_Notifications(String key) {
-        DatabaseReference get_admin_Notifications = FirebaseDatabase.getInstance().getReference("notifications").child(school_id).child(mauth.getCurrentUser().getUid()).child(key);
+        DatabaseReference get_admin_Notifications = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_id).child(key);
         get_admin_Notifications.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

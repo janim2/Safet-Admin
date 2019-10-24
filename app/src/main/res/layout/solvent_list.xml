@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="8dp"
+    card_view:cardCornerRadius="15dp"
     android:layout_marginBottom="16dp">
 
     <RelativeLayout
@@ -27,13 +27,14 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:text="hellol"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_below="@+id/country_photo"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"/>
+            android:layout_alignParentBottom="true"/>
+            <!--android:background="@color/colorPrimaryDark"/>-->
+
 
     </RelativeLayout>
 

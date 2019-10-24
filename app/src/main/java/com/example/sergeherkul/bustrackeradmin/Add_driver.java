@@ -323,7 +323,7 @@ public class Add_driver extends AppCompatActivity {
         Random notifyrandom = new Random();
         int notify_no = notifyrandom.nextInt(233434);
         String notify_id = "notification" + notify_no+"";
-        add_notification_databaseReference = FirebaseDatabase.getInstance().getReference("notifications").child(school_code).child(currentUser.getUid()).child(notify_id);
+        add_notification_databaseReference = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notify_id);
         add_notification_databaseReference.child("image").setValue("AD");
         add_notification_databaseReference.child("message").setValue("We have noticed an addition of a driver to your school, "+string_school_name
                 +". If this activity wasn't you, contact customer care for rectification.");

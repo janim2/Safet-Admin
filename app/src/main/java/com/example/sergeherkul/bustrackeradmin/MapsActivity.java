@@ -55,6 +55,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -73,6 +74,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button start_trip;
     private String button_toggle = "0",school_code, driver_code;
     private RadioButton securityRbutton, distressRbutton, goodRbutton;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth currentuser;
 
 
     @Override
@@ -84,6 +87,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         school_code = mapsAccessor.getString("school_code");
         driver_code = mapsAccessor.getString("driver_code");
+
+        currentuser = FirebaseAuth.getInstance();
 
         getSupportActionBar().setTitle(mapsAccessor.getString("driver_fname")+" | Driver");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -114,6 +119,66 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        distressRbutton.setTypeface(lovelo);
 //        goodRbutton.setTypeface(lovelo);
 
+        securityRbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder security = new AlertDialog.Builder(MapsActivity.this, R.style.Myalert);
+                security.setTitle("Security Confirmation?");
+                security.setMessage("Confirmation is required for a security alert to be sent to appropriate authorites");
+                security.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        logout here
+                        if(isNetworkAvailable()){
+                            _Security_addToNotifications();
+                        }else{
+                            Toast.makeText(MapsActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                security.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                security.show();
+            }
+        });
+
+
+        //setting an onclick for the distress button
+        distressRbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder distress = new AlertDialog.Builder(MapsActivity.this, R.style.Myalert);
+                distress.setTitle("Distress Confirmation?");
+                distress.setMessage("Confirmation is required for a distress alert to be sent to appropriate authorites");
+                distress.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        logout here
+                        if(isNetworkAvailable()){
+                            _Distress_addToNotifications();
+                            Toast.makeText(MapsActivity.this,"Distress alert sent", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(MapsActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                distress.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                distress.show();
+            }
+        });
+
+
         Date date = new Date();
         today_date.setText(DateFormat.getDateInstance(DateFormat.FULL).format(date));
 
@@ -130,6 +195,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+    }
+
+    private void _Security_addToNotifications() {
+        Random notifyrandom = new Random();
+        int notify_no = notifyrandom.nextInt(233434);
+        String notify_id = "notification" + notify_no+"";
+        databaseReference = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notify_id);
+        databaseReference.child("image").setValue("SN");
+        databaseReference.child("message").setValue("Customer has a security issue. Swift action is needed.");
+        databaseReference.child("time").setValue(new Date());
+        databaseReference.child("title").setValue("Security issue Recieved");
+        Toast.makeText(MapsActivity.this,"Security issue alert sent", Toast.LENGTH_LONG).show();
+    }
+
+    private void _Distress_addToNotifications() {
+        Random notifyrandom = new Random();
+        int notify_no = notifyrandom.nextInt(233434);
+        String notify_id = "notification" + notify_no+"";
+        databaseReference = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notify_id);
+        databaseReference.child("image").setValue("DN");
+        databaseReference.child("message").setValue("Customer is in distress. Swift action is needed. Find location on map");
+        databaseReference.child("time").setValue(new Date());
+        databaseReference.child("title").setValue("Distress Recieved");
+        Toast.makeText(MapsActivity.this,"Distress sent", Toast.LENGTH_LONG).show();
     }
 
     /**

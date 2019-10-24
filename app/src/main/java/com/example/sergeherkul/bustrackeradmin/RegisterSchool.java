@@ -170,7 +170,7 @@ public class RegisterSchool extends AppCompatActivity {
             Random random = new Random();
             int a = random.nextInt(987654);
             String notificationID = "notification" + a+"";
-            mdatabase = FirebaseDatabase.getInstance().getReference("notifications").child(s_code).child(auth.getCurrentUser().getUid()).child(notificationID);
+            mdatabase = FirebaseDatabase.getInstance().getReference("school_notifications").child(s_code).child(notificationID);
             mdatabase.child("image").setValue("WM");
             mdatabase.child("message").setValue("Welcome to Safet. The most secure bus tracker system for your school. Your kids safety is our number one concern");
             mdatabase.child("title").setValue("Welcome to Safet");

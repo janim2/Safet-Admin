@@ -81,7 +81,8 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
             mapFragment.getMapAsync(this);
         }
 
-        getDriverID();
+//        getDriverID();
+        getDriverLocation("dR474");
     }
 
     @Override
