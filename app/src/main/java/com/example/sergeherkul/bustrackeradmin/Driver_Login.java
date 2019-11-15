@@ -19,7 +19,6 @@ public class Driver_Login extends AppCompatActivity {
     private Button loginButton;
     FirebaseAuth auth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

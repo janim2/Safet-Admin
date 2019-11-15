@@ -118,6 +118,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textColorHint="@android:color/darker_gray"
                         android:hint="Phone Number"
+                        android:inputType="number"
                         android:id="@+id/the_parent_number_editText"
                         android:textSize="13sp"/>
 
@@ -224,6 +225,298 @@
                         android:id="@+id/add_child_text"
                         android:textColor="@android:color/black"
                         android:drawableRight="@drawable/add"/>
+
+                    <!--// child one items here-->
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:id="@+id/child_one_layout"
+                        android:visibility="gone"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Child 1"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            android:id="@+id/child_count"
+                            android:drawableRight="@drawable/remove"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/child_first_name"
+                            android:text="First name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="First name"
+                            android:id="@+id/the_child_first_name"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/last_name_text"
+                            android:layout_marginTop="10dp"
+                            android:text="Last name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Last name"
+                            android:id="@+id/the_childlast_name_editText"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/gender"
+                            android:layout_marginTop="10dp"
+                            android:text="Gender"/>
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/gender_spinner"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/child_class"
+                            android:layout_marginTop="10dp"
+                            android:text="Child class"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Class"
+                            android:inputType="number"
+                            android:id="@+id/the_class_editText"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
+
+                    <!--child one details ends here-->
+
+                    <!--child two details begins here-->
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:id="@+id/child_two_layout"
+                        android:visibility="gone"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Child 2"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:id="@+id/second_child_count"
+                            android:layout_marginTop="15dp"
+                            android:drawableRight="@drawable/remove"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/second_child_first_name"
+                            android:text="First name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="First name"
+                            android:id="@+id/the_second_child_first_name"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/second_last_name_text"
+                            android:layout_marginTop="10dp"
+                            android:text="Last name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Last name"
+                            android:id="@+id/the_second_childlast_name_editText"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/second_gender"
+                            android:layout_marginTop="10dp"
+                            android:text="Gender"/>
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/the_second_gender_spinner"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/second_child_class"
+                            android:layout_marginTop="10dp"
+                            android:text="Child class"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Class"
+                            android:inputType="number"
+                            android:id="@+id/the_second_class_editText"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
+                    <!--child two detials ends here-->
+
+                    <!--child three details starts here-->
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:orientation="vertical"
+                        android:id="@+id/child_three_layout"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Child 3"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:layout_marginTop="15dp"
+                            android:id="@+id/third_child_count"
+                            android:drawableRight="@drawable/remove"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/third_child_first_name"
+                            android:text="First name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="First name"
+                            android:id="@+id/the_third_child_first_name"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/third_last_name_text"
+                            android:layout_marginTop="10dp"
+                            android:text="Last name"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Last name"
+                            android:id="@+id/the_third_childlast_name_editText"
+                            android:textSize="13sp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/third_gender"
+                            android:layout_marginTop="10dp"
+                            android:text="Gender"/>
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/third_gender_spinner"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:id="@+id/third_child_class"
+                            android:layout_marginTop="10dp"
+                            android:text="Child class"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@android:drawable/editbox_background"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Class"
+                            android:inputType="number"
+                            android:id="@+id/the_third_class_editText"
+                            android:textSize="13sp"/>
+
+                    </LinearLayout>
+                    <!--child three details ends here-->
 
                 </LinearLayout>
                 <ImageView

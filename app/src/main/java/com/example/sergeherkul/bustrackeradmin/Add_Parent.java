@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Add_Parent extends AppCompatActivity {
 
     private TextView parentdetails_textView,parentfname_textView,parentlname_textView, parentaddress_textView,
     parentemail_textView,parentphone_number_textView, childDetials_text, child_assignment_text,
             add_child_text, success_message;
+    private TextView childfname,childlastname,childclass,first_child_count, second_child_count, third_child_count;
 
     private EditText parent_fname_editText, parent_lname_edittext, parent_address_editText,
             parent_email_editText, parent_phone_number_editText;
@@ -28,6 +30,7 @@ public class Add_Parent extends AppCompatActivity {
     private int counter = 0;
     private String pfname, plname, p_location, p_email, pphone_number;
 
+    private LinearLayout childone_layout, child_two_layout, child_three_layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,14 @@ public class Add_Parent extends AppCompatActivity {
         lovelo = Typeface.createFromAsset(getAssets(),  "fonts/lovelo.ttf");
 
         getSupportActionBar().setTitle("Add Parent");
+
+//        LinearLayouts
+        childone_layout = findViewById(R.id.child_one_layout);
+        child_two_layout = findViewById(R.id.child_two_layout);
+        child_three_layout = findViewById(R.id.child_three_layout);
+
         //textviews
+
         parentdetails_textView = findViewById(R.id.parentdetails_text);
         parentfname_textView = findViewById(R.id.fname_text);
         parentlname_textView = findViewById(R.id.lname_text);
@@ -47,6 +57,11 @@ public class Add_Parent extends AppCompatActivity {
         child_assignment_text = findViewById(R.id.child_assignment_text);
         add_child_text = findViewById(R.id.add_child_text);
         success_message = findViewById(R.id.success_message);
+
+        //child counters
+        first_child_count = findViewById(R.id.child_count);
+        second_child_count = findViewById(R.id.second_child_count);
+        third_child_count = findViewById(R.id.third_child_count);
 
         //edittexts
         parent_fname_editText = findViewById(R.id.the_parent_fname_editText);
@@ -73,10 +88,53 @@ public class Add_Parent extends AppCompatActivity {
         add_child_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter += 1;
-                addChildLayout();
+                if(counter == 0){
+                    counter += 1;
+                    childone_layout.setVisibility(View.VISIBLE);
+                }
+                else if(counter == 1){
+                    counter += 1;
+                    childone_layout.setVisibility(View.VISIBLE);
+                    child_two_layout.setVisibility(View.VISIBLE);
+                }
+                else if(counter == 2){
+                    counter += 1;
+                    childone_layout.setVisibility(View.VISIBLE);
+                    child_two_layout.setVisibility(View.VISIBLE);
+                    child_three_layout.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(Add_Parent.this, "maximum child limit reached", Toast.LENGTH_LONG).show();
+                }
             }
         });
+
+        first_child_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter -= 1;
+                childone_layout.setVisibility(View.GONE);
+                child_two_layout.setVisibility(View.GONE);
+                child_three_layout.setVisibility(View.GONE);
+            }
+        });
+
+        second_child_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter -= 1;
+                child_two_layout.setVisibility(View.GONE);
+                child_three_layout.setVisibility(View.GONE);
+            }
+        });
+
+        third_child_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter -= 1;
+                child_three_layout.setVisibility(View.GONE);
+            }
+        });
+
 
         add_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,30 +144,44 @@ public class Add_Parent extends AppCompatActivity {
                 p_location = parent_address_editText.getText().toString().trim();
                 p_email = parent_email_editText.getText().toString().trim();
                 pphone_number = parent_phone_number_editText.getText().toString().trim();
+
+                if(!pfname.equals("") && !plname.equals("") && !p_location.equals("")
+                        && !p_email.equals("") && !pphone_number.equals("")){
+                    if(counter != 0){
+                        Toast.makeText(Add_Parent.this, childfname.getText().toString().trim(), Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(Add_Parent.this, "Child detials required", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(Add_Parent.this, "All fields required",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
     }
 
-    public void addChildLayout(){
-        //Inflater service
-        LayoutInflater layoutInfralte=(LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //parent layout xml refrence
-        final LinearLayout linearLayout=(LinearLayout)findViewById(R.id.parent_layout);
-        //Child layout xml refrence
-        final View view=layoutInfralte.inflate(R.layout.child_knowables, null);
-
-        final TextView childcount = view.findViewById(R.id.child_count);
-        childcount.setText("Child " + counter+"");
-
-        childcount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                linearLayout.removeView(view);
-                counter -= 1;
-            }
-        });
-        //add child to parent
-        linearLayout.addView(view);
-    }
+//    public void addChildLayout(){
+//        //Inflater service
+//        LayoutInflater layoutInfralte=(LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        //parent layout xml refrence
+//        final LinearLayout linearLayout=(LinearLayout)findViewById(R.id.parent_layout);
+//        //Child layout xml refrence
+//        view=layoutInfralte.inflate(R.layout.child_knowables, null);
+//        view.setId(3999);
+//        TextView childcount = view.findViewById(R.id.child_count);
+//        childfname = view.findViewById(R.id.the_child_first_name);
+//        childlastname = view.findViewById(R.id.the_childlast_name_editText);
+//        childclass = view.findViewById(R.id.the_class_editText);
+//        childcount.setText("Child " + counter+"");
+//
+//        childcount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                linearLayout.removeView(view);
+//                counter -= 1;
+//            }
+//        });
+//        //add child to parent
+//        linearLayout.addView(view);
+//    }
 }

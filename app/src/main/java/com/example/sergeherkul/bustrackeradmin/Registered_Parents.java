@@ -107,13 +107,13 @@ public class Registered_Parents extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot child : dataSnapshot.getChildren()){
-                        if(child.getKey().equals("first_name")){
+                        if(child.getKey().equals("firstname")){
                             sfirst_name = child.getValue().toString();
                         }
-                        if(child.getKey().equals("last_name")){
+                        if(child.getKey().equals("lastname")){
                             slastname = child.getValue().toString();
                         }
-                        if(child.getKey().equals("address")){
+                        if(child.getKey().equals("location")){
                             saddress = child.getValue().toString();
                         }
                         if(child.getKey().equals("email")){
