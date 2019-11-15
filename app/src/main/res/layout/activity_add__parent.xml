@@ -527,23 +527,23 @@
                     android:src="@drawable/children"/>
             </LinearLayout>
 
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:id="@+id/loading"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                />
+            <!--<ProgressBar-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="25dp"-->
+                <!--android:id="@+id/loading"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:visibility="gone"-->
+                <!--/>-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Success"
-                android:gravity="center"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/green"
-                android:id="@+id/success_message"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Success"-->
+                <!--android:gravity="center"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@color/green"-->
+                <!--android:id="@+id/success_message"/>-->
         </LinearLayout>
     </ScrollView>
 
@@ -557,4 +557,13 @@
         android:id="@+id/add_button"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:id="@+id/loading"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
 </FrameLayout>

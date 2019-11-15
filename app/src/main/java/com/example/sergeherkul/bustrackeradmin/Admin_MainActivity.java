@@ -41,7 +41,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
         List<ItemObjects> gaggeredList = getListItemData();
@@ -53,7 +53,8 @@ public class Admin_MainActivity extends AppCompatActivity {
     private List<ItemObjects> getListItemData(){
         List<ItemObjects> listViewItems = new ArrayList<ItemObjects>();
         listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus));
-        listViewItems.add(new ItemObjects("Drivers",R.drawable.home_driver));
+        listViewItems.add(new ItemObjects("Alerts",R.drawable.home_driver));
+//        Distresses, graph
         listViewItems.add(new ItemObjects("Children",R.drawable.children1));
         return listViewItems;
     }

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="describe"
             android:padding="10dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/country_name"
