@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergeherkul.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
@@ -52,8 +53,8 @@ public class Admin_MainActivity extends AppCompatActivity {
 
     private List<ItemObjects> getListItemData(){
         List<ItemObjects> listViewItems = new ArrayList<ItemObjects>();
+        listViewItems.add(new ItemObjects("Alerts",R.drawable.warning));
         listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus));
-        listViewItems.add(new ItemObjects("Alerts",R.drawable.home_driver));
 //        Distresses, graph
         listViewItems.add(new ItemObjects("Children",R.drawable.children1));
         return listViewItems;

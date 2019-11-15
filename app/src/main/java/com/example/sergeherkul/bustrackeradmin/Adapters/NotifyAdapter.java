@@ -57,6 +57,9 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
             else if(the_image.equals("AD")){
                 image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.driver));
             }
+            else if(the_image.equals("AP")){
+                image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.parents));
+            }
             else if(the_image.equals("SN")){
                 image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.security));
             }

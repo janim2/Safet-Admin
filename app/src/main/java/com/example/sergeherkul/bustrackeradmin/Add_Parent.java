@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.Random;
 
 public class Add_Parent extends AppCompatActivity {
@@ -303,6 +304,7 @@ public class Add_Parent extends AppCompatActivity {
                 add_child_one.child("lastname").setValue(fchild_lname_string);
                 Toast.makeText(Add_Parent.this, "Addition successful", Toast.LENGTH_LONG).show();
                 finish();
+                addToNotifications();
             }catch (NullPointerException e){
 
             }
@@ -350,6 +352,7 @@ public class Add_Parent extends AppCompatActivity {
                 add_child_two.child("lastname").setValue(sechild_lname_string);
                 Toast.makeText(Add_Parent.this, "Addition successful", Toast.LENGTH_LONG).show();
                 finish();
+                addToNotifications();
             }catch (NullPointerException e){
 
             }
@@ -442,6 +445,7 @@ public class Add_Parent extends AppCompatActivity {
                         add_child_three.child("lastname").setValue(tchild_lname_string);
                         Toast.makeText(Add_Parent.this, "Addition successful", Toast.LENGTH_LONG).show();
                         finish();
+                        addToNotifications();
                     }catch (NullPointerException e){
 
                     }
@@ -455,6 +459,21 @@ public class Add_Parent extends AppCompatActivity {
             Toast.makeText(Add_Parent.this, "child one details required", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void addToNotifications() {
+        try {
+            Random random = new Random();
+            int a = random.nextInt(987654);
+            String notificationID = "notification" + a+"";
+            DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notificationID);
+            mdatabase.child("image").setValue("AP");
+            mdatabase.child("message").setValue("You have successfully added " + pfname + " to school as a parent");
+            mdatabase.child("title").setValue("Parent addition successful");
+            mdatabase.child("time").setValue(new Date().toString());
+        }catch (NullPointerException e){
+
+        }
     }
 
     private boolean isNetworkAvailable() {

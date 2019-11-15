@@ -16,6 +16,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+    }
 }
 
 dependencies {
@@ -34,6 +36,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:15.0.0'
     implementation 'com.hbb20:ccp:2.2.3'
-
 }
 apply plugin: 'com.google.gms.google-services'

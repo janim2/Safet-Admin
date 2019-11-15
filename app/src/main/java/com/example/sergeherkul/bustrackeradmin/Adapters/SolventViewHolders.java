@@ -28,13 +28,13 @@ public class SolventViewHolders extends RecyclerView.ViewHolder implements View.
         public void onClick(View view) {
             switch (getPosition()){
                 case 0:
-                    Intent gotoBuses = new Intent(itemView.getContext(),AllBuses.class);
-                    itemView.getContext().startActivity(gotoBuses);
+                    Toast.makeText(view.getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+
                     break;
 
                 case 1:
-                    Intent gotoDrivers = new Intent(itemView.getContext(), Registered_Drivers.class);
-                    itemView.getContext().startActivity(gotoDrivers);
+                    Intent gotoBuses = new Intent(itemView.getContext(),AllBuses.class);
+                    itemView.getContext().startActivity(gotoBuses);
                     break;
 
                 case 2:
