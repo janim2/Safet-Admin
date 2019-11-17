@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sergeherkul.bustrackeradmin.Alerts;
 import com.example.sergeherkul.bustrackeradmin.AllBuses;
 import com.example.sergeherkul.bustrackeradmin.R;
 import com.example.sergeherkul.bustrackeradmin.Registered_Drivers;
@@ -28,8 +29,8 @@ public class SolventViewHolders extends RecyclerView.ViewHolder implements View.
         public void onClick(View view) {
             switch (getPosition()){
                 case 0:
-                    Toast.makeText(view.getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-
+                    Intent gotoAlerts = new Intent(itemView.getContext(), Alerts.class);
+                    itemView.getContext().startActivity(gotoAlerts);
                     break;
 
                 case 1:
