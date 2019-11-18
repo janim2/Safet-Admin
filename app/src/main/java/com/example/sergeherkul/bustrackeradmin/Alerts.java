@@ -35,57 +35,57 @@ public class Alerts extends AppCompatActivity {
         alertsAccessor = new Accessories(Alerts.this);
 
         //intents
-        alert_id = getIntent().getStringExtra("alert_id");
-        alert_title = getIntent().getStringExtra("alert_title");
-        alert_message = getIntent().getStringExtra("alert_message");
-        alert_time = getIntent().getStringExtra("alert_time");
-        alert_image = getIntent().getStringExtra("alert_image");
-        school_code = alertsAccessor.getString("school_code");
+//        alert_id = getIntent().getStringExtra("alert_id");
+//        alert_title = getIntent().getStringExtra("alert_title");
+//        alert_message = getIntent().getStringExtra("alert_message");
+//        alert_time = getIntent().getStringExtra("alert_time");
+//        alert_image = getIntent().getStringExtra("alert_image");
+//        school_code = alertsAccessor.getString("school_code");
 
-        String clicked_check = getIntent().getStringExtra("alertID");
-        Toast.makeText(Alerts.this, "bb"+clicked_check, Toast.LENGTH_LONG).show();
-
-        if(clicked_check != null){
-            //removing notification from alerts node to pending alerts node
-            if (isNetworkAvailable()){
-                MoveFrom_main_to_pending(alert_id,alert_title,alert_message,alert_image,alert_time);
-            }else{
-                Toast.makeText(Alerts.this, "No internet connection", Toast.LENGTH_LONG).show();
-            }
-        }
-        else{
-            Toast.makeText(Alerts.this, "null", Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    private void MoveFrom_main_to_pending(final String alert_id, String alert_title, String alert_message,
-                                          String alert_image, String alert_time) {
-        try {
-            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_alerts").child(school_code).child(alert_id);
-            add_todatabaseReference.child("image").setValue(alert_image);
-            add_todatabaseReference.child("message").setValue(alert_message);
-            add_todatabaseReference.child("title").setValue(alert_title);
-            add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Remove_alerts_from_alerts(alert_id);
-                }
-            });
-        }catch (NullPointerException e){
-
-        }
-    }
-
-    private void Remove_alerts_from_alerts(String alert_id) {
-        try {
-            remove_fromReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(alert_id);
-            remove_fromReference.removeValue();
-        }catch (NullPointerException e){
-
-        }
+//        String clicked_check = getIntent().getStringExtra("alertID");
+////        Toast.makeText(Alerts.this, "bb"+clicked_check, Toast.LENGTH_LONG).show();
+//
+//        if(clicked_check != null){
+//            //removing notification from alerts node to pending alerts node
+//            if (isNetworkAvailable()){
+//                MoveFrom_main_to_pending(alert_id,alert_title,alert_message,alert_image,alert_time);
+//            }else{
+//                Toast.makeText(Alerts.this, "No internet connection", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//        else{
+//            Toast.makeText(Alerts.this, "null", Toast.LENGTH_LONG).show();
+//        }
 
     }
+
+//    private void MoveFrom_main_to_pending(final String alert_id, String alert_title, String alert_message,
+//                                          String alert_image, String alert_time) {
+//        try {
+//            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_alerts").child(school_code).child(alert_id);
+//            add_todatabaseReference.child("image").setValue(alert_image);
+//            add_todatabaseReference.child("message").setValue(alert_message);
+//            add_todatabaseReference.child("title").setValue(alert_title);
+//            add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    Remove_alerts_from_alerts(alert_id);
+//                }
+//            });
+//        }catch (NullPointerException e){
+//
+//        }
+//    }
+//
+//    private void Remove_alerts_from_alerts(String alert_id) {
+//        try {
+//            remove_fromReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(alert_id);
+//            remove_fromReference.removeValue();
+//        }catch (NullPointerException e){
+//
+//        }
+//
+//    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

@@ -33,6 +33,8 @@ import android.widget.Toast;
 import com.example.sergeherkul.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
 import com.example.sergeherkul.bustrackeradmin.Model.ItemObjects;
 import com.example.sergeherkul.bustrackeradmin.Model.Notify;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +52,7 @@ public class Admin_MainActivity extends AppCompatActivity {
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
     private String alert_key,school_id,alert_title, alert_message, alert_time, alertImage;
     private Handler thehandler;
+    private DatabaseReference add_todatabaseReference, remove_fromReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,7 +253,7 @@ public class Admin_MainActivity extends AppCompatActivity {
                         }
                     }
                     alert_key = key;
-                    Show_alert_notification(alert_key,alert_title, alert_message);
+                    Show_alert_notification(alert_key,alert_title, alert_message,alertImage,alert_time);
 //                    Notify obj = new Notify(notification_title,notifications_message,notifications_time,notificationImage);
 //                    notificationsArray.add(obj);
 //                    notifications_RecyclerView.setAdapter(notifications_Adapter);
@@ -269,11 +272,12 @@ public class Admin_MainActivity extends AppCompatActivity {
     }
 
 
-    private void Show_alert_notification(String alert_key, String title, String message){
+    private void Show_alert_notification(String alert_key, String title, String message,
+                                         String image,String time){
 
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(this, Alerts.class);
-        intent.putExtra("alertID","yes");
+//        intent.putExtra("alertID","yes");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -321,8 +325,37 @@ public class Admin_MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
         notificationManagerCompat.notify(1000, builder.build());
+        MoveFrom_main_to_pending(alert_key,alert_title,alert_message,image,time);
+    }
+
+    private void MoveFrom_main_to_pending(final String alert_id, String alert_title, String alert_message,
+                                          String alert_image, String alert_time) {
+        try {
+            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_alerts").child(school_id).child(alert_id);
+            add_todatabaseReference.child("image").setValue(alert_image);
+            add_todatabaseReference.child("message").setValue(alert_message);
+            add_todatabaseReference.child("title").setValue(alert_title);
+            add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Remove_alerts_from_alerts(alert_id);
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Remove_alerts_from_alerts(String alert_id) {
+        try {
+            remove_fromReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_id).child(alert_id);
+            remove_fromReference.removeValue();
+        }catch (NullPointerException e){
+
+        }
 
     }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

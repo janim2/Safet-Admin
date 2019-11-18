@@ -201,7 +201,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Random notifyrandom = new Random();
         int notify_no = notifyrandom.nextInt(233434);
         String notify_id = "notification" + notify_no+"";
-        databaseReference = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notify_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(notify_id);
         databaseReference.child("image").setValue("SN");
         databaseReference.child("message").setValue("Customer has a security issue. Swift action is needed.");
         databaseReference.child("time").setValue(new Date());
@@ -213,7 +213,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Random notifyrandom = new Random();
         int notify_no = notifyrandom.nextInt(233434);
         String notify_id = "notification" + notify_no+"";
-        databaseReference = FirebaseDatabase.getInstance().getReference("school_notifications").child(school_code).child(notify_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(notify_id);
         databaseReference.child("image").setValue("DN");
         databaseReference.child("message").setValue("Customer is in distress. Swift action is needed. Find location on map");
         databaseReference.child("time").setValue(new Date());
