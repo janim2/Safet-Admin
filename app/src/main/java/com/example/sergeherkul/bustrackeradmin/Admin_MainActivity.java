@@ -50,7 +50,7 @@ public class Admin_MainActivity extends AppCompatActivity {
     FirebaseAuth mauth;
     Accessories mainaccessor;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
-    private String alert_key,school_id,alert_title, alert_message, alert_time, alertImage;
+    private String distress_key,school_id,distress_title, distress_message, distress_time, distressImage;
     private Handler thehandler;
     private DatabaseReference add_todatabaseReference, remove_fromReference;
 
@@ -187,9 +187,10 @@ public class Admin_MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(isNetworkAvailable()){
-                        getUser_Alerts_IDs();
+                        getUser_Distress_IDs();
+                        getUser_Security_IDs();
                     }else{
-                        Toast.makeText(Admin_MainActivity.this,"checking", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Admin_MainActivity.this,"checking", Toast.LENGTH_LONG).show();
                     }
                     thehandler.postDelayed(this,delay);
                 }
@@ -199,15 +200,15 @@ public class Admin_MainActivity extends AppCompatActivity {
     }
 
 
-    private void getUser_Alerts_IDs() {
+    private void getUser_Distress_IDs() {
         try{
-            DatabaseReference get_admin_notifications = FirebaseDatabase.getInstance().getReference("alerts").child(school_id);//.child(mauth.getCurrentUser().getUid());
+            DatabaseReference get_admin_notifications = FirebaseDatabase.getInstance().getReference("distress").child(school_id);//.child(mauth.getCurrentUser().getUid());
             get_admin_notifications.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
                         for(DataSnapshot child : dataSnapshot.getChildren()){
-                            FetchUser_Alerts(child.getKey());
+                            FetchUser_Distress(child.getKey());
                         }
                     }else{
 //                    Toast.makeText(getActivity(),"Cannot get ID",Toast.LENGTH_LONG).show();
@@ -224,27 +225,27 @@ public class Admin_MainActivity extends AppCompatActivity {
         }
     }
 
-    private void FetchUser_Alerts(final String key) {
-        DatabaseReference get_admin_Notifications = FirebaseDatabase.getInstance().getReference("alerts").child(school_id).child(key);
+    private void FetchUser_Distress(final String key) {//key is the driver id
+        DatabaseReference get_admin_Notifications = FirebaseDatabase.getInstance().getReference("distress").child(school_id).child(key);
         get_admin_Notifications.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot child : dataSnapshot.getChildren()){
                         if(child.getKey().equals("title")){
-                            alert_title = child.getValue().toString();
+                            distress_title = child.getValue().toString();
                         }
 
                         if(child.getKey().equals("message")){
-                            alert_message = child.getValue().toString();
+                            distress_message = child.getValue().toString();
                         }
 
                         if(child.getKey().equals("time")){
-                            alert_time = child.getValue().toString();
+                            distress_time = child.getValue().toString();
                         }
 
                         if(child.getKey().equals("image")){
-                            alertImage = child.getValue().toString();
+                            distressImage = child.getValue().toString();
                         }
 
                         else{
@@ -252,8 +253,82 @@ public class Admin_MainActivity extends AppCompatActivity {
 
                         }
                     }
-                    alert_key = key;
-                    Show_alert_notification(alert_key,alert_title, alert_message,alertImage,alert_time);
+                    distress_key = key;//distres_key here is the driver code
+                    Show_alert_notification(R.drawable.distress,distress_key,distress_title, distress_message,distressImage,distress_time);
+
+//                    Notify obj = new Notify(notification_title,notifications_message,notifications_time,notificationImage);
+//                    notificationsArray.add(obj);
+//                    notifications_RecyclerView.setAdapter(notifications_Adapter);
+//                    notifications_Adapter.notifyDataSetChanged();
+//                    no_notifications.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Admin_MainActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void getUser_Security_IDs() {
+        try{
+            DatabaseReference get_security = FirebaseDatabase.getInstance().getReference("security").child(school_id);//.child(mauth.getCurrentUser().getUid());
+            get_security.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            FetchUser_Security(child.getKey());
+                        }
+                    }else{
+//                    Toast.makeText(getActivity(),"Cannot get ID",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_MainActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void FetchUser_Security(final String key) {//key is the driver id
+        DatabaseReference get_admin_Notifications = FirebaseDatabase.getInstance().getReference("security").child(school_id).child(key);
+        get_admin_Notifications.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        if(child.getKey().equals("title")){
+                            distress_title = child.getValue().toString();
+                        }
+
+                        if(child.getKey().equals("message")){
+                            distress_message = child.getValue().toString();
+                        }
+
+                        if(child.getKey().equals("time")){
+                            distress_time = child.getValue().toString();
+                        }
+
+                        if(child.getKey().equals("image")){
+                            distressImage = child.getValue().toString();
+                        }
+
+                        else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                    distress_key = key;//distres_key here is the driver code
+                    Show_alert_notification(R.drawable.security,distress_key,distress_title, distress_message,distressImage,distress_time);
+
 //                    Notify obj = new Notify(notification_title,notifications_message,notifications_time,notificationImage);
 //                    notificationsArray.add(obj);
 //                    notifications_RecyclerView.setAdapter(notifications_Adapter);
@@ -272,11 +347,11 @@ public class Admin_MainActivity extends AppCompatActivity {
     }
 
 
-    private void Show_alert_notification(String alert_key, String title, String message,
+    private void Show_alert_notification(int diamge_type,String alert_key, String title, String message,
                                          String image,String time){
 
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, Alerts.class);
+        Intent intent = new Intent(this, AllBuses.class);
 //        intent.putExtra("alertID","yes");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -288,7 +363,7 @@ public class Admin_MainActivity extends AppCompatActivity {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1000")
-                .setSmallIcon(R.drawable.distress)
+                .setSmallIcon(diamge_type)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle()
@@ -318,6 +393,7 @@ public class Admin_MainActivity extends AppCompatActivity {
 //            builder.setDefaults(Notification.DEFAULT_SOUND);
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
             builder.setDefaults(Notification.DEFAULT_VIBRATE);
+            Move_Distress_From_main_to_pending(alert_key,title,message,image,time);
         }
 //        builder.setDefaults(Notification.DEFAULT_SOUND);
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
@@ -325,20 +401,24 @@ public class Admin_MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
         notificationManagerCompat.notify(1000, builder.build());
-        MoveFrom_main_to_pending(alert_key,alert_title,alert_message,image,time);
+        if(distressImage.equals("DN")){
+            Move_Distress_From_main_to_pending(alert_key,title,message,image,time);
+        }else{
+            MoveSecurity_from_main_toPending(alert_key, title, message,image, time);
+        }
     }
 
-    private void MoveFrom_main_to_pending(final String alert_id, String alert_title, String alert_message,
+    private void Move_Distress_From_main_to_pending(final String distress_id, String alert_title, String alert_message,
                                           String alert_image, String alert_time) {
         try {
-            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_alerts").child(school_id).child(alert_id);
+            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_distress").child(school_id).child(distress_id);
             add_todatabaseReference.child("image").setValue(alert_image);
             add_todatabaseReference.child("message").setValue(alert_message);
             add_todatabaseReference.child("title").setValue(alert_title);
             add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Remove_alerts_from_alerts(alert_id);
+                    Remove_distress_from_distress(distress_id);
                 }
             });
         }catch (NullPointerException e){
@@ -346,9 +426,37 @@ public class Admin_MainActivity extends AppCompatActivity {
         }
     }
 
-    private void Remove_alerts_from_alerts(String alert_id) {
+    private void Remove_distress_from_distress(String alert_id) {
         try {
-            remove_fromReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_id).child(alert_id);
+            remove_fromReference = FirebaseDatabase.getInstance().getReference("distress").child(school_id).child(alert_id);
+            remove_fromReference.removeValue();
+        }catch (NullPointerException e){
+
+        }
+
+    }
+
+    private void MoveSecurity_from_main_toPending(final String security_id, String alert_title, String alert_message,
+                                          String alert_image, String alert_time) {
+        try {
+            add_todatabaseReference = FirebaseDatabase.getInstance().getReference("pending_security").child(school_id).child(security_id);
+            add_todatabaseReference.child("image").setValue(alert_image);
+            add_todatabaseReference.child("message").setValue(alert_message);
+            add_todatabaseReference.child("title").setValue(alert_title);
+            add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    MoveSecurity_from_main_toPending(security_id);
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void MoveSecurity_from_main_toPending(String security_id) {
+        try {
+            remove_fromReference = FirebaseDatabase.getInstance().getReference("security").child(school_id).child(security_id);
             remove_fromReference.removeValue();
         }catch (NullPointerException e){
 

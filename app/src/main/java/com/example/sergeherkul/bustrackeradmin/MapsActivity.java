@@ -130,7 +130,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int which) {
 //                        logout here
                         if(isNetworkAvailable()){
-                            _Security_addToNotifications();
+                            _Security_addToAlerts();
                         }else{
                             Toast.makeText(MapsActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
                         }
@@ -160,7 +160,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(DialogInterface dialog, int which) {
 //                        logout here
                         if(isNetworkAvailable()){
-                            _Distress_addToNotifications();
+                            _Distress_addToAlerts();
                             Toast.makeText(MapsActivity.this,"Distress alert sent", Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(MapsActivity.this,"No internet connection",Toast.LENGTH_LONG).show();
@@ -197,11 +197,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    private void _Security_addToNotifications() {
+    private void _Security_addToAlerts() {
         Random notifyrandom = new Random();
         int notify_no = notifyrandom.nextInt(233434);
         String notify_id = "notification" + notify_no+"";
-        databaseReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(notify_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference("security").child(school_code).child(driver_code);
         databaseReference.child("image").setValue("SN");
         databaseReference.child("message").setValue("Customer has a security issue. Swift action is needed.");
         databaseReference.child("time").setValue(new Date());
@@ -209,15 +209,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toast.makeText(MapsActivity.this,"Security issue alert sent", Toast.LENGTH_LONG).show();
     }
 
-    private void _Distress_addToNotifications() {
+    private void _Distress_addToAlerts() {
         Random notifyrandom = new Random();
         int notify_no = notifyrandom.nextInt(233434);
         String notify_id = "notification" + notify_no+"";
-        databaseReference = FirebaseDatabase.getInstance().getReference("alerts").child(school_code).child(notify_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference("distress").child(school_code).child(driver_code);
         databaseReference.child("image").setValue("DN");
         databaseReference.child("message").setValue("Customer is in distress. Swift action is needed. Find location on map");
         databaseReference.child("time").setValue(new Date());
         databaseReference.child("title").setValue("Distress Recieved");
+        databaseReference.child("driver_code").setValue(driver_code);
         Toast.makeText(MapsActivity.this,"Distress sent", Toast.LENGTH_LONG).show();
     }
 

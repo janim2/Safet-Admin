@@ -297,10 +297,11 @@ public class Driver_Verification extends AppCompatActivity {
                                         startActivity(gotodriver_maps);
                                         getBusInformation(driver_verification_accessor.getString("school_code"),driver_verification_accessor.getString("driver_code"));
                                     }else{
+                                        loading.setVisibility(View.GONE);
+                                        login_loading.setVisibility(View.GONE);
                                         driver_code_verified.setVisibility(View.VISIBLE);
                                         driver_code_verified.setTextColor(getResources().getColor(R.color.red));
                                         driver_code_verified.setText("Code Verification Failed");
-                                        loading.setVisibility(View.GONE);
                                     }
                                 }else{
                                     Toast.makeText(Driver_Verification.this,"No internet connection",Toast.LENGTH_LONG).show();
