@@ -164,9 +164,6 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         }
     }
 
-
-
-
     private void displayLocationSettingsRequest(Context context) {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API).build();
@@ -237,7 +234,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                             .build();
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 //                    mDriverMarker =
-                    mMap.addMarker(new MarkerOptions().position(driverlatlng).title("Your Bus"));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+                    mDriverMarker = mMap.addMarker(new MarkerOptions().position(driverlatlng).title("Your Bus").flat(true));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
                 }
             }
 
@@ -248,8 +245,4 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         });
 
     }
-
-
-
-
 }
