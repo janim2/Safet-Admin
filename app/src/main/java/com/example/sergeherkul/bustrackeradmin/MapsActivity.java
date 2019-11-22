@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -45,6 +46,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +59,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import ng.max.slideview.SlideView;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -71,7 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationRequest mLocationRequest;
     private Accessories mapsAccessor;
     private TextView today_date, busStatus_text;
-    private Button start_trip;
+    private SlideView start_trip;
     private String button_toggle = "0",school_code, driver_code;
     private RadioButton securityRbutton, distressRbutton, goodRbutton;
     private DatabaseReference databaseReference;
@@ -113,7 +118,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         goodRbutton = findViewById(R.id.good_radio);
 
         today_date.setTypeface(lovelo);
-        start_trip.setTypeface(lovelo);
+//        start_trip.setTypeface(lovelo);
 //        busStatus_text.setTypeface(lovelo);
 //        securityRbutton.setTypeface(lovelo);
 //        distressRbutton.setTypeface(lovelo);
@@ -182,17 +187,62 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Date date = new Date();
         today_date.setText(DateFormat.getDateInstance(DateFormat.FULL).format(date));
 
-        start_trip.setOnClickListener(new View.OnClickListener() {
+//        start_trip.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(button_toggle.equals("0")){
+//                    button_toggle = "1";
+//                    start_trip.setText("IN PROGRESS");
+//                }
+//                else if(button_toggle.equals("1")){
+//                    button_toggle = "0";
+//                    start_trip.setText("START TRIP");
+//                }
+//            }
+//        });
+        start_trip.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
-            public void onClick(View v) {
+            public void onSlideComplete(SlideView slideView) {
                 if(button_toggle.equals("0")){
                     button_toggle = "1";
-                    start_trip.setText("IN PROGRESS");
+                    start_trip.setText("IN PROGRESS | END");
+                    if(isNetworkAvailable()){
+                        Start_Trip();
+                    }
                 }
+
                 else if(button_toggle.equals("1")){
                     button_toggle = "0";
                     start_trip.setText("START TRIP");
+                    if(isNetworkAvailable()){
+                        End_Trip();
+
+                    }
                 }
+            }
+        });
+    }
+
+    private void Start_Trip() {
+        DatabaseReference start_trip = FirebaseDatabase.getInstance().getReference("trip_status")
+                .child(school_code).child(driver_code);
+        start_trip.child("status").setValue("progress");
+        start_trip.child("time").setValue(new Date()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(MapsActivity.this, "Trip started", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void End_Trip() {
+        DatabaseReference start_trip = FirebaseDatabase.getInstance().getReference("trip_status")
+                .child(school_code).child(driver_code);
+        start_trip.child("status").setValue("Arrived");
+        start_trip.child("time").setValue(new Date()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(MapsActivity.this, "Trip ended", Toast.LENGTH_LONG).show();
             }
         });
     }

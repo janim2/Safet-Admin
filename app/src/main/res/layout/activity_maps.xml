@@ -97,15 +97,20 @@
                 </RadioGroup>
             </LinearLayout>
 
-            <Button
+            <ng.max.slideview.SlideView
+                android:id="@+id/start_trip"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="START TRIP"
-                android:textSize="13sp"
-                android:id="@+id/start_trip"
+                android:layout_marginBottom="5dp"
+                map:sv_buttonBackgroundColor="@color/white"
+                map:sv_slideBackgroundColor="@color/colorPrimary"
+                map:sv_slideText="START TRIP"
                 android:layout_gravity="bottom"
-                android:textColor="@android:color/white"
-                android:background="@color/colorPrimary"/>
+                map:sv_slideTextColor="@android:color/white"
+                map:sv_slideTextSize="16sp"
+                map:sv_animateSlideText="true"
+                map:sv_reverseSlide="false"
+                map:sv_strokeColor="@color/colorAccent" />
         </FrameLayout>
 
 

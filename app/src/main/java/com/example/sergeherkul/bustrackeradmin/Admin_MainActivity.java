@@ -79,10 +79,10 @@ public class Admin_MainActivity extends AppCompatActivity {
 
     private List<ItemObjects> getListItemData(){
         List<ItemObjects> listViewItems = new ArrayList<ItemObjects>();
-        listViewItems.add(new ItemObjects("Alerts",R.drawable.warning));
-        listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus));
+        listViewItems.add(new ItemObjects("Alerts",R.drawable.warning__1));
+        listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus__));
 //        Distresses, graph
-        listViewItems.add(new ItemObjects("Children",R.drawable.children1));
+        listViewItems.add(new ItemObjects("Children",R.drawable.children__));
         return listViewItems;
     }
 
@@ -446,7 +446,7 @@ public class Admin_MainActivity extends AppCompatActivity {
             add_todatabaseReference.child("time").setValue(alert_time).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    MoveSecurity_from_main_toPending(security_id);
+                    ReMoveSecurity_from_main_toPending(security_id);
                 }
             });
         }catch (NullPointerException e){
@@ -454,7 +454,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         }
     }
 
-    private void MoveSecurity_from_main_toPending(String security_id) {
+    private void ReMoveSecurity_from_main_toPending(String security_id) {
         try {
             remove_fromReference = FirebaseDatabase.getInstance().getReference("security").child(school_id).child(security_id);
             remove_fromReference.removeValue();
