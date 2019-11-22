@@ -36,7 +36,8 @@ public class Add_driver extends AppCompatActivity {
 
     private EditText driver_fname_editText,driver_lname_editText,driver_phone_number_editText,
             driver_email_editText,driver_address_editText,
-            busbrand_editText, bus_model_editText, bus_chasis_number_editText, bus_number_plate_editText;
+            busbrand_editText, bus_model_editText, bus_chasis_number_editText, bus_number_plate_editText,
+            passenger_capacity;
 
     private Button done_button;
     private ProgressBar loading;
@@ -45,7 +46,8 @@ public class Add_driver extends AppCompatActivity {
     private String school_code,string_school_name,
             driver_lname_from_etext,driver_fname_from_etext,driver_phone_from_etext,
             driver_email_from_etext,driver_address_from_etext,
-            busbrand_from_etext,bus_model_from_etext,bus_chasis_from_etext,bus_number_plate_etext;
+            busbrand_from_etext,bus_model_from_etext,bus_chasis_from_etext,bus_number_plate_etext,
+            passenger_capacity_from_etext;
 
     private Dialog view_verification_dialogue;
     private DatabaseReference add_driver_databaseReference, add_bus_databaseReference,add_notification_databaseReference;
@@ -92,6 +94,7 @@ public class Add_driver extends AppCompatActivity {
         bus_model_editText = findViewById(R.id.the_bus_model_editText);
         bus_chasis_number_editText = findViewById(R.id.the_chasis_no_editText);
         bus_number_plate_editText = findViewById(R.id.the_number_plate_editText);
+        passenger_capacity = findViewById(R.id.passenger_capacity);
 
         //setting fonts
         driverDetails_text.setTypeface(lovelo);
@@ -123,10 +126,11 @@ public class Add_driver extends AppCompatActivity {
                 bus_model_from_etext = bus_model_editText.getText().toString().trim();
                 bus_chasis_from_etext = bus_chasis_number_editText.getText().toString().trim();
                 bus_number_plate_etext = bus_number_plate_editText.getText().toString().trim();
+                passenger_capacity_from_etext = passenger_capacity.getText().toString().trim();
                 if(!driver_fname_from_etext.equals("") && !driver_lname_from_etext.equals("") &&
                         !driver_phone_from_etext.equals("") && !driver_address_from_etext.equals("") &&
                         !driver_email_from_etext.equals("") && !busbrand_from_etext.equals("") && !bus_model_from_etext.equals("") &&
-                        !bus_chasis_from_etext.equals("") && !bus_number_plate_etext.equals("")){
+                        !bus_chasis_from_etext.equals("") && !bus_number_plate_etext.equals("") && !passenger_capacity_from_etext.equals("")){
                     if(isNetworkAvailable()){
                         showSchoolVerifyPopup(Add_driver.this);
                     }
@@ -265,7 +269,7 @@ public class Add_driver extends AppCompatActivity {
                         view_verification_dialogue.dismiss();
                         addDriverToDatabase(driver_fname_from_etext,driver_lname_from_etext,driver_email_from_etext,driver_phone_from_etext,
                                 driver_address_from_etext,busbrand_from_etext, bus_model_from_etext, bus_chasis_from_etext,
-                                bus_number_plate_etext);
+                                bus_number_plate_etext,passenger_capacity_from_etext);
                     }else{
                         success_message.setVisibility(View.VISIBLE);
                         success_message.setTextColor(getResources().getColor(R.color.red));
@@ -285,7 +289,7 @@ public class Add_driver extends AppCompatActivity {
     private void addDriverToDatabase(String driver_fname_from_etext, String driver_lname_from_etext,
                                      String driver_email,String driver_phone_from_etext,String driver_address_from_etext,
                                      String busbrand_from_etext, String bus_model_from_etext,
-                                     String bus_chasis_from_etext, String bus_number_plate_etext) {
+                                     String bus_chasis_from_etext, String bus_number_plate_etext,String passenger_capacity) {
         loading.setVisibility(View.VISIBLE);
         success_message.setVisibility(View.GONE);
 
@@ -293,6 +297,7 @@ public class Add_driver extends AppCompatActivity {
         int aa = add_d_.nextInt(999);
         String driver_id = "dR" + aa+"";
         String bus_code = "Bus" + aa+"";
+        String assigned_code = "assign"+aa+"";
 
         //adding driver to database
         add_driver_databaseReference = FirebaseDatabase.getInstance().getReference("drivers").child(school_code).child(driver_id);
@@ -309,10 +314,14 @@ public class Add_driver extends AppCompatActivity {
         add_bus_databaseReference.child("chasis_no").setValue(bus_chasis_from_etext);
         add_bus_databaseReference.child("model").setValue(bus_model_from_etext);
         add_bus_databaseReference.child("number_plate").setValue(bus_number_plate_etext);
+        add_bus_databaseReference.child("bus_capacity").setValue(passenger_capacity);
+
+        DatabaseReference bus_assigned_children = FirebaseDatabase.getInstance().getReference("bus_assignment").child(school_code).child(driver_id).child(assigned_code);
+        bus_assigned_children.child("number_remaining").setValue(passenger_capacity);
 
         addToNotifications(FirebaseAuth.getInstance().getCurrentUser());
 
-    loading.setVisibility(View.GONE);
+        loading.setVisibility(View.GONE);
         success_message.setVisibility(View.VISIBLE);
         success_message.setTextColor(getResources().getColor(R.color.green));
         success_message.setText("Driver addition successful");

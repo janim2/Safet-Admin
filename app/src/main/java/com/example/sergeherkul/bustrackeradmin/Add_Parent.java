@@ -260,7 +260,6 @@ public class Add_Parent extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void addParent_Details_to_store(String pfname, String plname, String p_location, String p_email, String pphone_number) {
