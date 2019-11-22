@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class Enter_phone_number extends AppCompatActivity {
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseAuth mAuth;
+    private LinearLayout code_verified_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,8 @@ public class Enter_phone_number extends AppCompatActivity {
         back = findViewById(R.id.back);
         user_phone_number = findViewById(R.id.user_phone_number);
         failed_message_text = findViewById(R.id.failed_message);
-        country_picker = findViewById(R.id.country_code_picker);
+        code_verified_layout = findViewById(R.id.code_verify_layout);
+//        country_picker = findViewById(R.id.country_code_picker);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -86,7 +89,7 @@ public class Enter_phone_number extends AppCompatActivity {
             public void onClick(View v) {
                 String phone_number = user_phone_number.getText().toString().trim();
                 if(!phone_number.equals("")){
-                    String countryCode = country_picker.getSelectedCountryCodeWithPlus();
+                    String countryCode = "+233";
                     if(isNetworkAvailable()){
                         sendVerificationMessage(countryCode,phone_number);
                     }else{
@@ -323,12 +326,7 @@ public class Enter_phone_number extends AppCompatActivity {
 
             loading.setVisibility(View.GONE);
             number_sent_success.setVisibility(View.VISIBLE);
-            code_one.setEnabled(true);
-            code_two.setEnabled(true);
-            code_three.setEnabled(true);
-            code_four.setEnabled(true);
-            code_five.setEnabled(true);
-            code_six.setEnabled(true);
+            code_verified_layout.setVisibility(View.VISIBLE);
             next.setText("VERIFY CODE");
             // Save verification ID and resending token so we can use them later
             mVerificationId = verificationId;

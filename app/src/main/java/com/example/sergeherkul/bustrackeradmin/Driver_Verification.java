@@ -2,6 +2,7 @@ package com.example.sergeherkul.bustrackeradmin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Driver_Verification extends AppCompatActivity {
 
-    private TextView final_step_text,code_verified,login_text,login_text_details, driver_code_verified;
+    private TextView final_step_text,code_verified,login_text,login_text_details, driver_code_verified,
+    another_code_verified;
     private EditText code_one,code_two,code_three,code_four, driver_code_one, driver_code_two,
     driver_code_three,driver_code_four, driver_code_five;
     private ProgressBar loading,login_loading;
@@ -35,6 +38,7 @@ public class Driver_Verification extends AppCompatActivity {
     private String sdriver_code,sfirst_name,slastname,saddress,sphone_number,sschoolname,sschoolemail,
     ssechoollocation, sschoolphone,sbrand, sbus_code, schasis_no, smodel, snumber_plate;
     private Accessories driver_verification_accessor;
+    private LinearLayout driver_verified_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class Driver_Verification extends AppCompatActivity {
         next_button = findViewById(R.id.next_button);
         back = findViewById(R.id.back);
         driver_code_verified = findViewById(R.id.driver_code_verified);
+        driver_verified_layout = findViewById(R.id.driver_verified_layout);
+        another_code_verified = findViewById(R.id.another_code_verified);
 
         final_step_text.setTypeface(lovelo);
         code_verified.setTypeface(lovelo);
@@ -337,15 +343,13 @@ public class Driver_Verification extends AppCompatActivity {
                             if(thecode.equals(child.getKey())){
                                 driver_verification_accessor.put("school_code",child.getKey());
                                 loading.setVisibility(View.GONE);
-                                code_verified.setVisibility(View.VISIBLE);
-                                code_verified.setText("Code Verification Complete");
-                                code_verified.setTextColor(getResources().getColor(R.color.green));
-                                next_button.setText("Verify Me");
-                                driver_code_one.setEnabled(true);
-                                driver_code_two.setEnabled(true);
-                                driver_code_three.setEnabled(true);
-                                driver_code_four.setEnabled(true);
-                                driver_code_five.setEnabled(true);
+//                                code_verified.setVisibility(View.GONE);
+//                                driver_code_verified.setVisibility(View.GONE);
+                                another_code_verified.setText("Code verification complete");
+                                another_code_verified.setTextColor(getResources().getColor(R.color.green));
+                                another_code_verified.setVisibility(View.VISIBLE);
+                                 next_button.setText("Verify Me");
+                                driver_verified_layout.setVisibility(View.VISIBLE);
 
                                 getdriverinformation(child.getKey());
                                 getSchoolinformation(child.getKey());
@@ -362,11 +366,17 @@ public class Driver_Verification extends AppCompatActivity {
                                         }
                                     }
                                 });
+                                return;
                             }else{
                                 loading.setVisibility(View.GONE);
-                                code_verified.setVisibility(View.VISIBLE);
-                                code_verified.setTextColor(getResources().getColor(R.color.red));
-                                code_verified.setText("Code Verification Failed");
+                                code_verified.setVisibility(View.GONE);
+//                                code_verified.setTextColor(getResources().getColor(R.color.red));
+//                                code_verified.setText("Code Verification Failed");
+
+                                another_code_verified.setText("Code verification failed");
+                                another_code_verified.setTextColor(getResources().getColor(R.color.red));
+                                another_code_verified.setVisibility(View.VISIBLE);
+
                             }
                         }
                     }else{
