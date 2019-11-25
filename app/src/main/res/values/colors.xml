@@ -6,7 +6,7 @@
     <color name="green">#1A4E04</color>
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="main_blue">#521168</color>
     <color name="ash_1">#e5e5e5</color>
     <color name="ash_2">#eeeeee</color>
 </resources>

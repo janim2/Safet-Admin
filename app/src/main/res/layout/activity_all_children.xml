@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".Notifications">
+    tools:context=".All_children">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:id="@+id/notifications_recyclerView"
+        android:id="@+id/children_recyclerView"
         android:layout_height="match_parent" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No notifications"
-        android:gravity="center"
-        android:textSize="13sp"
-        android:id="@+id/no_notifications"
+        android:text="No children yet"
+        android:id="@+id/no_children"
+        android:textSize="12sp"
         android:textColor="@color/colorPrimary"
+        android:gravity="center"
         android:layout_gravity="center"/>
 
     <TextView

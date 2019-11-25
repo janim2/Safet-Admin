@@ -77,7 +77,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Accessories mapsAccessor;
     private TextView today_date, busStatus_text;
     private SlideView start_trip;
-    private String button_toggle = "0",school_code, driver_code;
+    private String button_toggle = "0",school_code, driver_code, driver_name;
     private RadioButton securityRbutton, distressRbutton, goodRbutton;
     private DatabaseReference databaseReference;
     private FirebaseAuth currentuser;
@@ -94,6 +94,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         driver_code = mapsAccessor.getString("driver_code");
 
         currentuser = FirebaseAuth.getInstance();
+        String dfname = mapsAccessor.getString("driver_fname");
+        if(dfname != null){
+            driver_name = dfname+" "+mapsAccessor.getString("driver_lname");
+        }else{
+            driver_name = "Driver";
+        }
 
         getSupportActionBar().setTitle(mapsAccessor.getString("driver_fname")+" | Driver");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -129,7 +135,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 final AlertDialog.Builder security = new AlertDialog.Builder(MapsActivity.this, R.style.Myalert);
                 security.setTitle("Security Confirmation?");
-                security.setMessage("Confirmation is required for a security alert to be sent to appropriate authorites");
+                security.setMessage("Confirmation is required for a security alert to be sent to appropriate authorites. " +
+                        "Security issues may include but not limited to\n\na. robbery,\nb. kidnapping and so on.\n\nAre you sure you wish to continue?");
                 security.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -159,7 +166,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 final AlertDialog.Builder distress = new AlertDialog.Builder(MapsActivity.this, R.style.Myalert);
                 distress.setTitle("Distress Confirmation?");
-                distress.setMessage("Confirmation is required for a distress alert to be sent to appropriate authorites");
+                distress.setMessage("Confirmation is required for a distress alert to be sent to appropriate authorites. " +
+                        "Distresses may included but not limited to\n\na. Bus won't start\nb. No fuel and so on.\n\nAre you sure you wish to continue?");
                 distress.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -204,19 +212,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onSlideComplete(SlideView slideView) {
                 if(button_toggle.equals("0")){
-                    button_toggle = "1";
-                    start_trip.setText("IN PROGRESS | END");
                     if(isNetworkAvailable()){
+                        button_toggle = "1";
+                        start_trip.setText("IN PROGRESS | END");
                         Start_Trip();
+                    }else{
+                        Toast.makeText(MapsActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                     }
                 }
 
                 else if(button_toggle.equals("1")){
-                    button_toggle = "0";
-                    start_trip.setText("START TRIP");
                     if(isNetworkAvailable()){
+                        button_toggle = "0";
+                        start_trip.setText("START TRIP");
                         End_Trip();
-
+                    }else{
+                        Toast.makeText(MapsActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -253,7 +264,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String notify_id = "notification" + notify_no+"";
         databaseReference = FirebaseDatabase.getInstance().getReference("security").child(school_code).child(driver_code);
         databaseReference.child("image").setValue("SN");
-        databaseReference.child("message").setValue("Customer has a security issue. Swift action is needed.");
+        databaseReference.child("message").setValue("Mr. " + driver_name+" has a security issue. Please proceed swiftly to remedy the situation. See Alerts for details.");
         databaseReference.child("time").setValue(new Date());
         databaseReference.child("title").setValue("Security issue Recieved");
         Toast.makeText(MapsActivity.this,"Security issue alert sent", Toast.LENGTH_LONG).show();
@@ -265,7 +276,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         String notify_id = "notification" + notify_no+"";
         databaseReference = FirebaseDatabase.getInstance().getReference("distress").child(school_code).child(driver_code);
         databaseReference.child("image").setValue("DN");
-        databaseReference.child("message").setValue("Customer is in distress. Swift action is needed. Find location on map");
+        databaseReference.child("message").setValue("Mr. "+driver_name+" is in distress. Exact location can be found on the map.");
         databaseReference.child("time").setValue(new Date());
         databaseReference.child("title").setValue("Distress Recieved");
         databaseReference.child("driver_code").setValue(driver_code);

@@ -30,7 +30,7 @@ public class Notifications extends AppCompatActivity {
     private String usertype,school_id, driver_code, notification_title, notifications_message, notifications_time,
             notificationImage;
     private FirebaseAuth mauth;
-    private TextView no_notifications;
+    private TextView no_notifications, no_internet;
 
     private Accessories notifications_accessor;
 
@@ -50,6 +50,7 @@ public class Notifications extends AppCompatActivity {
 
         notifications_RecyclerView = findViewById(R.id.notifications_recyclerView);
         no_notifications = findViewById(R.id.no_notifications);
+        no_internet = findViewById(R.id.no_internet);
 
         //reviews adapter settings starts here
         if(isNetworkAvailable()){
@@ -59,11 +60,28 @@ public class Notifications extends AppCompatActivity {
                 getAdminNotifications_ID();
             }
         }else{
-            Toast.makeText(Notifications.this,"No Internet Connection",Toast.LENGTH_LONG).show();
+            no_internet.setVisibility(View.VISIBLE);
+            no_notifications.setVisibility(View.GONE);
         }
         notifications_RecyclerView.setHasFixedSize(true);
         notifications_Adapter = new NotifyAdapter(getNotificationsFromDatabase(),Notifications.this);
         notifications_RecyclerView.setAdapter(notifications_Adapter);
+
+        no_internet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNetworkAvailable()){
+                    if(usertype.equals("Driver")){
+                        getDriverNotifications_ID();
+                    }else{
+                        getAdminNotifications_ID();
+                    }
+                }else{
+                    no_internet.setVisibility(View.VISIBLE);
+                    no_notifications.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void getDriverNotifications_ID() {

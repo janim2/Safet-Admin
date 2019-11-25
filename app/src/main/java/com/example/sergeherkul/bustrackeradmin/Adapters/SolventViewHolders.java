@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.sergeherkul.bustrackeradmin.Alerts;
 import com.example.sergeherkul.bustrackeradmin.AllBuses;
+import com.example.sergeherkul.bustrackeradmin.All_children;
 import com.example.sergeherkul.bustrackeradmin.R;
 import com.example.sergeherkul.bustrackeradmin.Registered_Drivers;
 
@@ -39,7 +40,8 @@ public class SolventViewHolders extends RecyclerView.ViewHolder implements View.
                     break;
 
                 case 2:
-                    Toast.makeText(view.getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                    Intent gotoChildren = new Intent(itemView.getContext(), All_children.class);
+                    itemView.getContext().startActivity(gotoChildren);
                     break;
             }
         }
