@@ -1,38 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Alerts">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:id="@+id/alerts_recyclerView"
-        android:layout_height="match_parent" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Alerts"
-        android:gravity="center"
-        android:textSize="13sp"
-        android:id="@+id/no_alerts"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center"/>
+        android:orientation="vertical">
 
-     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No internet connection"
-         android:drawableTop="@drawable/refresh"
-        android:gravity="center"
-        android:textSize="13sp"
-         android:visibility="gone"
-        android:id="@+id/no_internet"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/main_blue"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending Distress"
+                android:background="@android:color/white"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="-10dp"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-</FrameLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:id="@+id/distress_recyclerView"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Distress"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:id="@+id/no_distress"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No internet connection"
+                    android:drawableTop="@drawable/refresh"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    android:id="@+id/no_distress_internet"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+        <!--//security start here-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/main_blue"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending security issues"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="-10dp"
+                android:paddingLeft="10dp"
+                android:background="@android:color/white"
+                android:layout_gravity="center"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:id="@+id/security_recyclerView"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Security"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:id="@+id/no_security"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No internet connection"
+                    android:drawableTop="@drawable/refresh"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    android:id="@+id/no_security_internet"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_gravity="center"/>
+
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</ScrollView>
