@@ -201,6 +201,269 @@
                     android:src="@drawable/school"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/colorPrimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/white"
+                    android:text="Other Details"
+                    android:textSize="15sp"
+                    android:layout_marginTop="-10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Approved Language"
+                                android:textSize="13sp"
+                                android:textColor="@color/main_blue"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="None"
+                                android:textSize="12sp"
+                                android:id="@+id/language_text"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/colorPrimaryDark"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:background="@android:drawable/editbox_background"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@android:color/darker_gray"
+                                android:hint="eg. English"
+                                android:inputType="text"
+                                android:visibility=""
+                                android:id="@+id/language_editText"
+                                android:textSize="13sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Range eg.(KG - SHS)"
+                                android:textSize="13sp"
+                                android:textColor="@color/main_blue"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="None"
+                                android:textSize="12sp"
+                                android:layout_marginTop="5dp"
+                                android:id="@+id/range_text"
+                                android:textColor="@color/colorPrimaryDark"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:background="@android:drawable/editbox_background"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@android:color/darker_gray"
+                                android:hint="eg. KG - SHS"
+                                android:visibility=""
+                                android:inputType="text"
+                                android:id="@+id/range_editText"
+                                android:textSize="13sp"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mission"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/main_blue"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="None"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/mission_text"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Enter mission here"
+                        android:visibility=""
+                        android:inputType="textMultiLine"
+                        android:id="@+id/mission_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vision"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/main_blue"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="None"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/vision_text"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Enter vision here"
+                        android:visibility=""
+                        android:inputType="textMultiLine"
+                        android:id="@+id/vision_editText"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Images"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/main_blue"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="1"
+                            android:layout_margin="10dp"
+                            app:cardElevation="5dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/logo"/>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="1"
+                            android:layout_margin="10dp"
+                            app:cardElevation="5dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/logo"/>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:cardCornerRadius="5dp"
+                            android:layout_weight="1"
+                            android:layout_margin="10dp"
+                            app:cardElevation="5dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/logo"/>
+
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Facilities"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:textColor="@color/main_blue"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            android:textSize="13sp"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No facilities added"
+                        android:layout_marginTop="20dp"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -217,3 +480,5 @@
         android:textColor="@android:color/white"
         android:background="@color/colorPrimary"/>
 </FrameLayout>
+
+    <!--0559008537-->

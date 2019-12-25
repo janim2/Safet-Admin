@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Circulate_Message">
+
+    <!--TODO: Modify user interface-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload message details"
+            android:padding="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/main_blue"
+            android:layout_gravity="center"
+            android:layout_marginTop="-10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="View All"
+            android:textColor="@color/main_blue"
+            android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select message audience."
+                android:textSize="13sp"
+                android:textColor="@color/main_blue"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_background"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:text="Both"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_background"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:text="Driver"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_background"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:text="Parents"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:text="Subject"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="text"
+                android:background="@android:drawable/editbox_background"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@android:color/darker_gray"
+                android:hint="Enter subject here"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:text="Message"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="text"
+                android:background="@android:drawable/editbox_background"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@android:color/darker_gray"
+                android:hint="Enter message here"
+                android:textSize="13sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Optional"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:textColor="@color/main_blue"
+                android:layout_gravity="center"
+                android:layout_marginTop="-10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:text="Date"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:text="Time"/>
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Select date"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Select time"/>
+            </RadioGroup>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="CIRCULATE MESSAGE"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:id="@+id/add_button"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

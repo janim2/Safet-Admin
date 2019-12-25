@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.sergeherkul.bustrackeradmin.Alerts;
 import com.example.sergeherkul.bustrackeradmin.AllBuses;
 import com.example.sergeherkul.bustrackeradmin.All_children;
+import com.example.sergeherkul.bustrackeradmin.Circulate_Message;
 import com.example.sergeherkul.bustrackeradmin.R;
 import com.example.sergeherkul.bustrackeradmin.Registered_Drivers;
 
@@ -42,6 +43,11 @@ public class SolventViewHolders extends RecyclerView.ViewHolder implements View.
                 case 2:
                     Intent gotoChildren = new Intent(itemView.getContext(), All_children.class);
                     itemView.getContext().startActivity(gotoChildren);
+                    break;
+
+                case 3:
+                    Intent dispatch_messages = new Intent(itemView.getContext(), Circulate_Message.class);
+                    itemView.getContext().startActivity(dispatch_messages);
                     break;
             }
         }

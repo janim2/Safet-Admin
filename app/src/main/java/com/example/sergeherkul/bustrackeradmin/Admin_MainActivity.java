@@ -31,8 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergeherkul.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
+import com.example.sergeherkul.bustrackeradmin.Adapters.image_slider_adapter;
 import com.example.sergeherkul.bustrackeradmin.Model.ItemObjects;
 import com.example.sergeherkul.bustrackeradmin.Model.Notify;
+import com.example.sergeherkul.bustrackeradmin.PiccassoImageProcessor.PicassoImageLoadingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +47,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ss.com.bannerslider.Slider;
+
 public class Admin_MainActivity extends AppCompatActivity {
 
     FirebaseAuth mauth;
@@ -53,6 +57,8 @@ public class Admin_MainActivity extends AppCompatActivity {
     private String distress_key,school_id,distress_title, distress_message, distress_time, distressImage;
     private Handler thehandler;
     private DatabaseReference add_todatabaseReference, remove_fromReference;
+    private Slider slider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,13 @@ public class Admin_MainActivity extends AppCompatActivity {
 
         school_id = mainaccessor.getString("school_code");
         getSupportActionBar().setTitle("Admin | Safet");
+
+        //silder initializations starts here
+        Slider.init(new PicassoImageLoadingService(Admin_MainActivity.this));
+        slider = findViewById(R.id.banner_slider1);
+
+        slider.setAdapter(new image_slider_adapter());
+//        ends here
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -83,6 +96,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         listViewItems.add(new ItemObjects("Buses",R.drawable.home_bus__));
 //        Distresses, graph
         listViewItems.add(new ItemObjects("Children",R.drawable.children__));
+        listViewItems.add(new ItemObjects("Circulate message",R.drawable.sent));
         return listViewItems;
     }
 

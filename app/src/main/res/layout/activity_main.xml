@@ -12,8 +12,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="15dp">
+
+        <ss.com.bannerslider.Slider
+            android:id="@+id/banner_slider1"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_margin="5dp"
+            app:slider_animateIndicators="true"
+            app:slider_indicatorSize="12dp"
+            app:slider_interval="5000"
+            app:slider_selectedSlideIndicator="@color/colorPrimaryDark"
+            />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

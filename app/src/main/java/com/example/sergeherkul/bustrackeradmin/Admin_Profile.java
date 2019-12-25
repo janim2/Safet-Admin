@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 import java.util.Objects;
@@ -34,11 +38,11 @@ public class Admin_Profile extends AppCompatActivity {
     school_location_text,school_name_text_value, school_email_text_value, school_number_text_value,
             school_location_text_value;
     private EditText school_name_editText, school_email_editText, school_number_editText,
-            school_location_editText;
+            school_location_editText, language_editText, range_editText, mission_editText, vision_editText;
     private String school_code,string_school_name,string_school_email, string_school_number,
-            string_school_location;
+            string_school_location, language_string, range_string, mission_string, vision_string;
     private Accessories profileaccessor;
-    private TextView success_message;
+    private TextView success_message, language_text, range_text, mission_text, vision_text;
     private ProgressBar loading;
     private DatabaseReference databaseReference;
     private Dialog view_verification_dialogue;
@@ -85,6 +89,18 @@ public class Admin_Profile extends AppCompatActivity {
         school_number_editText = findViewById(R.id.the_school_number_editText);
         school_location_editText = findViewById(R.id.the_school_address_editText);
 
+//        other details declaration
+        language_text = findViewById(R.id.language_text);
+        range_text = findViewById(R.id.range_text);
+        mission_text = findViewById(R.id.mission_text);
+        vision_text = findViewById(R.id.vision_text);
+
+        language_editText = findViewById(R.id.language_editText);
+        range_editText = findViewById(R.id.range_editText);
+        mission_editText = findViewById(R.id.mission_editText);
+        vision_editText = findViewById(R.id.vision_editText);
+
+
         view_verification_dialogue = new Dialog(Admin_Profile.this);
 
 //        setting font style here
@@ -106,15 +122,33 @@ public class Admin_Profile extends AppCompatActivity {
                 school_number_text_value.setVisibility(View.GONE);
                 school_location_text_value.setVisibility(View.GONE);
 
+                //other details items
+                language_text.setVisibility(View.GONE);
+                range_text.setVisibility(View.GONE);
+                mission_text.setVisibility(View.GONE);
+                vision_text.setVisibility(View.GONE);
+
                 school_name_editText.setVisibility(View.VISIBLE);
                 school_email_editText.setVisibility(View.VISIBLE);
                 school_number_editText.setVisibility(View.VISIBLE);
                 school_location_editText.setVisibility(View.VISIBLE);
 
+                //other details items
+                language_editText.setVisibility(View.VISIBLE);
+                range_editText.setVisibility(View.VISIBLE);
+                mission_editText.setVisibility(View.VISIBLE);
+                vision_editText.setVisibility(View.VISIBLE);
+
                 school_name_editText.setText(string_school_name);
                 school_email_editText.setText(string_school_email);
                 school_number_editText.setText(string_school_number);
                 school_location_editText.setText(string_school_location);
+
+                //other details items
+                language_editText.setText(language_string);
+                range_editText.setText(range_string);
+                mission_editText.setText(mission_string);
+                vision_editText.setText(vision_string);
 
                 edit_button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -123,6 +157,11 @@ public class Admin_Profile extends AppCompatActivity {
                         string_school_email = school_email_editText.getText().toString().trim();
                         string_school_number = school_number_editText.getText().toString().trim();
                         string_school_location = school_location_editText.getText().toString().trim();
+
+                        language_string = language_editText.getText().toString().trim();
+                        range_string = range_editText.getText().toString().trim();
+                        mission_string = mission_editText.getText().toString().trim();
+                        vision_string = vision_editText.getText().toString().trim();
 
                         if(!string_school_name.equals("") && !string_school_email.equals("")
                         && !string_school_location.equals("") && !string_school_number.equals("")){
@@ -143,7 +182,10 @@ public class Admin_Profile extends AppCompatActivity {
         });
     }
 
-    private void save_new_values(String string_school_name, String string_school_email, String string_school_number, String string_school_location) {
+    private void save_new_values(String string_school_name, String string_school_email,
+                                 String string_school_number, String string_school_location,
+                                 String string_language, String string_range,
+                                 String string_mission, String string_vision) {
         loading.setVisibility(View.VISIBLE);
         success_message.setVisibility(View.GONE);
 
@@ -152,6 +194,10 @@ public class Admin_Profile extends AppCompatActivity {
         databaseReference.child("email").setValue(string_school_email);
         databaseReference.child("telephone").setValue(string_school_number);
         databaseReference.child("location").setValue(string_school_location);
+        databaseReference.child("language").setValue(string_language);
+        databaseReference.child("range").setValue(string_range);
+        databaseReference.child("mission").setValue(string_mission);
+        databaseReference.child("vision").setValue(string_vision);
         loading.setVisibility(View.GONE);
         success_message.setVisibility(View.VISIBLE);
         success_message.setTextColor(getResources().getColor(R.color.green));
@@ -303,7 +349,8 @@ public class Admin_Profile extends AppCompatActivity {
                 && !code_four_string.equals("")){
                     if(full_code.equals(school_code)){
                         view_verification_dialogue.dismiss();
-                        save_new_values(string_school_name,string_school_email,string_school_number,string_school_location);
+                        save_new_values(string_school_name,string_school_email,string_school_number,
+                                string_school_location,language_string, range_string, mission_string, vision_string);
                     }else{
                         success_message.setVisibility(View.VISIBLE);
                         success_message.setTextColor(getResources().getColor(R.color.red));
@@ -318,5 +365,83 @@ public class Admin_Profile extends AppCompatActivity {
         });
         Objects.requireNonNull(view_verification_dialogue.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
         view_verification_dialogue.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isNetworkAvailable()){
+            Fetch_Remaining_school_info();
+        }else{
+            Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void Fetch_Remaining_school_info() {
+        try {
+            DatabaseReference get_more_details = FirebaseDatabase.getInstance().getReference("schools").child(school_code);
+            get_more_details.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            if(child.getKey().equals("language")){
+                                language_string = child.getValue().toString();
+                                if(language_string.equals("")){
+                                    language_text.setText("None");
+                                }else{
+                                    language_text.setText(language_string);
+                                }
+                            }
+
+                            if(child.getKey().equals("range")){
+                                range_string = child.getValue().toString();
+                                if(range_string.equals("")){
+                                    range_text.setText("None");
+                                }else{
+                                    range_text.setText(range_string);
+                                }
+                            }
+
+                            if(child.getKey().equals("mission")){
+                                mission_string = child.getValue().toString();
+                                if(mission_string.equals("")){
+                                    mission_text.setText("None");
+                                }else{
+                                    mission_text.setText(mission_string);
+                                }
+                            }
+
+                            if(child.getKey().equals("vision")){
+                                vision_string = child.getValue().toString();
+                                if(vision_string.equals("")){
+                                    vision_text.setText("None");
+                                }else{
+                                    vision_text.setText(vision_string);
+                                }
+                            }
+
+                            else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        Fetch_Facilities();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_Profile.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Fetch_Facilities() {
+
     }
 }

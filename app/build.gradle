@@ -37,5 +37,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.0'
     implementation 'com.hbb20:ccp:2.2.3'
     implementation 'com.github.MAXDeliveryNG:slideview:1.1.0'
+    implementation 'com.ss.bannerslider:bannerslider:2.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
 apply plugin: 'com.google.gms.google-services'

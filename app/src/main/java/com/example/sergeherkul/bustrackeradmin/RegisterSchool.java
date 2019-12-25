@@ -151,6 +151,11 @@ public class RegisterSchool extends AppCompatActivity {
                             mdatabase.child("email").setValue(school_email);
                             mdatabase.child("location").setValue(school_address);
                             mdatabase.child("telephone").setValue(school_phone_number);
+                            mdatabase.child("language").setValue("");
+                            mdatabase.child("range").setValue("");
+                            mdatabase.child("mission").setValue("");
+                            mdatabase.child("vision").setValue("");
+
                             addToNotifications();
                             loading.setVisibility(View.GONE);
                             success_message.setVisibility(View.VISIBLE);
