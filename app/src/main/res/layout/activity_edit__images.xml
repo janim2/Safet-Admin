@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,20 +25,86 @@
                 android:gravity="center"
                 android:textSize="14sp"/>
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="5dp"
-                android:layout_margin="20dp">
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/school_image_one"
+                    android:layout_margin="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/image_one"
+                        android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/add"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"/>
-            </android.support.v7.widget.CardView>
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:cardElevation="2dp"
+                    android:id="@+id/school_image_two"
+                    app:cardCornerRadius="5dp"
+                    android:layout_margin="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/image_two"
+                        android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/add"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/school_image_three"
+                    android:layout_margin="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:id="@+id/image_three"
+                        android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/add"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
 
 
         </LinearLayout>

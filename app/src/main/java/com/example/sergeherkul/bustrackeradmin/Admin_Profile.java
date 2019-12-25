@@ -151,7 +151,7 @@ public class Admin_Profile extends AppCompatActivity {
         });
 
 //        images initializarions
-        images_RecyclerView = findViewById(R.id.notifications_recyclerView);
+        images_RecyclerView = findViewById(R.id.images_recyclerView);
         images_no_internet = findViewById(R.id.images_no_internet);
         no_images = findViewById(R.id.no_images);
         edit_images = findViewById(R.id.edit_Images);
@@ -460,6 +460,11 @@ public class Admin_Profile extends AppCompatActivity {
             Fetch_Remaining_school_info();
         }else{
             Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
+            images_no_internet.setVisibility(View.VISIBLE);
+            facilies_no_internet.setVisibility(View.VISIBLE);
+
+            no_images.setVisibility(View.GONE);
+            no_facilities.setVisibility(View.GONE);
         }
     }
 
