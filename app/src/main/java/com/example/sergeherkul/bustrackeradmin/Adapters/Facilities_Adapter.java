@@ -48,7 +48,7 @@ public class Facilities_Adapter extends RecyclerView.Adapter<Facilities_Adapter.
         TextView name = holder.view.findViewById(R.id.facility_name);
 
         Uri imageurl = Uri.parse(itemList.get(position).getImageUrl());
-        Picasso.with(context).load(imageurl).centerCrop().into(image);
+        Picasso.with(context).load(imageurl).into(image);
         name.setText(itemList.get(position).getFacility_name());
         }
 

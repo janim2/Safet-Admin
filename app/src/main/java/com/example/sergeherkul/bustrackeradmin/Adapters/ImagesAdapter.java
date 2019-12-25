@@ -48,7 +48,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
         ImageView image = holder.view.findViewById(R.id.school_imageView);
 
         Uri imageurl = Uri.parse(itemList.get(position).getImageUrl());
-        Picasso.with(context).load(imageurl).centerCrop().into(image);
+        Picasso.with(context).load(imageurl).into(image);
         }
 
     @Override

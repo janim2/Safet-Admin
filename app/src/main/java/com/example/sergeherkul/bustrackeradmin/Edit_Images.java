@@ -1,17 +1,34 @@
 package com.example.sergeherkul.bustrackeradmin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class Edit_Images extends AppCompatActivity {
 
@@ -22,6 +39,12 @@ public class Edit_Images extends AppCompatActivity {
     private final int PICK_IMAGE_THREE_REQUEST = 91;
 
     private Uri filePath_one,filePath_two, filePath_three;
+    private Button save_button;
+    private String school_code;
+
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private Accessories edit_images_accessor;
 
 
 
@@ -31,13 +54,22 @@ public class Edit_Images extends AppCompatActivity {
         setContentView(R.layout.activity_edit__images);
         getSupportActionBar().setTitle("School Images");
 
+        edit_images_accessor = new Accessories(Edit_Images.this);
+
         image_one_cardView = findViewById(R.id.school_image_one);
         image_two_cardview = findViewById(R.id.school_image_two);
         image_three_cardview = findViewById(R.id.school_image_three);
 
+        school_code = edit_images_accessor.getString("school_code");
+
         imageView_one = findViewById(R.id.image_one);
         imageView_two = findViewById(R.id.image_two);
         imageView_three = findViewById(R.id.image_three);
+
+        save_button = findViewById(R.id.save_button);
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         image_one_cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +98,148 @@ public class Edit_Images extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_THREE_REQUEST);
+            }
+        });
+
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(filePath_one != null)
+                {
+//                    final ProgressDialog progressDialog = new ProgressDialog(Edit_Images.this);
+//                    progressDialog.setTitle("Uploading...");
+//                    progressDialog.show();
+
+                    StorageReference ref_1 = storageReference.child("images/school_images/"+school_code+"/"+ UUID.randomUUID().toString());
+                    ref_1.putFile(filePath_one)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    if (taskSnapshot.getMetadata() != null) {
+                                        if (taskSnapshot.getMetadata().getReference() != null) {
+                                            Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    String imageUrl = uri.toString();
+                                                    //createNewPost(imageUrl);
+                                                    DatabaseReference addImages_one = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code).child("image_one");//.push();
+                                                    addImages_one.child("image").setValue(imageUrl);
+                                                    Toast.makeText(Edit_Images.this, "Image one uploaded ", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+//                                    progressDialog.dismiss();
+                                    Toast.makeText(Edit_Images.this, "Image one upload failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                            .getTotalByteCount());
+//                                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                }
+                            });
+
+                    //image two
+                    if(filePath_two != null){
+                        StorageReference ref_2 = storageReference.child("images/school_images/"+school_code+"/"+ UUID.randomUUID().toString());
+                        ref_2.putFile(filePath_two)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        if (taskSnapshot.getMetadata() != null) {
+                                            if (taskSnapshot.getMetadata().getReference() != null) {
+                                                Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                                result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        String imageUrl = uri.toString();
+                                                        //createNewPost(imageUrl);
+                                                        DatabaseReference add_imagetwo = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code).child("image_two");//.push();
+                                                        add_imagetwo.child("image").setValue(imageUrl);
+                                                        Toast.makeText(Edit_Images.this, "Image two uploaded ", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+//                                    progressDialog.dismiss();
+                                    Toast.makeText(Edit_Images.this, "Image two upload failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                            .getTotalByteCount());
+//                                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                    }
+                                });
+                    }else{
+                        Toast.makeText(Edit_Images.this, "Image two not selected", Toast.LENGTH_LONG).show();
+                    }
+
+
+                    //image three
+                    if(filePath_three != null){
+                        StorageReference ref_3 = storageReference.child("images/school_images/"+school_code+"/"+ UUID.randomUUID().toString());
+                        ref_3.putFile(filePath_three)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        if (taskSnapshot.getMetadata() != null) {
+                                            if (taskSnapshot.getMetadata().getReference() != null) {
+                                                Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+                                                result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        String imageUrl = uri.toString();
+                                                        //createNewPost(imageUrl);
+                                                        DatabaseReference add_imagethree = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code).child("image_three");//.push();
+                                                        add_imagethree.child("image").setValue(imageUrl);
+                                                        Toast.makeText(Edit_Images.this, "Image three uploaded ", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+//                                        progressDialog.dismiss();
+                                        Toast.makeText(Edit_Images.this, "Image three upload failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                            .getTotalByteCount());
+//                                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                    }
+                                });
+                    }else{
+                        Toast.makeText(Edit_Images.this, "Image three not selected", Toast.LENGTH_LONG).show();
+
+                    }
+                }else{
+                    Toast.makeText(Edit_Images.this, "Image one not selected", Toast.LENGTH_LONG).show();
+
+                }
             }
         });
     }

@@ -138,6 +138,19 @@ public class Admin_Profile extends AppCompatActivity {
         facilities_Adapter = new Facilities_Adapter(getFacilitiesFromDatabase(),Admin_Profile.this);
         facilities_RecyclerView.setAdapter(facilities_Adapter);
 
+
+        if (isNetworkAvailable()){
+            Fetch_Remaining_school_info();
+        }else{
+            Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
+            images_no_internet.setVisibility(View.VISIBLE);
+            facilies_no_internet.setVisibility(View.VISIBLE);
+
+            no_images.setVisibility(View.GONE);
+            no_facilities.setVisibility(View.GONE);
+        }
+
+
         facilies_no_internet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -453,21 +466,6 @@ public class Admin_Profile extends AppCompatActivity {
         view_verification_dialogue.show();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (isNetworkAvailable()){
-            Fetch_Remaining_school_info();
-        }else{
-            Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
-            images_no_internet.setVisibility(View.VISIBLE);
-            facilies_no_internet.setVisibility(View.VISIBLE);
-
-            no_images.setVisibility(View.GONE);
-            no_facilities.setVisibility(View.GONE);
-        }
-    }
-
     private void Fetch_Remaining_school_info() {
         try {
             DatabaseReference get_more_details = FirebaseDatabase.getInstance().getReference("schools").child(school_code);
@@ -587,7 +585,7 @@ public class Admin_Profile extends AppCompatActivity {
                     images_RecyclerView.setAdapter(images_Adapter);
                     images_Adapter.notifyDataSetChanged();
                     no_images.setVisibility(View.GONE);
-                    Fetch_Images_ID();
+                    Fetch_Facilities_IDS();
                 }
             }
 
@@ -637,6 +635,7 @@ public class Admin_Profile extends AppCompatActivity {
                         }
                         if(child.getKey().equals("facility_name")){
                             facility_name = child.getValue().toString();
+                            Toast.makeText(Admin_Profile.this, facility_name, Toast.LENGTH_LONG).show();
                         }
                         else{
 //                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
