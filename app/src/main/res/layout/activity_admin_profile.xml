@@ -268,7 +268,7 @@
                                 android:textColorHint="@android:color/darker_gray"
                                 android:hint="eg. English"
                                 android:inputType="text"
-                                android:visibility=""
+                                android:visibility="gone"
                                 android:id="@+id/language_editText"
                                 android:textSize="13sp"/>
 
@@ -303,7 +303,7 @@
                                 android:textColor="@color/colorPrimary"
                                 android:textColorHint="@android:color/darker_gray"
                                 android:hint="eg. KG - SHS"
-                                android:visibility=""
+                                android:visibility="gone"
                                 android:inputType="text"
                                 android:id="@+id/range_editText"
                                 android:textSize="13sp"/>
@@ -335,7 +335,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textColorHint="@android:color/darker_gray"
                         android:hint="Enter mission here"
-                        android:visibility=""
+                        android:visibility="gone"
                         android:inputType="textMultiLine"
                         android:id="@+id/mission_editText"
                         android:textSize="13sp"/>
@@ -364,68 +364,76 @@
                         android:textColor="@color/colorPrimary"
                         android:textColorHint="@android:color/darker_gray"
                         android:hint="Enter vision here"
-                        android:visibility=""
+                        android:visibility="gone"
                         android:inputType="textMultiLine"
                         android:id="@+id/vision_editText"
                         android:textSize="13sp"/>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Images"
-                        android:layout_marginTop="10dp"
-                        android:textSize="13sp"
-                        android:textColor="@color/main_blue"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Images"
+                            android:layout_weight="1"
+                            android:textSize="14sp"
+                            android:textColor="@color/main_blue"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:gravity="right"
+                            android:layout_weight="1"
+                            android:textSize="13sp"
+                            android:id="@+id/edit_Images"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <android.support.v7.widget.CardView
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            app:cardCornerRadius="5dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            app:cardElevation="5dp">
+                            android:layout_height="wrap_content">
 
-                            <ImageView
+                            <android.support.v7.widget.RecyclerView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/logo"/>
+                                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                                android:id="@+id/images_recyclerView"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal"
+                                android:layout_height="match_parent" />
 
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            app:cardCornerRadius="5dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            app:cardElevation="5dp">
-
-                            <ImageView
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/logo"/>
+                                android:layout_height="wrap_content"
+                                android:text="No Images added"
+                                android:textSize="13sp"
+                                android:gravity="center"
+                                android:id="@+id/no_images"
+                                android:textColor="@color/colorPrimaryDark"/>
 
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            app:cardCornerRadius="5dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            app:cardElevation="5dp">
-
-                            <ImageView
+                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/logo"/>
+                                android:layout_height="wrap_content"
+                                android:text="No internet connection"
+                                android:textSize="13sp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:drawableTop="@drawable/refresh"
+                                android:id="@+id/images_no_internet"
+                                android:textColor="@color/colorPrimaryDark"/>
 
-                        </android.support.v7.widget.CardView>
+
+                        </FrameLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -449,19 +457,44 @@
                             android:gravity="right"
                             android:layout_weight="1"
                             android:textSize="13sp"
+                            android:id="@+id/edit_facility"
                             android:textColor="@color/colorPrimaryDark"/>
 
                     </LinearLayout>
 
-                    <TextView
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="No facilities added"
-                        android:layout_marginTop="20dp"
-                        android:textSize="13sp"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:layout_height="wrap_content">
 
+                        <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                            android:id="@+id/facilities_recyclerView"
+                            android:layout_marginTop="20dp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No facilities added"
+                            android:textSize="13sp"
+                            android:gravity="center"
+                            android:id="@+id/no_facilities"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="No internet connection"
+                            android:textSize="13sp"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:drawableTop="@drawable/refresh"
+                            android:id="@+id/facilities_no_internet"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+
+                    </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

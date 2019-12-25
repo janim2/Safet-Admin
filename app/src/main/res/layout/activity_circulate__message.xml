@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".Circulate_Message">
 
     <!--TODO: Modify user interface-->
@@ -12,10 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorPrimary"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,18 +20,19 @@
             android:text="Upload message details"
             android:padding="10dp"
             android:textSize="13sp"
+            android:layout_margin="20dp"
+            android:background="@android:color/white"
             android:textColor="@color/main_blue"
             android:layout_gravity="center"
-            android:layout_marginTop="-10dp"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="View All"
-            android:textColor="@color/main_blue"
-            android:textSize="14sp"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="right"-->
+            <!--android:text="View All"-->
+            <!--android:textColor="@color/main_blue"-->
+            <!--android:textSize="14sp"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +43,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/colorPrimary"/>
 
             <TextView
@@ -52,37 +51,56 @@
                 android:layout_height="wrap_content"
                 android:text="Select message audience."
                 android:textSize="13sp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="-20dp"
                 android:textColor="@color/main_blue"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/security_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:button="@android:color/transparent"
                     android:checked="true"
-                    android:text="Both"/>
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:text="Drivers" />
 
                 <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/distress_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/button_background"
                     android:button="@android:color/transparent"
                     android:checked="true"
-                    android:text="Driver"/>
+                    android:padding="10dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/main_blue"
+                    android:text="Parents" />
 
                 <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/good_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/button_background"
                     android:button="@android:color/transparent"
                     android:checked="true"
-                    android:text="Parents"/>
-
+                    android:textSize="13sp"
+                    android:textColor="@color/green"
+                    android:padding="10dp"
+                    android:text="Both" />
             </RadioGroup>
 
             <TextView
@@ -90,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:layout_marginTop="15dp"
                 android:text="Subject"/>
 
             <EditText
@@ -123,7 +142,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:background="@color/colorPrimary"/>
 
             <TextView
@@ -132,18 +151,26 @@
                 android:text="Optional"
                 android:padding="10dp"
                 android:textSize="13sp"
+                android:background="@android:color/white"
                 android:textColor="@color/main_blue"
                 android:layout_gravity="center"
-                android:layout_marginTop="-10dp"/>
+                android:layout_marginTop="-20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_weight="1"
                         android:layout_marginTop="10dp"
@@ -153,27 +180,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginTop="10dp"
+                        android:text="Sekect date"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_weight="1"
                         android:layout_marginTop="10dp"
                         android:text="Time"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginTop="10dp"
+                        android:text="Sekect time"/>
+
+
+                </LinearLayout>
+
             </LinearLayout>
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Select date"/>
-
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Select time"/>
-            </RadioGroup>
 
             <Button
                 android:layout_width="match_parent"
@@ -182,6 +224,7 @@
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="50dp"
                 android:id="@+id/add_button"
                 android:textColor="@android:color/white"
                 android:background="@color/colorPrimary"/>

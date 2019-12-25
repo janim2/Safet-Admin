@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Circulate_Message"></activity>
+        <activity android:name=".Edit_Images"></activity>
+        <activity android:name=".Edit_Facility" />
+        <activity
+            android:name=".Circulate_Message"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
             android:name=".All_children"
-            android:parentActivityName=".Admin_MainActivity"></activity>
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
             android:name=".Alerts"
             android:parentActivityName=".Admin_MainActivity" />

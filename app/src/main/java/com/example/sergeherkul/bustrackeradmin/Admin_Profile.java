@@ -2,6 +2,7 @@ package com.example.sergeherkul.bustrackeradmin;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,6 +21,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sergeherkul.bustrackeradmin.Adapters.Facilities_Adapter;
+import com.example.sergeherkul.bustrackeradmin.Adapters.ImagesAdapter;
+import com.example.sergeherkul.bustrackeradmin.Adapters.NotifyAdapter;
+import com.example.sergeherkul.bustrackeradmin.Model.Facilities;
+import com.example.sergeherkul.bustrackeradmin.Model.Images;
+import com.example.sergeherkul.bustrackeradmin.Model.Notify;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
@@ -48,6 +57,23 @@ public class Admin_Profile extends AppCompatActivity {
     private Dialog view_verification_dialogue;
     private Typeface lovelo;
 
+    //facilities items
+    private ArrayList facilitiesArray = new ArrayList<Facilities>();
+    private RecyclerView facilities_RecyclerView;
+    private RecyclerView.Adapter facilities_Adapter;
+    private String facility_id,facility_name, facility_image;
+    private TextView no_facilities, facilies_no_internet;
+
+    private TextView edit_facilities;
+
+    //images items
+    private ArrayList imagesArray = new ArrayList<Images>();
+    private RecyclerView images_RecyclerView;
+    private RecyclerView.Adapter images_Adapter;
+    private String images_id, images_image;
+    private TextView no_images, images_no_internet, edit_images;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +84,7 @@ public class Admin_Profile extends AppCompatActivity {
         lovelo =Typeface.createFromAsset(getAssets(),  "fonts/lovelo.ttf");
 
         profileaccessor = new Accessories(Admin_Profile.this);
+        view_verification_dialogue = new Dialog(Admin_Profile.this);
 
         string_school_email = profileaccessor.getString("school_email");
         string_school_location = profileaccessor.getString("school_location");
@@ -100,8 +127,50 @@ public class Admin_Profile extends AppCompatActivity {
         mission_editText = findViewById(R.id.mission_editText);
         vision_editText = findViewById(R.id.vision_editText);
 
+        edit_facilities = findViewById(R.id.edit_facility);
 
-        view_verification_dialogue = new Dialog(Admin_Profile.this);
+//        facilities initializations
+        facilities_RecyclerView = findViewById(R.id.facilities_recyclerView);
+        facilies_no_internet = findViewById(R.id.facilities_no_internet);
+        no_facilities = findViewById(R.id.no_facilities);
+
+        facilities_RecyclerView.setHasFixedSize(true);
+        facilities_Adapter = new Facilities_Adapter(getFacilitiesFromDatabase(),Admin_Profile.this);
+        facilities_RecyclerView.setAdapter(facilities_Adapter);
+
+        facilies_no_internet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNetworkAvailable()){
+                    Fetch_Facilities_IDS();
+                }else{
+                    facilies_no_internet.setVisibility(View.VISIBLE);
+                    no_facilities.setVisibility(View.GONE);
+                }
+            }
+        });
+
+//        images initializarions
+        images_RecyclerView = findViewById(R.id.notifications_recyclerView);
+        images_no_internet = findViewById(R.id.images_no_internet);
+        no_images = findViewById(R.id.no_images);
+        edit_images = findViewById(R.id.edit_Images);
+
+        images_RecyclerView.setHasFixedSize(true);
+        images_Adapter = new ImagesAdapter(getImagesFromDatabase(),Admin_Profile.this);
+        images_RecyclerView.setAdapter(images_Adapter);
+
+        images_no_internet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNetworkAvailable()){
+                        Fetch_Images_ID();
+                }else{
+                    images_no_internet.setVisibility(View.VISIBLE);
+                    no_images.setVisibility(View.GONE);
+                }
+            }
+        });
 
 //        setting font style here
         edit_button.setTypeface(lovelo);
@@ -110,6 +179,20 @@ public class Admin_Profile extends AppCompatActivity {
         school_number_text.setTypeface(lovelo);
         school_location_text.setTypeface(lovelo);
         success_message.setTypeface(lovelo);
+
+        edit_images.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Admin_Profile.this, Edit_Images.class));
+            }
+        });
+
+        edit_facilities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Admin_Profile.this, Edit_Facility.class));
+            }
+        });
 
 //        when edit button is clicked, it changes to save
         edit_button.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +263,9 @@ public class Admin_Profile extends AppCompatActivity {
                 });
             }
         });
+
+
+
     }
 
     private void save_new_values(String string_school_name, String string_school_email,
@@ -426,7 +512,7 @@ public class Admin_Profile extends AppCompatActivity {
 
                             }
                         }
-                        Fetch_Facilities();
+                        Fetch_Images_ID();
                     }
                 }
 
@@ -441,7 +527,131 @@ public class Admin_Profile extends AppCompatActivity {
         }
     }
 
-    private void Fetch_Facilities() {
+    public ArrayList<Images> getImagesFromDatabase(){
+        return  imagesArray;
+    }
 
+    public ArrayList<Facilities> getFacilitiesFromDatabase(){
+        return  facilitiesArray;
+    }
+
+    private void Fetch_Images_ID() {
+        images_no_internet.setVisibility(View.GONE);
+        try{
+            DatabaseReference get_Image_urlID = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code);//.child(mauth.getCurrentUser().getUid());
+            get_Image_urlID.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            Fetch_Images_Url(child.getKey());
+                        }
+                    }else{
+//                    Toast.makeText(getActivity(),"Cannot get ID",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_Profile.this,"Cancelled",Toast.LENGTH_LONG).show();
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Fetch_Images_Url(final String key) {
+        DatabaseReference getImageUrls = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code).child(key);
+        getImageUrls.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        if(child.getKey().equals("image")){
+                            images_image = child.getValue().toString();
+                        }
+                        else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    Images obj = new Images(key,images_image);
+                    imagesArray.add(obj);
+                    images_RecyclerView.setAdapter(images_Adapter);
+                    images_Adapter.notifyDataSetChanged();
+                    no_images.setVisibility(View.GONE);
+                    Fetch_Images_ID();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Admin_Profile.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
+    private void Fetch_Facilities_IDS() {
+        facilies_no_internet.setVisibility(View.GONE);
+        try{
+            DatabaseReference get_faciility_urlID = FirebaseDatabase.getInstance().getReference("images").child("facilities").child(school_code);//.child(mauth.getCurrentUser().getUid());
+            get_faciility_urlID.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            Fetch_Facility_Url(child.getKey());
+                        }
+                    }else{
+//                    Toast.makeText(getActivity(),"Cannot get ID",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_Profile.this,"Cancelled",Toast.LENGTH_LONG).show();
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Fetch_Facility_Url(final String key) {
+        DatabaseReference getFacilityUrls = FirebaseDatabase.getInstance().getReference("images").child("facilities").child(school_code).child(key);
+        getFacilityUrls.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        if(child.getKey().equals("image")){
+                            facility_image = child.getValue().toString();
+                        }
+                        if(child.getKey().equals("facility_name")){
+                            facility_name = child.getValue().toString();
+                        }
+                        else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    Facilities obj = new Facilities(key,facility_name, facility_image);
+                    facilitiesArray.add(obj);
+                    facilities_RecyclerView.setAdapter(facilities_Adapter);
+                    facilities_Adapter.notifyDataSetChanged();
+                    no_facilities.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(Admin_Profile.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 }
