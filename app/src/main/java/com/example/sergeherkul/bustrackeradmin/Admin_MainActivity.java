@@ -54,10 +54,12 @@ public class Admin_MainActivity extends AppCompatActivity {
     FirebaseAuth mauth;
     Accessories mainaccessor;
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
-    private String distress_key,school_id,distress_title, distress_message, distress_time, distressImage;
+    private String distress_key,school_id,distress_title, distress_message, distress_time, distressImage,
+    image_two_image, image_one_image, image_three_image;
     private Handler thehandler;
     private DatabaseReference add_todatabaseReference, remove_fromReference;
     private Slider slider;
+
 
 
     @Override
@@ -74,8 +76,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         //silder initializations starts here
         Slider.init(new PicassoImageLoadingService(Admin_MainActivity.this));
         slider = findViewById(R.id.banner_slider1);
-
-        slider.setAdapter(new image_slider_adapter());
+        slider.setAdapter(new image_slider_adapter(image_one_image, image_two_image, image_three_image));
 //        ends here
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
@@ -126,7 +127,6 @@ public class Admin_MainActivity extends AppCompatActivity {
                 break;
 
 
-
             case R.id.admin_logout:
                 final AlertDialog.Builder logout = new AlertDialog.Builder(Admin_MainActivity.this, R.style.Myalert);
                 logout.setTitle("Logging Out?");
@@ -165,6 +165,7 @@ public class Admin_MainActivity extends AppCompatActivity {
             if(mainaccessor.getBoolean("isverified")){
                 if(mainaccessor.getString("user_type").equals("Admin")){
                     new Look_for_distresses().execute();
+                    Fetch_Image_One();
                 }else{
                     Intent verify_school = new Intent(Admin_MainActivity.this, MapsActivity.class);
                     verify_school.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -185,6 +186,113 @@ public class Admin_MainActivity extends AppCompatActivity {
             Intent gotoLogin = new Intent(Admin_MainActivity.this, Login_Selector.class);
             gotoLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(gotoLogin);
+        }
+    }
+
+    private void Fetch_Image_One() {
+        try {
+            DatabaseReference image_one = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_id).child("image_one");
+            image_one.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            if(child.getKey().equals("image")){
+                                String image_one_image = child.getValue().toString();
+                                if(!image_one_image.equals("")){
+                                }else{
+                                    image_one_image = "https://www.cdnis.edu.hk/sites/default/files/styles/1200x795/public/CDNIS%20solar%20panel_1.jpg?itok=qCVODOAq";
+                                }
+                            }
+                            else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        Fetch_Image_Two();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_MainActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Fetch_Image_Two() {
+        try {
+            DatabaseReference image_two = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_id).child("image_two");
+            image_two.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            if(child.getKey().equals("image")){
+                                image_two_image = child.getValue().toString();
+                                if(!image_two_image.equals("")){
+                                }else{
+                                    image_two_image = "https://via.placeholder.com/550/FFFFFF/808080%20?Text=Digital.comC/O%20https://placeholder.com/";
+                                }
+                            }
+
+                            else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        Fetch_Image_Three();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_MainActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }catch (NullPointerException e){
+
+        }
+    }
+
+    private void Fetch_Image_Three() {
+        try {
+            DatabaseReference image_three = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_id).child("image_three");
+            image_three.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot child : dataSnapshot.getChildren()){
+                            if(child.getKey().equals("image")){
+                                image_three_image = child.getValue().toString();
+                                if(!image_three_image.equals("")){
+                                }else{
+                                    image_three_image = "https://via.placeholder.com/550/FFFFFF/808080%20?Text=Digital.comC/O%20https://placeholder.com/";
+                                }
+                            }
+
+                            else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        slider.setAdapter(new image_slider_adapter(image_one_image, image_two_image, image_three_image));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Admin_MainActivity.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }catch (NullPointerException e){
+
         }
     }
 
@@ -359,7 +467,6 @@ public class Admin_MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void Show_alert_notification(int diamge_type,String alert_key, String title, String message,
                                          String image,String time){

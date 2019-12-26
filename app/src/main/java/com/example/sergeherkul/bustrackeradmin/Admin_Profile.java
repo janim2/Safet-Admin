@@ -15,9 +15,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,13 +54,15 @@ public class Admin_Profile extends AppCompatActivity {
     private EditText school_name_editText, school_email_editText, school_number_editText,
             school_location_editText, language_editText, range_editText, mission_editText, vision_editText;
     private String school_code,string_school_name,string_school_email, string_school_number,
-            string_school_location, language_string, range_string, mission_string, vision_string;
+            string_school_location, language_string, range_string, mission_string, vision_string,
+            admission_string, admit_string;
     private Accessories profileaccessor;
-    private TextView success_message, language_text, range_text, mission_text, vision_text;
+    private TextView success_message, language_text, range_text, mission_text, vision_text, admission_status_text;
     private ProgressBar loading;
     private DatabaseReference databaseReference;
     private Dialog view_verification_dialogue;
     private Typeface lovelo;
+    private Spinner admission_status_spinner;
 
     //facilities items
     private ArrayList facilitiesArray = new ArrayList<Facilities>();
@@ -72,6 +79,9 @@ public class Admin_Profile extends AppCompatActivity {
     private RecyclerView.Adapter images_Adapter;
     private String images_id, images_image;
     private TextView no_images, images_no_internet, edit_images;
+
+    String[] admission_state = {"OPEN","CLOSE"};
+
 
 
     @Override
@@ -117,6 +127,8 @@ public class Admin_Profile extends AppCompatActivity {
         school_location_editText = findViewById(R.id.the_school_address_editText);
 
 //        other details declaration
+        admission_status_text = findViewById(R.id.admission_status_text);
+        admission_status_spinner = findViewById(R.id.admission_status_spinner);
         language_text = findViewById(R.id.language_text);
         range_text = findViewById(R.id.range_text);
         mission_text = findViewById(R.id.mission_text);
@@ -137,6 +149,22 @@ public class Admin_Profile extends AppCompatActivity {
         facilities_RecyclerView.setHasFixedSize(true);
         facilities_Adapter = new Facilities_Adapter(getFacilitiesFromDatabase(),Admin_Profile.this);
         facilities_RecyclerView.setAdapter(facilities_Adapter);
+
+
+        //seeing the adapter for the admission spinner
+        admission_status_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                admit_string = admission_state[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                admit_string = "CLOSED";
+            }
+        });
+        ArrayAdapter<String> the_state = new ArrayAdapter<String>(Admin_Profile.this,android.R.layout.simple_list_item_1,admission_state);
+        admission_status_spinner.setAdapter(the_state);
 
 
         if (isNetworkAvailable()){
@@ -219,6 +247,7 @@ public class Admin_Profile extends AppCompatActivity {
                 school_location_text_value.setVisibility(View.GONE);
 
                 //other details items
+                admission_status_text.setVisibility(View.GONE);
                 language_text.setVisibility(View.GONE);
                 range_text.setVisibility(View.GONE);
                 mission_text.setVisibility(View.GONE);
@@ -230,6 +259,7 @@ public class Admin_Profile extends AppCompatActivity {
                 school_location_editText.setVisibility(View.VISIBLE);
 
                 //other details items
+                admission_status_spinner.setVisibility(View.VISIBLE);
                 language_editText.setVisibility(View.VISIBLE);
                 range_editText.setVisibility(View.VISIBLE);
                 mission_editText.setVisibility(View.VISIBLE);
@@ -284,7 +314,7 @@ public class Admin_Profile extends AppCompatActivity {
     private void save_new_values(String string_school_name, String string_school_email,
                                  String string_school_number, String string_school_location,
                                  String string_language, String string_range,
-                                 String string_mission, String string_vision) {
+                                 String string_mission, String string_vision, String admittion) {
         loading.setVisibility(View.VISIBLE);
         success_message.setVisibility(View.GONE);
 
@@ -297,10 +327,12 @@ public class Admin_Profile extends AppCompatActivity {
         databaseReference.child("range").setValue(string_range);
         databaseReference.child("mission").setValue(string_mission);
         databaseReference.child("vision").setValue(string_vision);
+        databaseReference.child("admission_status").setValue(admittion);
         loading.setVisibility(View.GONE);
-        success_message.setVisibility(View.VISIBLE);
-        success_message.setTextColor(getResources().getColor(R.color.green));
-        success_message.setText("Update Successful");
+//        success_message.setVisibility(View.VISIBLE);
+//        success_message.setTextColor(getResources().getColor(R.color.green));
+//        success_message.setText("Update Successful");
+        Toast.makeText(Admin_Profile.this, "Update Successful", Toast.LENGTH_LONG).show();
 
         //updating shared preference values
         profileaccessor.put("school_email",string_school_email);
@@ -449,7 +481,7 @@ public class Admin_Profile extends AppCompatActivity {
                     if(full_code.equals(school_code)){
                         view_verification_dialogue.dismiss();
                         save_new_values(string_school_name,string_school_email,string_school_number,
-                                string_school_location,language_string, range_string, mission_string, vision_string);
+                                string_school_location,language_string, range_string, mission_string, vision_string, admit_string);
                     }else{
                         success_message.setVisibility(View.VISIBLE);
                         success_message.setTextColor(getResources().getColor(R.color.red));
@@ -507,6 +539,15 @@ public class Admin_Profile extends AppCompatActivity {
                                     vision_text.setText("None");
                                 }else{
                                     vision_text.setText(vision_string);
+                                }
+                            }
+
+                            if(child.getKey().equals("admission_status")){
+                                admission_string = child.getValue().toString();
+                                if(admission_string.equals("")){
+                                    admission_status_text.setText("CLOSED");
+                                }else{
+                                    admission_status_text.setText(admission_string);
                                 }
                             }
 

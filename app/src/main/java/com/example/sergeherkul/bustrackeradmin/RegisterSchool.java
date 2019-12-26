@@ -155,6 +155,7 @@ public class RegisterSchool extends AppCompatActivity {
                             mdatabase.child("range").setValue("");
                             mdatabase.child("mission").setValue("");
                             mdatabase.child("vision").setValue("");
+                            mdatabase.child("admission_status").setValue("");
 
                             addToNotifications();
                             loading.setVisibility(View.GONE);
