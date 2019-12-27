@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -167,18 +169,6 @@ public class Admin_Profile extends AppCompatActivity {
         admission_status_spinner.setAdapter(the_state);
 
 
-        if (isNetworkAvailable()){
-            Fetch_Remaining_school_info();
-        }else{
-            Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
-            images_no_internet.setVisibility(View.VISIBLE);
-            facilies_no_internet.setVisibility(View.VISIBLE);
-
-            no_images.setVisibility(View.GONE);
-            no_facilities.setVisibility(View.GONE);
-        }
-
-
         facilies_no_internet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +190,36 @@ public class Admin_Profile extends AppCompatActivity {
         images_RecyclerView.setHasFixedSize(true);
         images_Adapter = new ImagesAdapter(getImagesFromDatabase(),Admin_Profile.this);
         images_RecyclerView.setAdapter(images_Adapter);
+
+        if (isNetworkAvailable()){
+            Fetch_Remaining_school_info();
+        }else{
+            Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
+            images_no_internet.setVisibility(View.VISIBLE);
+            facilies_no_internet.setVisibility(View.VISIBLE);
+
+            no_images.setVisibility(View.GONE);
+            no_facilities.setVisibility(View.GONE);
+        }
+
+        final Handler thehandler;
+
+        thehandler = new Handler(Looper.getMainLooper());
+        final int delay = 15000;
+
+        thehandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(isNetworkAvailable()){
+                    Fetch_Remaining_school_info();
+                }else{
+                    Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
+                    images_no_internet.setVisibility(View.VISIBLE);
+                    facilies_no_internet.setVisibility(View.VISIBLE);
+                }
+                thehandler.postDelayed(this,delay);
+            }
+        },delay);
 
         images_no_internet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,6 +360,7 @@ public class Admin_Profile extends AppCompatActivity {
         profileaccessor.put("school_name",string_school_name);
         profileaccessor.put("school_telephone",string_school_number);
         addToNotifications(FirebaseAuth.getInstance().getCurrentUser());
+        startActivity(new Intent(Admin_Profile.this, Admin_Profile.class));
     }
 
     private void addToNotifications(FirebaseUser currentUser) {
@@ -354,12 +375,7 @@ public class Admin_Profile extends AppCompatActivity {
         databaseReference.child("title").setValue("Update Successful");
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+
 
     private void showSchoolVerifyPopup(FragmentActivity activity) {
         final TextView cancelpopup,verification_message, success_message;
@@ -698,5 +714,12 @@ public class Admin_Profile extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

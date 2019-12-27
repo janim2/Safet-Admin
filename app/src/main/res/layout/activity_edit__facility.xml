@@ -9,19 +9,140 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="20dp">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/image"/>
+            android:layout_height="wrap_content"
+            android:text="Current Facilities"
+            android:padding="20dp"
+            android:gravity="center"
+            android:textColor="@color/main_blue"
+            android:textSize="14sp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:id="@+id/facilities_recyclerView"
+                android:layout_marginTop="20dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No facilities added"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:id="@+id/no_facilities"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No internet connection"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:drawableTop="@drawable/refresh"
+                android:id="@+id/facilities_no_internet"
+                android:textColor="@color/colorPrimaryDark"/>
+
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Add Facility"
+            android:gravity="center"
+            android:textColor="@color/main_blue"/>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp"
+            app:cardElevation="5dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:id="@+id/image"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"/>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/add"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:hint="Facility Name"
+                    android:layout_marginTop="20dp"
+                    android:layout_margin="10dp"
+                    android:textSize="14sp"
+                    android:id="@+id/facility_name_editText"
+                    android:background="@android:drawable/editbox_background"/>
+
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/loading"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/status_message"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No internet connection"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/no_internet"/>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Upload"
-            android:layout_marginTop="20dp"
+            android:layout_height="43dp"
+            android:text="Upload Facility"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginBottom="50dp"
             android:id="@+id/upload_button"/>
+
+
     </LinearLayout>
 
 </ScrollView>

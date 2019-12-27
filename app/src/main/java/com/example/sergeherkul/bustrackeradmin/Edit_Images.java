@@ -168,6 +168,10 @@ public class Edit_Images extends AppCompatActivity {
 //                                    progressDialog.setMessage("Uploaded "+(int)progress+"%");
                                 }
                             });
+                }else{
+                    Toast.makeText(Edit_Images.this, "Image one not selected", Toast.LENGTH_LONG).show();
+
+                }
 
                     //image two
                     if(filePath_two != null){
@@ -303,11 +307,6 @@ public class Edit_Images extends AppCompatActivity {
                         Toast.makeText(Edit_Images.this, "Logo not selected", Toast.LENGTH_LONG).show();
 
                     }
-
-                }else{
-                    Toast.makeText(Edit_Images.this, "Image one not selected", Toast.LENGTH_LONG).show();
-
-                }
             }
         });
     }

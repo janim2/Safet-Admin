@@ -13,9 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Edit_Images"
-            android:parentActivityName=".Admin_Profile"></activity>
-        <activity android:name=".Edit_Facility" />
+        <activity android:name=".Messages_Activity"></activity>
+        <activity
+            android:name=".Edit_Images"
+            android:parentActivityName=".Admin_Profile" />
+        <activity android:name=".Edit_Facility"
+            android:parentActivityName=".Admin_Profile"/>
         <activity
             android:name=".Circulate_Message"
             android:parentActivityName=".Admin_MainActivity" />

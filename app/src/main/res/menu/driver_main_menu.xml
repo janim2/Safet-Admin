@@ -9,6 +9,11 @@
         android:title="Notifications"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/driver_messages"
+        android:title="Messages"
+        app:showAsAction="never"/>
+
+
      <item android:id="@+id/driver_logout"
         android:title="Logout"
         app:showAsAction="never"/>
