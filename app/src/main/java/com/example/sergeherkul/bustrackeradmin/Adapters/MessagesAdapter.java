@@ -60,20 +60,25 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         title.setText(itemList.get(position).getMessage_title());
         message.setText(itemList.get(position).getMessage_message());
 
+        if(itemList.get(position).getLocation() != null){
+            if(!itemList.get(position).getLocation().equals("")){
+                location.setVisibility(View.VISIBLE);
+                location.setText("Location: " + itemList.get(position).getLocation());
+            }
+        }
+        if(itemList.get(position).getDate() != null){
+            if(!itemList.get(position).getDate().equals("")){
+                date.setVisibility(View.VISIBLE);
+                date.setText("Date: "  + itemList.get(position).getDate());
+            }
+        }
 
-        if(!itemList.get(position).getLocation().equals("")){
-            location.setVisibility(View.VISIBLE);
-            location.setText("Location: " + itemList.get(position).getLocation());
+        if(itemList.get(position).getTime() != null){
+            if(!itemList.get(position).getTime().equals("")){
+                time.setVisibility(View.VISIBLE);
+                time.setText("Time: "+ itemList.get(position).getTime());
+            }
         }
-        if(!itemList.get(position).getDate().equals("")){
-            date.setVisibility(View.VISIBLE);
-            date.setText("Date: "  + itemList.get(position).getDate());
-        }
-        if(!itemList.get(position).getTime().equals("")){
-            time.setVisibility(View.VISIBLE);
-            time.setText("Time: "+ itemList.get(position).getTime());
-        }
-
         }
 
 

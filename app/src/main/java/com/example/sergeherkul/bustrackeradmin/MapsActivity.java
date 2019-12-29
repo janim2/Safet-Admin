@@ -38,6 +38,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sergeherkul.bustrackeradmin.Model.Drivers;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;
@@ -374,7 +375,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.driver_messages:
-                startActivity(new Intent(MapsActivity.this,Messages_Activity.class));
+                startActivity(new Intent(MapsActivity.this, Driver_Messages_Activity.class));
+                break;
+
+            case R.id.assigned_children:
+                startActivity(new Intent(MapsActivity.this,Assigned_Children.class));
                 break;
 
             case R.id.driver_logout:

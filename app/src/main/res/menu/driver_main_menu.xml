@@ -13,6 +13,9 @@
         android:title="Messages"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/assigned_children"
+        android:title="Assigned Children"
+        app:showAsAction="never"/>
 
      <item android:id="@+id/driver_logout"
         android:title="Logout"
