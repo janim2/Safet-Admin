@@ -692,7 +692,7 @@ public class Admin_Profile extends AppCompatActivity {
                         }
                         if(child.getKey().equals("facility_name")){
                             facility_name = child.getValue().toString();
-                            Toast.makeText(Admin_Profile.this, facility_name, Toast.LENGTH_LONG).show();
+//                            Toast.makeText(Admin_Profile.this, facility_name, Toast.LENGTH_LONG).show();
                         }
                         else{
 //                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();

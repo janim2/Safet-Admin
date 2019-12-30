@@ -20,8 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 import java.util.Random;
@@ -29,11 +33,12 @@ import java.util.Random;
 public class RegisterSchool extends AppCompatActivity {
     private ImageView gobackImage;
     private EditText school_code, school_name, school_address, school_phone_number, school_email,
-    school_password, confirm_password;
+    school_password, confirm_password, coupon_code_editText;
     private Button done_button;
-    private String s_code,s_name, s_address, s_phone_number,s_email,s_password,s_confirm_password;
+    private String s_code,s_name, s_address, s_phone_number,s_email,
+            s_password,s_confirm_password, coupon_code;
     private ProgressBar loading;
-    private TextView success_message,school_code_text,check_school_code;
+    private TextView success_message,school_code_text,check_school_code, request_coupon_code;
     private String[] capital_letters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
     "P","Q","R","s","T","U","V","W","X","Y","Z"};
     private String[] small_letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
@@ -61,6 +66,8 @@ public class RegisterSchool extends AppCompatActivity {
         success_message = findViewById(R.id.success_message);
         school_code_text = findViewById(R.id.school_details_text);
         check_school_code = findViewById(R.id.school_code_check);
+        coupon_code_editText = findViewById(R.id.coupon_code_editText);
+        request_coupon_code = findViewById(R.id.request_coupon_code);
 
         done_button.setTypeface(lovelo);
         success_message.setTypeface(lovelo);
@@ -96,15 +103,28 @@ public class RegisterSchool extends AppCompatActivity {
                 s_email = school_email.getText().toString().trim();
                 s_password = school_password.getText().toString().trim();
                 s_confirm_password = confirm_password.getText().toString().trim();
-
+                coupon_code = coupon_code_editText.getText().toString().trim();
                 if(s_confirm_password.equals(s_password)){
                     if(!s_code.equals("")){
                         if(!s_name.equals("") && !s_address.equals("") && !s_phone_number.equals("")
                         && !s_email.equals("") && !s_password.equals("") && !s_confirm_password.equals("")){
-                            if(isNetworkAvailable()) {
-                                Register_School(s_code, s_name, s_address, s_phone_number, s_email, s_password);
+                            if(s_password.length() > 6){
+                                if(s_email.indexOf("@") > 1 || s_email.lastIndexOf(".") - s_email.indexOf("@") > 2){
+                                    if(isNetworkAvailable()) {
+                                        Register_School(s_code, s_name, s_address, s_phone_number, s_email, s_password, coupon_code);
+                                    }else{
+                                        Toast.makeText(RegisterSchool.this,"No internet connection",Toast.LENGTH_LONG).show();
+                                    }
+                                }else{
+                                    success_message.setVisibility(View.VISIBLE);
+                                    success_message.setTextColor(getResources().getColor(R.color.red));
+                                    success_message.setText("Enter valid email");
+                                }
+
                             }else{
-                                Toast.makeText(RegisterSchool.this,"No internet connection",Toast.LENGTH_LONG).show();
+                                success_message.setVisibility(View.VISIBLE);
+                                success_message.setTextColor(getResources().getColor(R.color.red));
+                                success_message.setText("Password must be greater than 6");
                             }
                         }else{
                             success_message.setVisibility(View.VISIBLE);
@@ -127,7 +147,7 @@ public class RegisterSchool extends AppCompatActivity {
     }
 
     private void Register_School(final String school_code, final String school_name, final String school_address,
-                                    final String school_phone_number, final String school_email, String school_password) {
+                                 final String school_phone_number, final String school_email, String school_password, final String coupon_code) {
         loading.setVisibility(View.VISIBLE);
 
         auth.createUserWithEmailAndPassword(school_email, school_password)
@@ -146,26 +166,59 @@ public class RegisterSchool extends AppCompatActivity {
                             success_message.setTextColor(getResources().getColor(R.color.red));
                             success_message.setText("Registration failed");
                         } else {
-                            mdatabase = FirebaseDatabase.getInstance().getReference("schools").child(school_code);
-                            mdatabase.child("name").setValue(school_name);
-                            mdatabase.child("email").setValue(school_email);
-                            mdatabase.child("location").setValue(school_address);
-                            mdatabase.child("telephone").setValue(school_phone_number);
-                            mdatabase.child("language").setValue("");
-                            mdatabase.child("range").setValue("");
-                            mdatabase.child("mission").setValue("");
-                            mdatabase.child("vision").setValue("");
-                            mdatabase.child("admission_status").setValue("");
+                            if(!coupon_code.equals("")){
+                                Query cross_checkCoupon = FirebaseDatabase.getInstance().getReference("coupon_code")
+                                       .orderByChild("code").equalTo(coupon_code);
+                                cross_checkCoupon.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists()){
+                                            for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                String key = ds.getKey();
+                                                mdatabase = FirebaseDatabase.getInstance().getReference("schools").child(school_code);
+                                                mdatabase.child("name").setValue(school_name);
+                                                mdatabase.child("email").setValue(school_email);
+                                                mdatabase.child("location").setValue(school_address);
+                                                mdatabase.child("telephone").setValue(school_phone_number);
+                                                mdatabase.child("language").setValue("");
+                                                mdatabase.child("range").setValue("");
+                                                mdatabase.child("mission").setValue("");
+                                                mdatabase.child("vision").setValue("");
+                                                mdatabase.child("admission_status").setValue("");
 
-                            addToNotifications();
-                            loading.setVisibility(View.GONE);
-                            success_message.setVisibility(View.VISIBLE);
-                            success_message.setTextColor(getResources().getColor(R.color.green));
-                            success_message.setText("Registration successful");
-                            FirebaseAuth.getInstance().signOut();
-                            Intent goToLogin  = new Intent(RegisterSchool.this, Admin_Login.class);
-                            goToLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(goToLogin);
+                                                //removing coupon code from database
+                                                FirebaseDatabase.getInstance().getReference("coupon_code").child(key).removeValue();
+
+                                                addToNotifications();
+                                                loading.setVisibility(View.GONE);
+                                                success_message.setVisibility(View.VISIBLE);
+                                                success_message.setTextColor(getResources().getColor(R.color.green));
+                                                success_message.setText("Registration successful");
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent goToLogin  = new Intent(RegisterSchool.this, Admin_Login.class);
+                                                goToLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(goToLogin);
+                                            }
+                                        }else{
+                                            loading.setVisibility(View.GONE);
+                                            success_message.setVisibility(View.VISIBLE);
+                                            success_message.setTextColor(getResources().getColor(R.color.red));
+                                            success_message.setText("Coupon code invalid");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }else{
+                                loading.setVisibility(View.GONE);
+                                success_message.setVisibility(View.VISIBLE);
+                                success_message.setTextColor(getResources().getColor(R.color.red));
+                                success_message.setText("Coupon code required");
+                            }
                         }
                     }
                 });

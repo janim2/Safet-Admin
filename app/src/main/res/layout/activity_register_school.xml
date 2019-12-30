@@ -129,11 +129,67 @@
                 android:layout_marginTop="10dp"
                 android:textSize="13sp"
                 android:inputType="textPassword"
-                android:layout_marginBottom="80dp"
                 android:id="@+id/confirm_passcode"
                 android:textColorHint="@android:color/darker_gray"
                 android:textColor="@color/colorPrimary"
                 android:background="@android:drawable/editbox_background"/>
+
+
+            <!--android:layout_marginBottom="80dp"-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coupon code"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textColor="@color/main_blue"
+                android:background="@android:color/white"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code? This helps us confirm that the school you are registering exists"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@android:color/white"
+                android:layout_gravity="center"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter coupon here"
+                android:layout_marginTop="10dp"
+                android:textSize="13sp"
+                android:inputType="text"
+                android:id="@+id/coupon_code_editText"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/colorPrimary"
+                android:background="@android:drawable/editbox_background"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="13sp"
+                android:text="Request coupon code"
+                android:gravity="right"
+                android:layout_marginBottom="80dp"
+                android:id="@+id/request_coupon_code"
+                android:textColor="@color/main_blue"/>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -143,7 +199,7 @@
                 android:id="@+id/success_message"
                 android:gravity="center"
                 android:visibility="gone"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="-60dp"
                 android:textSize="13sp"/>
 
         </LinearLayout>
