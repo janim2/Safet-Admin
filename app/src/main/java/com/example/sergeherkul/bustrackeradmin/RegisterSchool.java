@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,8 +28,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Random;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class RegisterSchool extends AppCompatActivity {
     private ImageView gobackImage;
@@ -79,7 +93,7 @@ public class RegisterSchool extends AppCompatActivity {
         school_name.requestFocus();
 
         Random random = new Random();
-        Integer d = random.nextInt(99);
+        Integer d = random.nextInt(89) + 10;
         Integer capital_letterfinder = random.nextInt(26);
         Integer small_letterfinder = random.nextInt(26);
         s_code = capital_letters[capital_letterfinder] + d+"" + small_letters[small_letterfinder];
@@ -93,6 +107,31 @@ public class RegisterSchool extends AppCompatActivity {
             }
         });
 
+        request_coupon_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading.setVisibility(View.VISIBLE);
+                if (isNetworkAvailable()){
+                    s_email = school_email.getText().toString().trim();
+                    if(!s_email.equals("")){
+                        new Sending_mail("https://iamjesse75.000webhostapp.com/Send_emails_only.php",
+                                "iamjesse75@gmail.com","Request for Coupon code",
+                                s_email+" has asked for a coupon code. Waiting to hear from you shortly","safet").execute();
+                    }else{
+                        loading.setVisibility(View.GONE);
+                        success_message.setVisibility(View.VISIBLE);
+                        success_message.setTextColor(getResources().getColor(R.color.red));
+                        success_message.setText("Email required for code request");
+                    }
+                }else{
+                    loading.setVisibility(View.GONE);
+                    success_message.setVisibility(View.VISIBLE);
+                    success_message.setTextColor(getResources().getColor(R.color.red));
+                    success_message.setText("No internet connection");
+                }
+
+            }
+        });
         done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +228,14 @@ public class RegisterSchool extends AppCompatActivity {
                                                 //removing coupon code from database
                                                 FirebaseDatabase.getInstance().getReference("coupon_code").child(key).removeValue();
 
+                                                //send email
+                                                new Sending_mail("https://iamjesse75.000webhostapp.com/Send_emails_only.php",
+                                                        school_email,"Welcome to the Safet Family",
+                                                        s_email+" has been added to our system as a school. We hope you are as happy as we are to get started" +
+                                                                "on the journey of keeping children safe. \nSchool codes help you tremendously in using the system" +
+                                                                "so please keep yours safe. Your school code is " + school_code+" .Feel free to contact us when " +
+                                                                "you have any unanswered questions.","safet").execute();
+
                                                 addToNotifications();
                                                 loading.setVisibility(View.GONE);
                                                 success_message.setVisibility(View.VISIBLE);
@@ -239,6 +286,83 @@ public class RegisterSchool extends AppCompatActivity {
         }
     }
 
+    class Sending_mail extends AsyncTask<Void, Void, String> {
+
+        String url_location,to,subject,message,header_begin ;
+
+        public Sending_mail(String url_location,String to, String subject, String message, String header_begin) {
+            this.url_location = url_location;
+            this.to = to;
+            this.subject = subject;
+            this.message = message;
+            this.header_begin = header_begin;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+            try {
+                URL url = new URL(url_location);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(10000);
+                httpURLConnection.setReadTimeout(10000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String data = URLEncoder.encode("to", "UTF-8") + "=" + URLEncoder.encode(to, "UTF-8") + "&" +
+                        URLEncoder.encode("subject", "UTF-8") + "=" + URLEncoder.encode(subject, "UTF-8") + "&" +
+                        URLEncoder.encode("message", "UTF-8") + "=" + URLEncoder.encode(message, "UTF-8") + "&" +
+                        URLEncoder.encode("header_begin", "UTF-8") + "=" + URLEncoder.encode(header_begin, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuffer stringBuffer = new StringBuffer();
+                String fetch;
+                while ((fetch = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(fetch);
+                }
+                String string = stringBuffer.toString();
+                inputStream.close();
+                return string;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            return "please check internet connection";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s.equals("Done")){
+                loading.setVisibility(View.GONE);
+                success_message.setVisibility(View.VISIBLE);
+                success_message.setTextColor(getResources().getColor(R.color.red));
+                success_message.setText("Request sent");
+            }else{
+                loading.setVisibility(View.GONE);
+                success_message.setVisibility(View.VISIBLE);
+                success_message.setTextColor(getResources().getColor(R.color.red));
+                success_message.setText("Sending failed. Try Again Later");
+            }
+        }
+
+    }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

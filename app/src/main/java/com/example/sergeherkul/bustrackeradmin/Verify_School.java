@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Verify_School extends AppCompatActivity {
 
     private ImageView goback;
-    private TextView final_step_text, school_code_text, code_verified_text, school_v_text;
+    private TextView final_step_text, school_code_text, code_verified_text, school_v_text, change_email;
     private EditText code_one,code_two,code_three,code_four;
     private Button next_button;
     private ProgressBar loading;
@@ -55,6 +56,7 @@ public class Verify_School extends AppCompatActivity {
         next_button = findViewById(R.id.next_button);
         code_verified_text = findViewById(R.id.code_verified);
         school_v_text = findViewById(R.id.school_v_text);
+        change_email = findViewById(R.id.change_email);
         loading = findViewById(R.id.loading);
 
         final_step_text.setTypeface(lovelo);
@@ -75,6 +77,15 @@ public class Verify_School extends AppCompatActivity {
                     finish();
                 }
 
+            }
+        });
+
+        change_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotBack_to_login = new Intent(Verify_School.this, Admin_Login.class);
+                gotBack_to_login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(gotBack_to_login);
             }
         });
 
