@@ -224,6 +224,7 @@ public class RegisterSchool extends AppCompatActivity {
                                                 mdatabase.child("mission").setValue("");
                                                 mdatabase.child("vision").setValue("");
                                                 mdatabase.child("admission_status").setValue("");
+                                                mdatabase.child("mechanic_number").setValue("");
 
                                                 //removing coupon code from database
                                                 FirebaseDatabase.getInstance().getReference("coupon_code").child(key).removeValue();

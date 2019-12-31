@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,12 @@ import android.widget.Toast;
 import com.example.sergeherkul.bustrackeradmin.Accessories;
 import com.example.sergeherkul.bustrackeradmin.Model.Notify;
 import com.example.sergeherkul.bustrackeradmin.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -91,23 +97,74 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder
             message.setText(itemList.get(position).getMessage());
 //            time.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",itemList.get(position).getTime()));
 
-//        /setting onclick for each button
+//      setting onclick for each button
         call_driver.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
+                Accessories alertsAccesor = new Accessories(context);
+                Query find_driver = FirebaseDatabase.getInstance().getReference("drivers")
+                        .child(alertsAccesor.getString("school_code")).child(itemList.get(position).getId());
+                find_driver.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            for(DataSnapshot child : dataSnapshot.getChildren()){
+                                if(child.getKey().equals("phone_number")){
+                                    String driver_number = child.getValue().toString();
+                                    if(!driver_number.equals("")){
+                                        openDialer(v,driver_number);
+                                    }else{
+                                        Toast.makeText(context, "number not added", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 openDialer(v,"0268977129");
             }
         });
 
         call_police_or_mechanic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 if(itemList.get(position).getImageType().equals("SN")){
                     //call 911
                     openDialer(v,"911");
                 }else{
                     //call mechanic
-                    openDialer(v,"0268977129");
+                    Accessories alertsAccessor = new Accessories(context);
+                    String school_code = alertsAccessor.getString("school_code");
+                    final DatabaseReference mechanic_number = FirebaseDatabase.getInstance().getReference("schools")
+                            .child(school_code);
+                    mechanic_number.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                for(DataSnapshot child : dataSnapshot.getChildren()){
+                                    if(child.getKey().equals("mechanic_number")){
+                                        String mechanic_number_string = child.getValue().toString();
+                                        if(!mechanic_number_string.equals("")){
+                                            openDialer(v,mechanic_number_string);
+                                        }else{
+                                            Toast.makeText(context, "number not added", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }
         });

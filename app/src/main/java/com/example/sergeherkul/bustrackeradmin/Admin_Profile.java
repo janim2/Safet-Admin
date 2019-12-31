@@ -54,10 +54,11 @@ public class Admin_Profile extends AppCompatActivity {
     school_location_text,school_name_text_value, school_email_text_value, school_number_text_value,
             school_location_text_value;
     private EditText school_name_editText, school_email_editText, school_number_editText,
-            school_location_editText, language_editText, range_editText, mission_editText, vision_editText;
+            school_location_editText, language_editText, range_editText, mission_editText, vision_editText,
+            mechanic_no_editText;
     private String school_code,string_school_name,string_school_email, string_school_number,
             string_school_location, language_string, range_string, mission_string, vision_string,
-            admission_string, admit_string;
+            admission_string, admit_string,mechanic_string;
     private Accessories profileaccessor;
     private TextView success_message, language_text, range_text, mission_text, vision_text, admission_status_text;
     private ProgressBar loading;
@@ -80,7 +81,7 @@ public class Admin_Profile extends AppCompatActivity {
     private RecyclerView images_RecyclerView;
     private RecyclerView.Adapter images_Adapter;
     private String images_id, images_image;
-    private TextView no_images, images_no_internet, edit_images;
+    private TextView no_images, images_no_internet, edit_images, mechanic_text;
 
     String[] admission_state = {"OPEN","CLOSE"};
 
@@ -135,11 +136,13 @@ public class Admin_Profile extends AppCompatActivity {
         range_text = findViewById(R.id.range_text);
         mission_text = findViewById(R.id.mission_text);
         vision_text = findViewById(R.id.vision_text);
+        mechanic_text = findViewById(R.id.mechanic_no_text);
 
         language_editText = findViewById(R.id.language_editText);
         range_editText = findViewById(R.id.range_editText);
         mission_editText = findViewById(R.id.mission_editText);
         vision_editText = findViewById(R.id.vision_editText);
+        mechanic_no_editText = findViewById(R.id.mechanic_no_editText);
 
         edit_facilities = findViewById(R.id.edit_facility);
 
@@ -272,6 +275,7 @@ public class Admin_Profile extends AppCompatActivity {
                 range_text.setVisibility(View.GONE);
                 mission_text.setVisibility(View.GONE);
                 vision_text.setVisibility(View.GONE);
+                mechanic_text.setVisibility(View.GONE);
 
                 school_name_editText.setVisibility(View.VISIBLE);
                 school_email_editText.setVisibility(View.VISIBLE);
@@ -284,6 +288,7 @@ public class Admin_Profile extends AppCompatActivity {
                 range_editText.setVisibility(View.VISIBLE);
                 mission_editText.setVisibility(View.VISIBLE);
                 vision_editText.setVisibility(View.VISIBLE);
+                mechanic_no_editText.setVisibility(View.VISIBLE);
 
                 school_name_editText.setText(string_school_name);
                 school_email_editText.setText(string_school_email);
@@ -295,6 +300,7 @@ public class Admin_Profile extends AppCompatActivity {
                 range_editText.setText(range_string);
                 mission_editText.setText(mission_string);
                 vision_editText.setText(vision_string);
+                mechanic_no_editText.setText(mechanic_string);
 
                 edit_button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -308,6 +314,7 @@ public class Admin_Profile extends AppCompatActivity {
                         range_string = range_editText.getText().toString().trim();
                         mission_string = mission_editText.getText().toString().trim();
                         vision_string = vision_editText.getText().toString().trim();
+                        mechanic_string = mechanic_no_editText.getText().toString().trim();
 
                         if(!string_school_name.equals("") && !string_school_email.equals("")
                         && !string_school_location.equals("") && !string_school_number.equals("")){
@@ -334,7 +341,7 @@ public class Admin_Profile extends AppCompatActivity {
     private void save_new_values(String string_school_name, String string_school_email,
                                  String string_school_number, String string_school_location,
                                  String string_language, String string_range,
-                                 String string_mission, String string_vision, String admittion) {
+                                 String string_mission, String string_vision, String mechanic_string,String admittion) {
         loading.setVisibility(View.VISIBLE);
         success_message.setVisibility(View.GONE);
 
@@ -347,6 +354,7 @@ public class Admin_Profile extends AppCompatActivity {
         databaseReference.child("range").setValue(string_range);
         databaseReference.child("mission").setValue(string_mission);
         databaseReference.child("vision").setValue(string_vision);
+        databaseReference.child("mechanic_number").setValue(mechanic_string);
         databaseReference.child("admission_status").setValue(admittion);
         loading.setVisibility(View.GONE);
 //        success_message.setVisibility(View.VISIBLE);
@@ -497,7 +505,7 @@ public class Admin_Profile extends AppCompatActivity {
                     if(full_code.equals(school_code)){
                         view_verification_dialogue.dismiss();
                         save_new_values(string_school_name,string_school_email,string_school_number,
-                                string_school_location,language_string, range_string, mission_string, vision_string, admit_string);
+                                string_school_location,language_string, range_string, mission_string, vision_string, mechanic_string,admit_string);
                     }else{
                         success_message.setVisibility(View.VISIBLE);
                         success_message.setTextColor(getResources().getColor(R.color.red));
@@ -555,6 +563,15 @@ public class Admin_Profile extends AppCompatActivity {
                                     vision_text.setText("None");
                                 }else{
                                     vision_text.setText(vision_string);
+                                }
+                            }
+
+                            if(child.getKey().equals("mechanic_number")){
+                                mechanic_string = child.getValue().toString();
+                                if(mechanic_string.equals("")){
+                                    mechanic_text.setText("None");
+                                }else{
+                                    mechanic_text.setText(mechanic_string);
                                 }
                             }
 

@@ -403,6 +403,35 @@
                         android:id="@+id/vision_editText"
                         android:textSize="13sp"/>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mechanic Number"
+                        android:layout_marginTop="10dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/main_blue"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="None"
+                        android:textSize="12sp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/mechanic_no_text"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="Enter number here"
+                        android:visibility="gone"
+                        android:inputType="number"
+                        android:id="@+id/mechanic_no_editText"
+                        android:textSize="13sp"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
