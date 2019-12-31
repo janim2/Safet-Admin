@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Adapters;
+package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Alerts;
-import com.example.sergeherkul.bustrackeradmin.AllBuses;
-import com.example.sergeherkul.bustrackeradmin.All_children;
-import com.example.sergeherkul.bustrackeradmin.Circulate_Message;
-import com.example.sergeherkul.bustrackeradmin.R;
-import com.example.sergeherkul.bustrackeradmin.Registered_Drivers;
+import com.safet.admin.bustrackeradmin.Alerts;
+import com.safet.admin.bustrackeradmin.AllBuses;
+import com.safet.admin.bustrackeradmin.All_children;
+import com.safet.admin.bustrackeradmin.Circulate_Message;
+import com.safet.admin.bustrackeradmin.R;
+import com.safet.admin.bustrackeradmin.Registered_Drivers;
 
 public class SolventViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 

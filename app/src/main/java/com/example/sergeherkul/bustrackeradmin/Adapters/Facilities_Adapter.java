@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Adapters;
+package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sergeherkul.bustrackeradmin.Model.Facilities;
-import com.example.sergeherkul.bustrackeradmin.Model.Images;
-import com.example.sergeherkul.bustrackeradmin.R;
+import com.safet.admin.bustrackeradmin.Model.Facilities;
+import com.safet.admin.bustrackeradmin.Model.Images;
+import com.safet.admin.bustrackeradmin.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

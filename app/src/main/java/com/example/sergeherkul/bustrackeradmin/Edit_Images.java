@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

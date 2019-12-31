@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,9 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Adapters.Edit_Facilities_Adapter;
-import com.example.sergeherkul.bustrackeradmin.Adapters.Facilities_Adapter;
-import com.example.sergeherkul.bustrackeradmin.Model.Facilities;
+import com.safet.admin.bustrackeradmin.Adapters.Edit_Facilities_Adapter;
+import com.safet.admin.bustrackeradmin.Adapters.Facilities_Adapter;
+import com.safet.admin.bustrackeradmin.Model.Facilities;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

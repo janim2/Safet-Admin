@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Model.Msg_Recepients;
+import com.safet.admin.bustrackeradmin.Model.Msg_Recepients;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

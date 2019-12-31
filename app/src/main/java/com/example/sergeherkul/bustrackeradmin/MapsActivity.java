@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.Manifest;
 import android.app.NotificationChannel;
@@ -38,7 +38,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Model.Drivers;
+import com.safet.admin.bustrackeradmin.Model.Drivers;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.common.ConnectionResult;

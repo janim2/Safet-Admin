@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.Manifest;
 import android.content.Context;

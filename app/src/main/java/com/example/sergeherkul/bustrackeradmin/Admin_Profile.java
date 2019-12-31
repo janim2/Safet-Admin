@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -28,12 +28,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Adapters.Facilities_Adapter;
-import com.example.sergeherkul.bustrackeradmin.Adapters.ImagesAdapter;
-import com.example.sergeherkul.bustrackeradmin.Adapters.NotifyAdapter;
-import com.example.sergeherkul.bustrackeradmin.Model.Facilities;
-import com.example.sergeherkul.bustrackeradmin.Model.Images;
-import com.example.sergeherkul.bustrackeradmin.Model.Notify;
+import com.safet.admin.bustrackeradmin.Adapters.Facilities_Adapter;
+import com.safet.admin.bustrackeradmin.Adapters.ImagesAdapter;
+import com.safet.admin.bustrackeradmin.Adapters.NotifyAdapter;
+import com.safet.admin.bustrackeradmin.Model.Facilities;
+import com.safet.admin.bustrackeradmin.Model.Images;
+import com.safet.admin.bustrackeradmin.Model.Notify;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

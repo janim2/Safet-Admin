@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Adapters;
+package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sergeherkul.bustrackeradmin.Accessories;
-import com.example.sergeherkul.bustrackeradmin.Driver_Details;
-import com.example.sergeherkul.bustrackeradmin.Model.Drivers;
-import com.example.sergeherkul.bustrackeradmin.Model.Notify;
-import com.example.sergeherkul.bustrackeradmin.R;
+import com.safet.admin.bustrackeradmin.Accessories;
+import com.safet.admin.bustrackeradmin.Driver_Details;
+import com.safet.admin.bustrackeradmin.Model.Drivers;
+import com.safet.admin.bustrackeradmin.Model.Notify;
+import com.safet.admin.bustrackeradmin.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

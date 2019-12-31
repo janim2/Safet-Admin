@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Adapters;
+package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Accessories;
-import com.example.sergeherkul.bustrackeradmin.Admin_MainActivity;
-import com.example.sergeherkul.bustrackeradmin.Login_Selector;
-import com.example.sergeherkul.bustrackeradmin.Model.Notify;
-import com.example.sergeherkul.bustrackeradmin.R;
+import com.safet.admin.bustrackeradmin.Accessories;
+import com.safet.admin.bustrackeradmin.Admin_MainActivity;
+import com.safet.admin.bustrackeradmin.Login_Selector;
+import com.safet.admin.bustrackeradmin.Model.Notify;
+import com.safet.admin.bustrackeradmin.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 

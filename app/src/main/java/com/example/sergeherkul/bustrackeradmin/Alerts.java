@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Adapters.AlertsAdapter;
-import com.example.sergeherkul.bustrackeradmin.Adapters.NotifyAdapter;
-import com.example.sergeherkul.bustrackeradmin.Model.Notify;
+import com.safet.admin.bustrackeradmin.Adapters.AlertsAdapter;
+import com.safet.admin.bustrackeradmin.Adapters.NotifyAdapter;
+import com.safet.admin.bustrackeradmin.Model.Notify;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;

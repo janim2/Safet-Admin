@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Adapters;
+package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Accessories;
-import com.example.sergeherkul.bustrackeradmin.Edit_Facility;
-import com.example.sergeherkul.bustrackeradmin.Model.Facilities;
-import com.example.sergeherkul.bustrackeradmin.R;
+import com.safet.admin.bustrackeradmin.Accessories;
+import com.safet.admin.bustrackeradmin.Edit_Facility;
+import com.safet.admin.bustrackeradmin.Model.Facilities;
+import com.safet.admin.bustrackeradmin.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;

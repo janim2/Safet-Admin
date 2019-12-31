@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin.Model;
+package com.safet.admin.bustrackeradmin.Model;
 
 import android.widget.ImageView;
 

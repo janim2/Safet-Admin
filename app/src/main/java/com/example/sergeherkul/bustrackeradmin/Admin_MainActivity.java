@@ -1,4 +1,4 @@
-package com.example.sergeherkul.bustrackeradmin;
+package com.safet.admin.bustrackeradmin;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -30,11 +30,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sergeherkul.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
-import com.example.sergeherkul.bustrackeradmin.Adapters.image_slider_adapter;
-import com.example.sergeherkul.bustrackeradmin.Model.ItemObjects;
-import com.example.sergeherkul.bustrackeradmin.Model.Notify;
-import com.example.sergeherkul.bustrackeradmin.PiccassoImageProcessor.PicassoImageLoadingService;
+import com.safet.admin.bustrackeradmin.Adapters.SolventRecyclerViewAdapter;
+import com.safet.admin.bustrackeradmin.Adapters.image_slider_adapter;
+import com.safet.admin.bustrackeradmin.Model.ItemObjects;
+import com.safet.admin.bustrackeradmin.Model.Notify;
+import com.safet.admin.bustrackeradmin.PiccassoImageProcessor.PicassoImageLoadingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
