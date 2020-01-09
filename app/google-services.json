@@ -87,6 +87,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "719837668582-kbljq36fgjgvl13mbvpo7croclkipmsa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safet.admin.bustrackeradmin",
+            "certificate_hash": "e8e41f2b756ffd5c4834192e753a1bce6ed085d5"
+          }
+        },
+        {
           "client_id": "719837668582-voet7u5cgitmm04p8fg9kfl04mlh2fql.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -126,6 +134,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "719837668582-r0rj8kmujrk0vnpbo0k9hu6ud9k4auf1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tekdivisal.safet",
+            "certificate_hash": "932c89d2f1668c69a00f687e20f7d9e260178602"
+          }
+        },
         {
           "client_id": "719837668582-sidllhvejv68j3l1n7tuu4kvnbqtj7ug.apps.googleusercontent.com",
           "client_type": 1,

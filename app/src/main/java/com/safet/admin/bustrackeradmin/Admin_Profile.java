@@ -501,7 +501,8 @@ public class Admin_Profile extends AppCompatActivity {
                     if(full_code.equals(school_code)){
                         view_verification_dialogue.dismiss();
                         save_new_values(string_school_name,string_school_email,string_school_number,
-                                string_school_location,language_string, range_string, mission_string, vision_string, mechanic_string,admit_string);
+                                string_school_location,language_editText.getText().toString().trim(), range_string,
+                                mission_string, vision_string, mechanic_string,admit_string);
                     }else{
                         success_message.setVisibility(View.VISIBLE);
                         success_message.setTextColor(getResources().getColor(R.color.red));

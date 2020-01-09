@@ -13,90 +13,90 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.safet.admin.bustrackeradmin.Assigned_Children"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.MapsActivity">
-
-        </activity>
-        <activity android:name="com.safet.admin.bustrackeradmin.Driver_Messages_Activity"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.MapsActivity">
-
-        </activity>
-        <activity android:name="com.safet.admin.bustrackeradmin.Messages_Activity" />
+        <activity android:name=".Forgot_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Edit_Images"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_Profile" />
+            android:name=".Assigned_Children"
+            android:parentActivityName=".MapsActivity"></activity>
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Edit_Facility"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_Profile" />
+            android:name=".Driver_Messages_Activity"
+            android:parentActivityName=".MapsActivity"></activity>
+        <activity android:name=".Messages_Activity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Circulate_Message"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".Edit_Images"
+            android:parentActivityName=".Admin_Profile" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.All_children"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".Edit_Facility"
+            android:parentActivityName=".Admin_Profile" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Alerts"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".Circulate_Message"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.AllBuses"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".All_children"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Add_Parent"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Registered_Parents" />
-        <activity android:name="com.safet.admin.bustrackeradmin.Parent_Details" />
+            android:name=".Alerts"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Registered_Parents"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".AllBuses"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Add_driver"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Driver_Details" />
+            android:name=".Add_Parent"
+            android:parentActivityName=".Registered_Parents" />
+        <activity android:name=".Parent_Details" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Driver_Details"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Registered_Drivers" />
+            android:name=".Registered_Parents"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Registered_Drivers"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".Add_driver"
+            android:parentActivityName=".Driver_Details" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Login_Selector"
+            android:name=".Driver_Details"
+            android:parentActivityName=".Registered_Drivers" />
+        <activity
+            android:name=".Registered_Drivers"
+            android:parentActivityName=".Admin_MainActivity" />
+        <activity
+            android:name=".Login_Selector"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Admin_Profile"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.Admin_MainActivity" />
+            android:name=".Admin_Profile"
+            android:parentActivityName=".Admin_MainActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Verify_School"
+            android:name=".Verify_School"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.RegisterSchool"
+            android:name=".RegisterSchool"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Admin_Login"
+            android:name=".Admin_Login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Notifications"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.MapsActivity" />
+            android:name=".Notifications"
+            android:parentActivityName=".MapsActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Driver_Profile"
-            android:parentActivityName="com.safet.admin.bustrackeradmin.MapsActivity" />
+            android:name=".Driver_Profile"
+            android:parentActivityName=".MapsActivity" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Driver_Verification"
+            android:name=".Driver_Verification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Enter_phone_number"
+            android:name=".Enter_phone_number"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.safet.admin.bustrackeradmin.Phone_number_Verification"
+            android:name=".Phone_number_Verification"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.safet.admin.bustrackeradmin.Driver_Login" />
-        <activity android:name="com.safet.admin.bustrackeradmin.MapsActivity" />
+        <activity android:name=".Driver_Login" />
+        <activity android:name=".MapsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="com.safet.admin.bustrackeradmin.Admin_MainActivity">
+        <activity android:name=".Admin_MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Admin_Login extends AppCompatActivity {
 
     private TextView logoname, login_text, forgot_password_text, register_school_text;
-    private ImageView forward;
+    private Button forward;
     private EditText school_email, password;
     private FirebaseAuth mauth;
     private TextView success_message;
@@ -108,6 +109,13 @@ public class Admin_Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        forgot_password_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Admin_Login.this, Forgot_password.class));
             }
         });
 
