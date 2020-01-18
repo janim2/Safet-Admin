@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,13 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 public class Driver_Verification extends AppCompatActivity {
 
     private TextView final_step_text,code_verified,login_text,login_text_details, driver_code_verified,
-    another_code_verified;
+    another_code_verified,change_number_textView, code_verified_error;
     private EditText code_one,code_two,code_three,code_four, driver_code_one, driver_code_two,
     driver_code_three,driver_code_four, driver_code_five;
-    private ProgressBar loading,login_loading;
+    private ProgressBar loading;
     private Button next_button;
     private ImageView back;
-    private String sdriver_code,sfirst_name,slastname,saddress,sphone_number,sschoolname,sschoolemail,
+    private String sschool_code,sdriver_code,sfirst_name,slastname,saddress,sphone_number,sschoolname,sschoolemail,
     ssechoollocation, sschoolphone,sbrand, sbus_code, schasis_no, smodel, snumber_plate;
     private Accessories driver_verification_accessor;
     private LinearLayout driver_verified_layout;
@@ -60,12 +61,13 @@ public class Driver_Verification extends AppCompatActivity {
         code_verified = findViewById(R.id.code_verified);
         login_text = findViewById(R.id.login_text);
         login_text_details = findViewById(R.id.login_text_details);
-        login_loading = findViewById(R.id.sign_in_loading);
         next_button = findViewById(R.id.next_button);
         back = findViewById(R.id.back);
         driver_code_verified = findViewById(R.id.driver_code_verified);
         driver_verified_layout = findViewById(R.id.driver_verified_layout);
         another_code_verified = findViewById(R.id.another_code_verified);
+        change_number_textView = findViewById(R.id.change_number);
+        code_verified_error = findViewById(R.id.driver_code_verified_error);
 
         final_step_text.setTypeface(lovelo);
         code_verified.setTypeface(lovelo);
@@ -77,7 +79,28 @@ public class Driver_Verification extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        change_number_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNetworkAvailable()){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent enter_number = new Intent(Driver_Verification.this, Phone_number_Verification.class);
+                    enter_number.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(enter_number);
+                }else{
+                    loading.setVisibility(View.GONE);
+                    driver_code_verified.setVisibility(View.GONE);
+                    code_verified_error.setVisibility(View.VISIBLE);
+                    code_verified_error.setTextColor(getResources().getColor(R.color.red));
+                    code_verified_error.setText("No internet connection");
+                }
             }
         });
 
@@ -288,26 +311,37 @@ public class Driver_Verification extends AppCompatActivity {
                             String scode_five = driver_code_five.getText().toString();
                             if(!scode_one.equals("") && !scode_two.equals("") && !scode_three.equals("")
                                     && !scode_four.equals("")){
-                                String full_code = scode_one + scode_two + scode_three + scode_four + scode_five;
+                                final String full_code = scode_one + scode_two + scode_three + scode_four + scode_five;
                                 if(isNetworkAvailable()){
-                                    login_loading.setVisibility(View.VISIBLE);
-                                    if(driver_verification_accessor.getString("driver_code").equals(full_code)){
-                                        login_loading.setVisibility(View.GONE);
-                                        driver_code_verified.setVisibility(View.VISIBLE);
-                                        driver_code_verified.setTextColor(getResources().getColor(R.color.green));
-                                        driver_code_verified.setText("Code Verification Complete");
-                                        driver_verification_accessor.put("isverified",true);
-                                        Intent gotodriver_maps = new Intent(Driver_Verification.this,MapsActivity.class);
-                                        gotodriver_maps.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(gotodriver_maps);
-                                        getBusInformation(driver_verification_accessor.getString("school_code"),driver_verification_accessor.getString("driver_code"));
-                                    }else{
-                                        loading.setVisibility(View.GONE);
-                                        login_loading.setVisibility(View.GONE);
-                                        driver_code_verified.setVisibility(View.VISIBLE);
-                                        driver_code_verified.setTextColor(getResources().getColor(R.color.red));
-                                        driver_code_verified.setText("Code Verification Failed");
-                                    }
+                                    code_verified_error.setVisibility(View.GONE);
+                                    loading.setVisibility(View.VISIBLE);
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("drivers").child(sschool_code).child(full_code);
+                                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()){
+                                                driver_code_verified.setVisibility(View.VISIBLE);
+                                                driver_code_verified.setTextColor(getResources().getColor(R.color.green));
+                                                driver_verification_accessor.put("isverified",true);
+                                                Intent gotodriver_maps = new Intent(Driver_Verification.this,MapsActivity.class);
+                                                gotodriver_maps.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(gotodriver_maps);
+                                                getdriverinformation(sschool_code, full_code);
+                                                getBusInformation(driver_verification_accessor.getString("school_code"),driver_verification_accessor.getString("driver_code"));
+                                            }else{
+                                                loading.setVisibility(View.GONE);
+                                                driver_code_verified.setVisibility(View.GONE);
+                                                code_verified_error.setVisibility(View.VISIBLE);
+                                                code_verified_error.setTextColor(getResources().getColor(R.color.red));
+                                                code_verified_error.setText("Code Verification Failed");                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+//
                                 }else{
                                     Toast.makeText(Driver_Verification.this,"No internet connection",Toast.LENGTH_LONG).show();
 
@@ -340,6 +374,7 @@ public class Driver_Verification extends AppCompatActivity {
                         for(DataSnapshot child : dataSnapshot.getChildren()){
 //                            FetchParts(child.getKey(), which_item);
                             if(thecode.equals(child.getKey())){
+                                sschool_code = child.getKey();
                                 driver_verification_accessor.put("school_code",child.getKey());
                                 loading.setVisibility(View.GONE);
 //                                code_verified.setVisibility(View.GONE);
@@ -350,7 +385,7 @@ public class Driver_Verification extends AppCompatActivity {
                                  next_button.setText("Verify Me");
                                 driver_verified_layout.setVisibility(View.VISIBLE);
 
-                                getdriverinformation(child.getKey());
+//                                getdriverinformation(child.getKey());
                                 getSchoolinformation(child.getKey());
 
                                 next_button.setOnClickListener(new View.OnClickListener() {
@@ -466,57 +501,36 @@ public class Driver_Verification extends AppCompatActivity {
         });
     }
 
-    private void getdriverinformation(final String key) {
-        DatabaseReference driver_details = FirebaseDatabase.getInstance().getReference("drivers").child(key);
-        driver_details.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getdriverinformation(final String the_school_code, final String the_driver_code) {
+        driver_verification_accessor.put("driver_code", the_driver_code);
+        DatabaseReference getindividual_info = FirebaseDatabase.getInstance().getReference("drivers").child(the_school_code).child(the_driver_code);
+        getindividual_info.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(DataSnapshot child : dataSnapshot.getChildren()){
-                        if(child.getKey().contains("dR")){
-                            driver_verification_accessor.put("driver_code",child.getKey());
-                            DatabaseReference getindividual_info = FirebaseDatabase.getInstance().getReference("drivers").child(key).child(child.getKey());
-                            getindividual_info.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists()){
-                                        for(DataSnapshot child : dataSnapshot.getChildren()){
-                                            if(child.getKey().equals("first_name")){
-                                                sfirst_name = child.getValue().toString();
-                                                driver_verification_accessor.put("driver_fname",sfirst_name);
-                                            }
-                                            if(child.getKey().equals("last_name")){
-                                                slastname = child.getValue().toString();
-                                                driver_verification_accessor.put("driver_lname",slastname);
-                                            }
-                                            if(child.getKey().equals("address")){
-                                                saddress = child.getValue().toString();
-                                                driver_verification_accessor.put("driver_address",saddress);
-                                            }
-                                            if(child.getKey().equals("phone_number")){
-                                                sphone_number = child.getValue().toString();
-                                                driver_verification_accessor.put("driver_pnumber",sphone_number);
-                                            }
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        if (child.getKey().equals("first_name")) {
+                            sfirst_name = child.getValue().toString();
+                            driver_verification_accessor.put("driver_fname", sfirst_name);
+                        }
+                        if (child.getKey().equals("last_name")) {
+                            slastname = child.getValue().toString();
+                            driver_verification_accessor.put("driver_lname", slastname);
+                        }
+                        if (child.getKey().equals("address")) {
+                            saddress = child.getValue().toString();
+                            driver_verification_accessor.put("driver_address", saddress);
+                        }
+                        if (child.getKey().equals("phone_number")) {
+                            sphone_number = child.getValue().toString();
+                            driver_verification_accessor.put("driver_pnumber", sphone_number);
                         }
                     }
-
-//
-                  }
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Driver_Verification.this,"Cancelled",Toast.LENGTH_LONG).show();
 
             }
         });

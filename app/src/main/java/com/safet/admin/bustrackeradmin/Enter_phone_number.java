@@ -36,9 +36,10 @@ import java.util.concurrent.TimeUnit;
 public class Enter_phone_number extends AppCompatActivity {
 
     private Button next;
-    private TextView enter_phone_numberText, verification_no_message,number_sent_success, failed_message_text;
+    private TextView enter_phone_numberText, verification_no_message,number_sent_success,
+            failed_message_text;
     private EditText user_phone_number,code_one,code_two,code_three,code_four, code_five, code_six;
-    private ProgressBar loading, verifying_loading;
+    private ProgressBar loading;
     private ImageView back;
     private CountryCodePicker country_picker;
     private String mVerificationId;
@@ -62,7 +63,6 @@ public class Enter_phone_number extends AppCompatActivity {
         code_six = findViewById(R.id.code_number_six);
         number_sent_success = findViewById(R.id.code_sent_message);
         loading = findViewById(R.id.loading);
-        verifying_loading = findViewById(R.id.verifying_loading);
         back = findViewById(R.id.back);
         user_phone_number = findViewById(R.id.user_phone_number);
         failed_message_text = findViewById(R.id.failed_message);
@@ -80,9 +80,14 @@ public class Enter_phone_number extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
+
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +95,7 @@ public class Enter_phone_number extends AppCompatActivity {
                 String phone_number = user_phone_number.getText().toString().trim();
                 if(!phone_number.equals("")){
                     String countryCode = "+233";
+                    phone_number = phone_number.replaceFirst("0", "");
                     if(isNetworkAvailable()){
                         sendVerificationMessage(countryCode,phone_number);
                     }else{
@@ -242,7 +248,7 @@ public class Enter_phone_number extends AppCompatActivity {
     }
 
     private void verifyPhoneNumberWithCode(String verificationId,String theuserentered_code){
-        verifying_loading.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.VISIBLE);
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, theuserentered_code);
         // [END verify_with_code]
         signInWithPhoneAuthCredential(credential);
@@ -255,12 +261,14 @@ public class Enter_phone_number extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            verifying_loading.setVisibility(View.GONE);
-                            startActivity(new Intent(Enter_phone_number.this,Driver_Verification.class));
+                            loading.setVisibility(View.GONE);
+                            Intent verify_driver_intent = new Intent(Enter_phone_number.this, Driver_Verification.class);
+                            verify_driver_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(verify_driver_intent);
 
                         } else {
                             // Sign in failed, display a message and update the UI
-                            verifying_loading.setVisibility(View.GONE);
+                            loading.setVisibility(View.GONE);
                             failed_message_text.setVisibility(View.VISIBLE);
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid

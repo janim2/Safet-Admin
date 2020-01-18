@@ -56,22 +56,15 @@
                     android:layout_height="43dp"
                     android:inputType="phone"
                     android:textSize="15sp"
-                    android:maxLength="13"
+                    android:maxLength="14"
                     android:textColor="@android:color/black"
                     android:textColorHint="@color/colorPrimary"
-                    android:hint="(206) 000-000"
+                    android:hint="(020) 000-6000"
                     android:id="@+id/user_phone_number"
                     android:background="@android:drawable/editbox_background"
                     android:layout_weight="1"/>
 
             </LinearLayout>
-
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:id="@+id/loading"
-                android:visibility="gone"
-                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,14 +189,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:id="@+id/verifying_loading"
-                android:visibility="gone"
-                android:layout_marginTop="30dp"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,6 +205,14 @@
 
 
     </ScrollView>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:id="@+id/loading"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
 
     <Button
         android:layout_width="match_parent"

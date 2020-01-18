@@ -275,6 +275,9 @@ public class Add_Parent extends AppCompatActivity {
             }else if(counter == 3){
                 addthree_Children(pphone_number);
             }
+            DatabaseReference addParent_authority  = FirebaseDatabase.getInstance().getReference("isRegistered").child(school_code).child(pphone_number);
+		addParent_authority.child("verified").setValue("Y");
+	
         }catch (NullPointerException e){
 
         }

@@ -122,13 +122,6 @@
 
             </LinearLayout>
 
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:id="@+id/loading"
-                android:visibility="gone"
-                android:layout_marginTop="20dp"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,49 +145,47 @@
                 android:textSize="10dp"/>
 
 
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
                 android:id="@+id/driver_verified_layout"
-                android:layout_marginTop="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="246dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
-                    android:background="@color/colorPrimary"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="30dp"
+                    android:background="@color/colorPrimary" />
 
                 <TextView
+                    android:id="@+id/login_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DRIVER VERIFICATION"
-                    android:id="@+id/login_text"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="-11dp"
                     android:background="@android:color/white"
-                    android:layout_gravity="center"/>
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="DRIVER VERIFICATION" />
 
                 <TextView
+                    android:id="@+id/login_text_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Verification details would be provided by school"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:id="@+id/login_text_details"
-                    android:textColor="@android:color/black"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:layout_marginTop="10dp"/>
+                    android:text="Verification details would be provided by school"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
                     android:orientation="vertical">
 
@@ -202,106 +193,130 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginRight="30dp"
                         android:orientation="horizontal">
 
                         <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:hint="0"
-                            android:maxLength="1"
-                            android:textSize="15sp"
-                            android:inputType="text"
                             android:id="@+id/driver_code_number_one"
-                            android:gravity="center"
-                            android:textColorHint="@android:color/darker_gray"
-                            android:textColor="@android:color/black"
-                            android:background="@android:drawable/editbox_background"/>
-
-                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@android:drawable/editbox_background"
+                            android:gravity="center"
                             android:hint="0"
-                            android:maxLength="1"
                             android:inputType="text"
-                            android:textSize="15sp"
+                            android:maxLength="1"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textSize="15sp" />
+
+                        <EditText
                             android:id="@+id/driver_code_number_two"
-                            android:gravity="center"
-                            android:textColorHint="@android:color/darker_gray"
-                            android:textColor="@android:color/black"
-                            android:background="@android:drawable/editbox_background"/>
-
-                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:hint="0"
-                            android:maxLength="1"
-                            android:inputType="number"
+                            android:background="@android:drawable/editbox_background"
                             android:gravity="center"
-                            android:textSize="15sp"
+                            android:hint="0"
+                            android:inputType="text"
+                            android:maxLength="1"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textSize="15sp" />
+
+                        <EditText
                             android:id="@+id/driver_code_number_three"
-                            android:textColorHint="@android:color/darker_gray"
-                            android:textColor="@android:color/black"
-                            android:background="@android:drawable/editbox_background"/>
-
-                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:background="@android:drawable/editbox_background"
+                            android:gravity="center"
                             android:hint="0"
-                            android:maxLength="1"
                             android:inputType="number"
-                            android:textSize="15sp"
+                            android:maxLength="1"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textSize="15sp" />
+
+                        <EditText
                             android:id="@+id/driver_code_number_four"
-                            android:gravity="center"
-                            android:textColorHint="@android:color/darker_gray"
-                            android:textColor="@android:color/black"
-                            android:background="@android:drawable/editbox_background"/>
-
-                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:hint="0"
-                            android:maxLength="1"
-                            android:inputType="number"
-                            android:textSize="15sp"
-                            android:id="@+id/driver_code_number_five"
+                            android:background="@android:drawable/editbox_background"
                             android:gravity="center"
-                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="0"
+                            android:inputType="number"
+                            android:maxLength="1"
                             android:textColor="@android:color/black"
-                            android:background="@android:drawable/editbox_background"/>
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/driver_code_number_five"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/editbox_background"
+                            android:gravity="center"
+                            android:hint="0"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textSize="15sp" />
 
                     </LinearLayout>
-            </LinearLayout>
-
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="25sp"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/sign_in_loading"/>
+                </LinearLayout>
 
                 <TextView
+                    android:id="@+id/driver_code_verified_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Code Verification Complete"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/driver_code_verified"
                     android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Code Verification Failed"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="10dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/driver_code_verified"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Code Verification Complete"
                     android:textColor="@android:color/holo_green_dark"
-                    android:textSize="10dp"/>
+                    android:textSize="10dp"
+                    android:visibility="gone" />
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Number"
+                android:textColor="@color/main_blue"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:id="@+id/change_number"
+                android:padding="10dp"/>
 
         </LinearLayout>
 
 
     </ScrollView>
+
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:id="@+id/loading"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:layout_width="match_parent"
