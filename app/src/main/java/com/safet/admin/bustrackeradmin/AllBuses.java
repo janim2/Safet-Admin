@@ -41,6 +41,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -131,6 +132,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         }
         buildGoogleApiClient();
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
 //        mMap.setMyLocationEnabled(true);
     }
 
@@ -241,19 +243,29 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                     loc2.setLongitude(driverlatlng.longitude);
 
                     buslatlng_array.add(driverlatlng);
-
                 }
 
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
                     for(LatLng latLng : buslatlng_array){
-                    CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(latLng).tilt(8f)
-                            .zoom(8)
-                            .build();
-                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        builder.include(latLng);
+//                    CameraPosition cameraPosition = new CameraPosition.Builder()
+//                            .target(latLng).tilt(8f)
+//                            .zoom(8)
+//                            .build();
+//                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                         mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
                                 .title("Bus").flat(true).icon(BitmapDescriptorFactory
-                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.schoolbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.sbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
                     }
+
+                if (areBoundsTooSmall(builder.build(), 300)) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(builder.build().getCenter(), 18));
+                } else {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 21));
+                }
+
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(),0));
+
             }
 
             @Override
@@ -261,6 +273,13 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 
             }
         });
+    }
+
+    private boolean areBoundsTooSmall(LatLngBounds bounds, int minDistanceInMeter) {
+        float[] result = new float[1];
+        Location.distanceBetween(bounds.southwest.latitude, bounds.southwest.longitude,
+                bounds.northeast.latitude, bounds.northeast.longitude, result);
+        return result[0] < minDistanceInMeter;
     }
 
     private Bitmap getMarkerBitmapFromView(@DrawableRes int resId) {
