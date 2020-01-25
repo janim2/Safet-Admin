@@ -1,10 +1,14 @@
 package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.safet.admin.bustrackeradmin.Accessories;
+import com.safet.admin.bustrackeradmin.Alerts;
 import com.safet.admin.bustrackeradmin.Model.Notify;
 import com.safet.admin.bustrackeradmin.R;
 import com.google.firebase.database.DataSnapshot;
@@ -167,32 +172,47 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder
             }
         });
 
-//        dismiss.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(final View v) {
-//                final Accessories notify_adapter_accessor = new Accessories(v.getContext());
-//                final AlertDialog.Builder confirm_dismiss = new AlertDialog.Builder(v.getContext(), R.style.Myalert);
-//                confirm_dismiss.setTitle("Confirm dismiss?");
-//                confirm_dismiss.setMessage("Leaving us? Please reconsider.");
-//                confirm_dismiss.setNegativeButton("Logout", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-////                        logout here
-//                            FirebaseDatabase.getInstance().getReference("pending_alerts")
-//                                    .child(notify_adapter_accessor.getString("school_code")).child(itemList.get(position).getId()).removeValue();
-//                            Toast.makeText(v.getContext(),"Alert Dismissed",Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//                confirm_dismiss.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//                confirm_dismiss.show();
-//            }
-//        });
+        dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final Accessories notify_adapter_accessor = new Accessories(v.getContext());
+                final AlertDialog.Builder confirm_dismiss = new AlertDialog.Builder(v.getContext(), R.style.Myalert);
+                confirm_dismiss.setTitle("Are you sure you want to dismiss this alert?");
+                confirm_dismiss.setMessage("Dismissing this " +
+                        "alert prevents driver from receiving the necessary assistance and puts your employees and " +
+                        "students at risk.\n\nDo you wish to continue?");
+                confirm_dismiss.setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(isNetworkAvailable()){
+                            if(itemList.get(position).getImageType().equals("SN")){
+                                FirebaseDatabase.getInstance().getReference("pending_security")
+                                        .child(notify_adapter_accessor.getString("school_code"))
+                                        .child(itemList.get(position).getId()).removeValue();
+
+                            }else{
+                                FirebaseDatabase.getInstance().getReference("pending_distress")
+                                        .child(notify_adapter_accessor.getString("school_code"))
+                                        .child(itemList.get(position).getId()).removeValue();
+                            }
+                            Toast.makeText(v.getContext(),"Alert Dismissed",Toast.LENGTH_LONG).show();
+                            Intent activity_alerts = new Intent(v.getContext(), Alerts.class);
+                            v.getContext().startActivity(activity_alerts);
+                        }else{
+                            Toast.makeText(v.getContext(), "No internet connection", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                confirm_dismiss.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                confirm_dismiss.show();
+            }
+        });
 
         }
 
@@ -206,6 +226,14 @@ public class AlertsAdapter extends RecyclerView.Adapter<AlertsAdapter.ViewHolder
     public int getItemCount() {
         return itemList.size();
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
 
 }

@@ -48,7 +48,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.ui.IconGenerator;
+import com.safet.admin.bustrackeradmin.Model.Notify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
     private Accessories allbuses_accessor;
     private DatabaseReference driverLocationref;
     private Marker mbusMarker;
-    private String school_code;
+    private String school_code, driver_fname;
     private ArrayList<LatLng> buslatlng_array = new ArrayList<>();
 
     @Override
@@ -219,7 +222,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         });
     }
 
-    private void getDriverLocation(String key) {
+    private void getDriverLocation(final String key) {
         driverLocationref = FirebaseDatabase.getInstance().getReference().child("bus_location").child(school_code).child(key).child("l");
         driverLocationref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -235,9 +238,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                         locationlong = Double.parseDouble(map.get(1).toString());
                     }
                     LatLng driverlatlng = new LatLng(locationlat,locationlong);
-                    if(mbusMarker != null){
-                        mbusMarker.remove();
-                    }
+
                     Location loc2  = new Location("");
                     loc2.setLatitude(driverlatlng.latitude);
                     loc2.setLongitude(driverlatlng.longitude);
@@ -253,9 +254,30 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 //                            .zoom(8)
 //                            .build();
 //                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-                                .title("Bus").flat(true).icon(BitmapDescriptorFactory
-                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.sbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+
+
+                        getDriver_name(key, latLng);
+
+//                        if(mbusMarker != null){
+//                            mbusMarker.remove();
+//                        }
+
+//                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+//                                .title(getDriver_name(key,latLng)).flat(true).icon(BitmapDescriptorFactory
+//                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.sbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+//                        mbusMarker.showInfoWindow();
+//
+//                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+//                                .title(getDriver_name(key,latLng)).flat(true).icon(BitmapDescriptorFactory
+//                                        .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+//                        mbusMarker.showInfoWindow();
+
+//                        IconGenerator iconGenerator = new IconGenerator(AllBuses.this);
+//                        mbusMarker = mMap.addMarker(new MarkerOptions().
+//                                icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon(getDriver_name(key, latLng)))).
+//                                position(latLng).flat(true)
+//                              );
+
                     }
 
                 if (areBoundsTooSmall(builder.build(), 300)) {
@@ -274,6 +296,53 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
             }
         });
     }
+
+    private void getDriver_name(final String key, final LatLng latLng) {
+        DatabaseReference getDriver_details = FirebaseDatabase.getInstance()
+                .getReference("drivers").child(school_code).child(key);
+        getDriver_details.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        if(child.getKey().equals("first_name")){
+                            driver_fname = child.getValue().toString();
+                        }
+
+                        else{
+//                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                }
+
+                if(mbusMarker != null){
+                    mbusMarker.remove();
+                }
+
+
+//                IconGenerator iconGenerator = new IconGenerator(AllBuses.this);
+//                iconGenerator.setTextAppearance(R.style.marker_style);
+//                iconGenerator.setBackground(getResou rces().getDrawable(R.drawable.marker_background));
+//                mbusMarker = mMap.addMarker(new MarkerOptions().
+//                        icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon(driver_fname))).
+//                        position(latLng));
+
+                mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+                        .title(driver_fname).flat(true).icon(BitmapDescriptorFactory
+                                .fromBitmap(getMarkerBitmapFromView(R.drawable.schoolbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+                mbusMarker.showInfoWindow();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AllBuses.this,"Cancelled",Toast.LENGTH_LONG).show();
+
+            }
+        });
+}
 
     private boolean areBoundsTooSmall(LatLngBounds bounds, int minDistanceInMeter) {
         float[] result = new float[1];

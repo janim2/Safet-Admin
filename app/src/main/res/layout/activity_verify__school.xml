@@ -157,6 +157,17 @@
                 android:textColor="@android:color/holo_green_dark"
                 android:textSize="10dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Code Verification failed"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
+                android:id="@+id/code_verified_error"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="10dp"/>
+
             </LinearLayout>
 
     </ScrollView>

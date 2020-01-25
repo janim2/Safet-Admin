@@ -52,8 +52,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -221,12 +223,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                }
 //            }
 //        });
+
         start_trip.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
                 if(button_toggle.equals("0")){
                     if(isNetworkAvailable()){
                         button_toggle = "1";
+                        mapsAccessor.put("trip_status_", "progress");
                         start_trip.setText("IN PROGRESS | END");
                         Start_Trip();
                     }else{
@@ -237,6 +241,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 else if(button_toggle.equals("1")){
                     if(isNetworkAvailable()){
                         button_toggle = "0";
+                        mapsAccessor.put("trip_status_", "start");
                         start_trip.setText("START TRIP");
                         End_Trip();
                     }else{
@@ -246,6 +251,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
+
 
     private class Look_for_all extends AsyncTask<String, Void, Void> {
 
@@ -303,8 +310,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         databaseReference.child("image").setValue("SN");
         databaseReference.child("message").setValue("Mr. " + driver_name+" has a security issue. Please proceed swiftly to remedy the situation. See Alerts for details.");
         databaseReference.child("time").setValue(new Date());
-        databaseReference.child("title").setValue("Security issue Recieved");
-        Toast.makeText(MapsActivity.this,"Security issue alert sent", Toast.LENGTH_LONG).show();
+        databaseReference.child("title").setValue("Security issue Recieved").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(MapsActivity.this,"Security issue alert sent", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void _Distress_addToAlerts() {
@@ -316,8 +327,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         databaseReference.child("message").setValue("Mr. "+driver_name+" is in distress. Exact location can be found on the map.");
         databaseReference.child("time").setValue(new Date());
         databaseReference.child("title").setValue("Distress Recieved");
-        databaseReference.child("driver_code").setValue(driver_code);
-        Toast.makeText(MapsActivity.this,"Distress sent", Toast.LENGTH_LONG).show();
+        databaseReference.child("driver_code").setValue(driver_code).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(MapsActivity.this,"Distress sent", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**
@@ -337,6 +352,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         buildGoogleApiClient();
         mMap.setMyLocationEnabled(true);
+
 
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
@@ -477,6 +493,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else{
             startActivity(new Intent(MapsActivity.this, Login_Selector.class));
         }
+        if(mapsAccessor.getString("trip_status_").equals("progress")){
+            start_trip.setText("IN PROGRESS | END");
+            button_toggle = "1";
+        }else{
+            start_trip.setText("START TRIP");
+            button_toggle = "0";
+        }
+
     }
 
     @Override
@@ -505,12 +529,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 //    initial state of location changed
-//
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(latLng).tilt(8f)
+                            .zoom(17)
+                            .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         try {
             address = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
 //            userlocation.setText(address.get(0).getAddressLine(0));

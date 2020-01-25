@@ -28,7 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 public class Verify_School extends AppCompatActivity {
 
     private ImageView goback;
-    private TextView final_step_text, school_code_text, code_verified_text, school_v_text, change_email;
+    private TextView final_step_text, school_code_text, code_verified_text, school_v_text, change_email,
+            code_verified_error;
     private EditText code_one,code_two,code_three,code_four;
     private Button next_button;
     private ProgressBar loading;
@@ -57,6 +58,7 @@ public class Verify_School extends AppCompatActivity {
         school_v_text = findViewById(R.id.school_v_text);
         change_email = findViewById(R.id.change_email);
         loading = findViewById(R.id.loading);
+        code_verified_error = findViewById(R.id.code_verified_error);
 
         final_step_text.setTypeface(lovelo);
         school_code_text.setTypeface(lovelo);
@@ -212,9 +214,8 @@ public class Verify_School extends AppCompatActivity {
                             if(thecode.equals(child.getKey())){
                                 verify_school_accessor.put("school_code",child.getKey());
                                 loading.setVisibility(View.GONE);
+                                code_verified_error.setVisibility(View.GONE);
                                 code_verified_text.setVisibility(View.VISIBLE);
-                                code_verified_text.setTextColor(getResources().getColor(R.color.green));
-                                code_verified_text.setText("Code Verification Complete");
                                 Intent goto_main = new Intent(Verify_School.this, Admin_MainActivity.class);
                                 goto_main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(goto_main);
@@ -222,9 +223,8 @@ public class Verify_School extends AppCompatActivity {
                                 getSchoolinformation(child.getKey());
                             }else{
                                 loading.setVisibility(View.GONE);
-                                code_verified_text.setVisibility(View.VISIBLE);
-                                code_verified_text.setTextColor(getResources().getColor(R.color.red));
-                                code_verified_text.setText("Code Verification Failed");
+                                code_verified_text.setVisibility(View.GONE);
+                                code_verified_error.setVisibility(View.VISIBLE);
                             }
                         }
                     }else{

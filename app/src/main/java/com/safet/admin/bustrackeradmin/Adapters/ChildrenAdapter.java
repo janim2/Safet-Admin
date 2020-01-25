@@ -53,7 +53,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
         child_class.setTypeface(lovelo);
 
         child_name.setText(itemList.get(position).getChild_first_name() + " " + itemList.get(position).getChild_last_name());
-        child_class.setText(itemList.get(position).getChild_class());
+        child_class.setText("Class " + itemList.get(position).getChild_class());
         child_gender.setText(itemList.get(position).getChild_gender());
 
         child_card_view.setOnClickListener(new View.OnClickListener() {

@@ -384,6 +384,7 @@ public class Driver_Verification extends AppCompatActivity {
                                 another_code_verified.setVisibility(View.VISIBLE);
                                  next_button.setText("Verify Me");
                                 driver_verified_layout.setVisibility(View.VISIBLE);
+                                driver_code_one.requestFocus();
 
 //                                getdriverinformation(child.getKey());
                                 getSchoolinformation(child.getKey());

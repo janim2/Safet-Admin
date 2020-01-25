@@ -362,6 +362,7 @@ public class RegisterSchool extends AppCompatActivity {
         }
 
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

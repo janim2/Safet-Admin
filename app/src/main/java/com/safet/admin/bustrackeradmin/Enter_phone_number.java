@@ -87,8 +87,6 @@ public class Enter_phone_number extends AppCompatActivity {
             }
         });
 
-
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -336,6 +334,7 @@ public class Enter_phone_number extends AppCompatActivity {
             number_sent_success.setVisibility(View.VISIBLE);
             code_verified_layout.setVisibility(View.VISIBLE);
             next.setText("VERIFY CODE");
+            code_one.requestFocus();
             // Save verification ID and resending token so we can use them later
             mVerificationId = verificationId;
             mResendToken = token;

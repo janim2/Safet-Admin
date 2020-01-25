@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
@@ -47,7 +59,7 @@ public class Add_driver extends AppCompatActivity {
             driver_lname_from_etext,driver_fname_from_etext,driver_phone_from_etext,
             driver_email_from_etext,driver_address_from_etext,
             busbrand_from_etext,bus_model_from_etext,bus_chasis_from_etext,bus_number_plate_etext,
-            passenger_capacity_from_etext, bus_route_from_etext;
+            passenger_capacity_from_etext, bus_route_from_etext, school_email;
 
     private Dialog view_verification_dialogue;
     private DatabaseReference add_driver_databaseReference, add_bus_databaseReference,add_notification_databaseReference;
@@ -65,6 +77,8 @@ public class Add_driver extends AppCompatActivity {
 
         view_verification_dialogue = new Dialog(Add_driver.this);
         add_driver_accessor = new Accessories(Add_driver.this);
+
+        school_email = add_driver_accessor.getString("school_email");
 
         driverDetails_text = findViewById(R.id.driverdetails_text);
         school_details_text = findViewById(R.id.busdetails_text);
@@ -131,13 +145,13 @@ public class Add_driver extends AppCompatActivity {
                 bus_route_from_etext = bus_route.getText().toString().trim();
                 if(!driver_fname_from_etext.equals("") && !driver_lname_from_etext.equals("") &&
                         !driver_phone_from_etext.equals("") && !driver_address_from_etext.equals("") &&
-                        !driver_email_from_etext.equals("") && !busbrand_from_etext.equals("") && !bus_model_from_etext.equals("") &&
+                        /*!driver_email_from_etext.equals("") &&*/ !busbrand_from_etext.equals("") && !bus_model_from_etext.equals("") &&
                         !bus_chasis_from_etext.equals("") && !bus_number_plate_etext.equals("") && !passenger_capacity_from_etext.equals("") && !bus_route_from_etext.equals("")){
                     if(isNetworkAvailable()){
                         showSchoolVerifyPopup(Add_driver.this);
+                    }else{
+                        Toast.makeText(Add_driver.this,"No internet connection",Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(Add_driver.this,"No internet connection",Toast.LENGTH_LONG).show();
-
                 }else{
                     loading.setVisibility(View.GONE);
                     success_message.setVisibility(View.VISIBLE);
@@ -330,6 +344,12 @@ public class Add_driver extends AppCompatActivity {
         success_message.setVisibility(View.VISIBLE);
         success_message.setTextColor(getResources().getColor(R.color.green));
         success_message.setText("Driver addition successful");
+        new Sending_mail("https://iamjesse75.000webhostapp.com/Send_emails_only.php"
+                ,school_email,"Driver Addition Successful","Thank you for chosing Safet as your school bus safety monitoring service." +
+                " We have noticed the addition of a driver by name " + driver_fname_from_etext + " " + driver_lname_from_etext +
+                " He has been added successfully to our system and would thus be identified by the code " + driver_id + " in relation to your school.\n" +
+                "Please provide this code to Mr." + driver_fname_from_etext + " as he would need it to operate. Thank you","safet").execute();
+        Toast.makeText(Add_driver.this, "Driver addition successful", Toast.LENGTH_LONG).show();
 
     }
 
@@ -345,6 +365,73 @@ public class Add_driver extends AppCompatActivity {
         add_notification_databaseReference.child("title").setValue("Driver Added");
     }
 
+
+    class Sending_mail extends AsyncTask<Void, Void, String> {
+
+        String url_location,to,subject,message,header_begin ;
+
+        public Sending_mail(String url_location,String to, String subject, String message, String header_begin) {
+            this.url_location = url_location;
+            this.to = to;
+            this.subject = subject;
+            this.message = message;
+            this.header_begin = header_begin;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+            try {
+                URL url = new URL(url_location);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setConnectTimeout(10000);
+                httpURLConnection.setReadTimeout(10000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String data = URLEncoder.encode("to", "UTF-8") + "=" + URLEncoder.encode(to, "UTF-8") + "&" +
+                        URLEncoder.encode("subject", "UTF-8") + "=" + URLEncoder.encode(subject, "UTF-8") + "&" +
+                        URLEncoder.encode("message", "UTF-8") + "=" + URLEncoder.encode(message, "UTF-8") + "&" +
+                        URLEncoder.encode("header_begin", "UTF-8") + "=" + URLEncoder.encode(header_begin, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuffer stringBuffer = new StringBuffer();
+                String fetch;
+                while ((fetch = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(fetch);
+                }
+                String string = stringBuffer.toString();
+                inputStream.close();
+                return string;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            return "please check internet connection";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

@@ -356,7 +356,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@android:color/darker_gray"
                     android:hint="eg. school - Kejetia"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:id="@+id/bus_route"
                     android:textSize="13sp"/>
 
