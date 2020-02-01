@@ -354,8 +354,8 @@ public class Add_Parent extends AppCompatActivity {
                 add_child_two.child("gender").setValue(sechild_gender_string);
                 add_child_two.child("image").setValue("");
                 add_child_two.child("lastname").setValue(sechild_lname_string);
-                add_child_one.child("isAssigned_bus").setValue("No");
-                add_child_one.child("assigned_bus").setValue("None");
+                add_child_two.child("isAssigned_bus").setValue("No");
+                add_child_two.child("assigned_bus").setValue("None");
                 Toast.makeText(Add_Parent.this, "Addition successful", Toast.LENGTH_LONG).show();
                 finish();
                 addToNotifications();
@@ -439,8 +439,8 @@ public class Add_Parent extends AppCompatActivity {
                         add_child_two.child("gender").setValue(sechild_gender_string);
                         add_child_two.child("image").setValue("");
                         add_child_two.child("lastname").setValue(sechild_lname_string);
-                        add_child_one.child("isAssigned_bus").setValue("No");
-                        add_child_one.child("assigned_bus").setValue("None");
+                        add_child_two.child("isAssigned_bus").setValue("No");
+                        add_child_two.child("assigned_bus").setValue("None");
 
                         //child three
                         Random c_threerandom = new Random();
@@ -453,8 +453,8 @@ public class Add_Parent extends AppCompatActivity {
                         add_child_three.child("gender").setValue(tchild_gender_string);
                         add_child_three.child("image").setValue("");
                         add_child_three.child("lastname").setValue(tchild_lname_string);
-                        add_child_one.child("isAssigned_bus").setValue("No");
-                        add_child_one.child("assigned_bus").setValue("None");
+                        add_child_three.child("isAssigned_bus").setValue("No");
+                        add_child_three.child("assigned_bus").setValue("None");
                         Toast.makeText(Add_Parent.this, "Addition successful", Toast.LENGTH_LONG).show();
                         finish();
                         addToNotifications();
