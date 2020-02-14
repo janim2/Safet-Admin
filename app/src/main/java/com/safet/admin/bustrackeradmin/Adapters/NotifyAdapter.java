@@ -68,6 +68,22 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
                 image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.distress));
 //                call_police_or_mechanic.setText("Call mechanic");
             }
+            else if(the_image.equals("AC")){
+                image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.children));
+//                call_police_or_mechanic.setText("Call mechanic");
+            }
+            else if(the_image.equals("UC")){
+                image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.children));
+//                call_police_or_mechanic.setText("Call mechanic");
+            }
+            else if(the_image.equals("DC")){
+                image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.delete));
+//                call_police_or_mechanic.setText("Call mechanic");
+            }
+            else if(the_image.equals("DP")){
+                image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.delete));
+//                call_police_or_mechanic.setText("Call mechanic");
+            }
             else{
                 image.setImageDrawable(holder.view.getResources().getDrawable(R.drawable.logo));
             }

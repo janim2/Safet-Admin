@@ -185,7 +185,7 @@ public class Assigned_Children extends AppCompatActivity {
                     }
 
                     if(assigned_bus.equals(driver_code)){
-                        Children obj = new Children(child_first_name,child_last_name,child_class,
+                        Children obj = new Children(parent_code,child_first_name,child_last_name,child_class,
                                 schild_code,child_gender);
                         child_Array.add(obj);
                         child_RecyclerView.setAdapter(child_Adapter);

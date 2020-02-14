@@ -101,16 +101,16 @@ public class All_children extends AppCompatActivity {
     }
 
     private void Fetch_Child_IDs(final String key) {
-        parent_code = key;
         try{
+            parent_code = key;
             DatabaseReference get_child_id = FirebaseDatabase.getInstance().getReference("children")
-                    .child(school_id).child(key);//.child(child_one_id);
+                    .child(school_id).child(key);
             get_child_id.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
                         for(DataSnapshot child : dataSnapshot.getChildren()){
-                            Fetch_Child_Info(child.getKey());
+                            Fetch_Child_Info(key,child.getKey());
                         }
                     }else{
 //                    Toast.makeText(getActivity(),"Cannot get ID",Toast.LENGTH_LONG).show();
@@ -127,9 +127,13 @@ public class All_children extends AppCompatActivity {
         }
     }
 
-    private void Fetch_Child_Info(final String key) {
+    private void Fetch_Child_Info(final String prent_code, final String key) {
+
+//        parent code here is the last value in the database
+//        Toast.makeText(All_children.this, parent_code+" : "+key, Toast.LENGTH_LONG).show();
+
         DatabaseReference get_child_id = FirebaseDatabase.getInstance().getReference("children")
-                .child(school_id).child(parent_code).child(key);
+                .child(school_id).child(prent_code).child(key);
         get_child_id.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -148,9 +152,9 @@ public class All_children extends AppCompatActivity {
                             child_gender = child.getValue().toString();
                         }
 
-                        schild_code = key;
                     }
-                    Children obj = new Children(child_first_name,child_last_name,child_class,
+                    schild_code = key;
+                    Children obj = new Children(prent_code,child_first_name,child_last_name,child_class,
                             schild_code,child_gender);
                     child_Array.add(obj);
                     child_RecyclerView.setAdapter(child_Adapter);

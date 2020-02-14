@@ -74,7 +74,8 @@ public class Registered_Parents extends AppCompatActivity {
 
     private void get_Registered_Parents() {
         try{
-            DatabaseReference get_Parents_notifications = FirebaseDatabase.getInstance().getReference("parents").child(school_id);
+            DatabaseReference get_Parents_notifications = FirebaseDatabase.getInstance().getReference("parents")
+                    .child(school_id);
 
             get_Parents_notifications.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -1,6 +1,7 @@
 package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.safet.admin.bustrackeradmin.Accessories;
+import com.safet.admin.bustrackeradmin.Child_Details;
 import com.safet.admin.bustrackeradmin.Model.Children;
 import com.safet.admin.bustrackeradmin.R;
 
@@ -59,14 +62,15 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
         child_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent open_driver_details = new Intent(v.getContext(), Driver_Details.class);
-//                Accessories driver_accessor = new Accessories(v.getContext());
-//                driver_accessor.put("driver_fname_from_admin",itemList.get(position).getDriver_first_name());
-//                driver_accessor.put("driver_lname_from_admin",itemList.get(position).getDriver_last_name());
-//                driver_accessor.put("driver_address_from_admin",itemList.get(position).getDriver_address());
-//                driver_accessor.put("driver_phone_from_admin",itemList.get(position).getDriver_phone_number());
-//                driver_accessor.put("driver_code_from_admin",itemList.get(position).getDriver_code());
-//                v.getContext().startActivity(open_driver_details);
+                Intent open_child_details = new Intent(v.getContext(), Child_Details.class);
+                Accessories child_accessor = new Accessories(v.getContext());
+                child_accessor.put("parentcode_adapter", itemList.get(position).getParent_code());
+                child_accessor.put("childfname_adapter", itemList.get(position).getChild_first_name());
+                child_accessor.put("childlname_adapter", itemList.get(position).getChild_last_name());
+                child_accessor.put("childclass_adapter", itemList.get(position).getChild_class());
+                child_accessor.put("childgender_adapter", itemList.get(position).getChild_gender());
+                child_accessor.put("childcode_adapter", itemList.get(position).getChild_code());
+                v.getContext().startActivity(open_child_details);
             }
         });
 

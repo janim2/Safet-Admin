@@ -2,6 +2,7 @@ package com.safet.admin.bustrackeradmin.Model;
 
 public class Children {
 
+    public String parent_code;
     public String child_first_name;
     public String child_last_name;
     public String child_class;
@@ -12,9 +13,10 @@ public class Children {
 
     }
 
-    public Children(String child_first_name, String child_last_name,
+    public Children(String parent_code,String child_first_name, String child_last_name,
                     String child_class, String child_code, String gender) {
 
+        this.parent_code = parent_code;
         this.child_first_name = child_first_name;
         this.child_last_name = child_last_name;
         this.child_class = child_class;
@@ -24,6 +26,8 @@ public class Children {
 
 
     public String getChild_first_name(){return child_first_name; }
+
+    public String getParent_code(){return parent_code; }
 
     public String getChild_last_name(){return child_last_name; }
 

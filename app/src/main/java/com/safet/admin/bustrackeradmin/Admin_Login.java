@@ -30,11 +30,14 @@ public class Admin_Login extends AppCompatActivity {
     private TextView success_message;
     private ProgressBar loading;
     private ImageView goBack;
+    private Accessories loginaccessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginaccessor = new Accessories(Admin_Login.this);
 
         Typeface lovelo =Typeface.createFromAsset(getAssets(),  "fonts/lovelo.ttf");
 
@@ -59,7 +62,7 @@ public class Admin_Login extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sschool_email = school_email.getText().toString().trim();
+                final String sschool_email = school_email.getText().toString().trim();
                 String spassword = password.getText().toString().trim();
 
                 if(!sschool_email.equals("")){
@@ -82,6 +85,7 @@ public class Admin_Login extends AppCompatActivity {
                                         success_message.setText("Login successful");
                                         Intent gotoVerification = new Intent(Admin_Login.this,Verify_School.class);
 //                                        gotoVerification.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        loginaccessor.put("school_email_temp", sschool_email);
                                         startActivity(gotoVerification);
                                     }
                                 }
