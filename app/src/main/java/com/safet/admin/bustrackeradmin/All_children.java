@@ -1,17 +1,29 @@
 package com.safet.admin.bustrackeradmin;
 
+import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.Query;
 import com.safet.admin.bustrackeradmin.Adapters.ChildrenAdapter;
 import com.safet.admin.bustrackeradmin.Model.Children;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +43,61 @@ public class All_children extends AppCompatActivity {
 
     private Accessories child_accessor;
     private TextView no_children, no_internet;
+
+//    @SuppressLint("ClickableViewAccessibility")
+//    @Override
+//    public boolean onCreateOptionsMenu(final Menu menu) {
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//
+//        final SearchView searchView = new SearchView(this);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setQueryHint(getString(R.string.search_hint));
+//        searchView.setIconifiedByDefault(false);
+//
+//        ImageView searchIcon = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+//        searchIcon.setImageResource(R.drawable.white_search);
+//
+//        SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+//        searchAutoComplete.setHintTextColor(Color.parseColor("#FFFFFF"));
+//        searchAutoComplete.setTextColor(ContextCompat.getColor(All_children.this, R.color.white));
+//
+//        ImageView searchCloseIcon = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+//        searchCloseIcon.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+//
+////        ImageView voiceIcon = (ImageView) searchView.findViewById(android.support.v7.appcompat.R.id.search_voice_btn);
+////        voiceIcon.setImageResource();
+////
+////        voiceIcon.setOnTouchListener(new View.OnTouchListener() {
+////            @Override
+////            public boolean onTouch(View v, MotionEvent event) {
+////                menu.getItem(0).collapseActionView();
+////                return false;
+////            }
+////        });
+//        menu.add(getString(R.string.search_hint))
+//                .setIcon(R.drawable.white_search)
+//                .setActionView(searchView)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                s = s.toLowerCase();
+//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("children")
+//                        .child(school_id).child(parent_code);
+//                Query query1 = reference.orderByKey().startAt(query);//.endAt(query+"\uf8ff");
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                return false;
+//            }
+//        });
+//
+//        return true;
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +46,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +55,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.ui.IconGenerator;
+import com.safet.admin.bustrackeradmin.Helpers.HelperClass;
 import com.safet.admin.bustrackeradmin.Model.Notify;
 
 import java.util.ArrayList;
@@ -72,6 +77,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
     private Marker mbusMarker;
     private String school_code, driver_fname;
     private ArrayList<LatLng> buslatlng_array = new ArrayList<>();
+    private Polyline line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +102,11 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
             mapFragment.getMapAsync(this);
         }
 
-        getDriverID();
+        if(new HelperClass(AllBuses.this).isNetworkAvailable()){
+            getDriverID();
+        }else{
+            Toast.makeText(AllBuses.this, "No internet connection", Toast.LENGTH_LONG).show();
+        }
 //        getDriverLocation("dR474");
     }
 
@@ -105,6 +115,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setSmallestDisplacement(0.25F);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -246,6 +257,10 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                     buslatlng_array.add(driverlatlng);
                 }
 
+                if(mbusMarker != null){
+                    mbusMarker.remove();
+                }
+
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                     for(LatLng latLng : buslatlng_array){
                         builder.include(latLng);
@@ -255,9 +270,11 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 //                            .build();
 //                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-
                         getDriver_name(key, latLng);
 
+                        //drawing a route for driver location
+                        drawRoute(latLng);
+//
 //                        if(mbusMarker != null){
 //                            mbusMarker.remove();
 //                        }
@@ -316,9 +333,9 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                     }
                 }
 
-                if(mbusMarker != null){
-                    mbusMarker.remove();
-                }
+//                if(mbusMarker != null){
+//                    mbusMarker.remove();
+//                }
 
 
 //                IconGenerator iconGenerator = new IconGenerator(AllBuses.this);
@@ -368,4 +385,14 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         customMarkerView.draw(canvas);
         return returnedBitmap;
     }
+
+    private void drawRoute(LatLng latLng) {
+        mMap.clear();
+        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+        options.add(latLng);
+        line = mMap.addPolyline(options);
+    }
+
+
+
 }

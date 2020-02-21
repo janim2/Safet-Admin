@@ -260,7 +260,7 @@ public class Child_Details extends AppCompatActivity {
     private void DeleteChild(String parent_code_string) {
             try {
                 //delete from parents node
-                DatabaseReference delete_parents = FirebaseDatabase.getInstance().getReference("child")
+                DatabaseReference delete_parents = FirebaseDatabase.getInstance().getReference("children")
                         .child(school_code).child(parent_code_string).child(child_code_string);
                 delete_parents.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

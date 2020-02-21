@@ -2,6 +2,7 @@ package com.safet.admin.bustrackeradmin.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHolder>{
     ArrayList<Children> itemList;
     Context context;
+    private final ArrayList<Integer> selected = new ArrayList<>();
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         View view;
@@ -73,6 +75,28 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
                 v.getContext().startActivity(open_child_details);
             }
         });
+
+//        child_card_view.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                v.setBackgroundColor(Color.CYAN);
+//
+//                // (*1)
+//                // forcing single selection here
+//                if (selected.isEmpty()){
+//                    selected.add(position);
+//                }else {
+//                    int oldSelected = selected.get(0);
+//                    selected.clear();
+//                    selected.add(position);
+//                    // we do not notify that an item has been selected
+//                    // because that work is done here.  we instead send
+//                    // notifications for items to be deselected
+//                    notifyItemChanged(oldSelected);
+//                }
+//                return false;
+//            }
+//        });
 
     }
 

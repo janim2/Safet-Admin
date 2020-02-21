@@ -205,7 +205,7 @@ public class Verify_School extends AppCompatActivity {
 
     private void fetchSchoolCodes(final String thecode) {
         //finding parent node from code value
-    Query getDriver_code_query = FirebaseDatabase.getInstance().getReference("schools").orderByChild("email").equalTo(temp_school_email);
+        Query getDriver_code_query = FirebaseDatabase.getInstance().getReference("schools").orderByChild("email").equalTo(temp_school_email);
         getDriver_code_query.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange (@NonNull DataSnapshot dataSnapshot){
