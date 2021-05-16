@@ -24,7 +24,7 @@ Motivation for the project here-->
 <img src="Screenshots/9.png" width="23%">&emsp;<img src="Screenshots/10.png" width="23%"> 
 <img src="Screenshots/11.png" width="23%">&emsp;<img src="Screenshots/12.png" width="23%"> 
 <img src="Screenshots/13.png" width="23%">&emsp;<img src="Screenshots/14.png" width="23%"> 
-<img src="Screenshots/15.png" width="23%">
+
 
 ## :file_folder: Repo Walkthrough
 
