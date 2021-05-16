@@ -270,7 +270,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 //                            .build();
 //                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                        getDriver_name(key, latLng);
+//                        getDriver_name(key, latLng);
 
                         //drawing a route for driver location
                         drawRoute(latLng);
@@ -279,10 +279,10 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 //                            mbusMarker.remove();
 //                        }
 
-//                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
-//                                .title(getDriver_name(key,latLng)).flat(true).icon(BitmapDescriptorFactory
-//                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.sbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
-//                        mbusMarker.showInfoWindow();
+                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
+                                .title(getDriver_name(key,latLng)).flat(true).icon(BitmapDescriptorFactory
+                                        .fromBitmap(getMarkerBitmapFromView(R.drawable.sbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
+                        mbusMarker.showInfoWindow();
 //
 //                        mbusMarker = mMap.addMarker(new MarkerOptions().position(latLng)
 //                                .title(getDriver_name(key,latLng)).flat(true).icon(BitmapDescriptorFactory
@@ -314,7 +314,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
         });
     }
 
-    private void getDriver_name(final String key, final LatLng latLng) {
+    private String getDriver_name(final String key, final LatLng latLng) {
         DatabaseReference getDriver_details = FirebaseDatabase.getInstance()
                 .getReference("drivers").child(school_code).child(key);
         getDriver_details.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -349,8 +349,6 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
                         .title(driver_fname).flat(true).icon(BitmapDescriptorFactory
                                 .fromBitmap(getMarkerBitmapFromView(R.drawable.schoolbus))));//.icon(BitmapDescriptorFactory.fromResource(R.mipmap.pin_)));
                 mbusMarker.showInfoWindow();
-
-
             }
 
             @Override
@@ -359,6 +357,7 @@ public class AllBuses extends AppCompatActivity implements OnMapReadyCallback,
 
             }
         });
+        return driver_fname;
 }
 
     private boolean areBoundsTooSmall(LatLngBounds bounds, int minDistanceInMeter) {

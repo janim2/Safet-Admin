@@ -168,6 +168,7 @@ public class All_children extends AppCompatActivity {
     }
 
     private void Fetch_Child_IDs(final String key) {
+        child_Array.clear();
         try{
             parent_code = key;
             DatabaseReference get_child_id = FirebaseDatabase.getInstance().getReference("children")
@@ -195,6 +196,7 @@ public class All_children extends AppCompatActivity {
     }
 
     private void Fetch_Child_Info(final String prent_code, final String key) {
+        child_Array.clear();
 
 //        parent code here is the last value in the database
 //        Toast.makeText(All_children.this, parent_code+" : "+key, Toast.LENGTH_LONG).show();

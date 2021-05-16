@@ -199,12 +199,9 @@ public class Child_Details extends AppCompatActivity {
 
     private void SaveEditedChildDetails(final String child_fname_string, String child_lname_string, String child_gender_string, String child_class_string) {
         try {
-            Random c_threerandom = new Random();
-            int abc = c_threerandom.nextInt(9864);
-            String child_three_id = "child" + abc + "";
             DatabaseReference add_child_three = FirebaseDatabase.getInstance().getReference("children")
                     .child(school_code)
-                    .child(parent_code_string).child(child_three_id);
+                    .child(parent_code_string).child(child_code_string);
 
             add_child_three.child("class").setValue(child_class_string);
             add_child_three.child("firstname").setValue(child_fname_string);

@@ -77,7 +77,7 @@ public class Registered_Parents extends AppCompatActivity {
             DatabaseReference get_Parents_notifications = FirebaseDatabase.getInstance().getReference("parents")
                     .child(school_id);
 
-            get_Parents_notifications.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_Parents_notifications.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -101,7 +101,7 @@ public class Registered_Parents extends AppCompatActivity {
 
     private void Fetch_Parent_Info(final String key) {
         DatabaseReference getdriver_info = FirebaseDatabase.getInstance().getReference("parents").child(school_id).child(key);
-        getdriver_info.addListenerForSingleValueEvent(new ValueEventListener() {
+        getdriver_info.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

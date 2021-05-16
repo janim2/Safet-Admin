@@ -201,25 +201,6 @@ public class Admin_Profile extends AppCompatActivity {
             no_facilities.setVisibility(View.GONE);
         }
 
-        final Handler thehandler;
-
-        thehandler = new Handler(Looper.getMainLooper());
-        final int delay = 15000;
-
-        thehandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(isNetworkAvailable()){
-                    Fetch_Remaining_school_info();
-                }else{
-                    Toast.makeText(Admin_Profile.this, "No internet connection", Toast.LENGTH_LONG).show();
-                    images_no_internet.setVisibility(View.VISIBLE);
-                    facilies_no_internet.setVisibility(View.VISIBLE);
-                }
-                thehandler.postDelayed(this,delay);
-            }
-        },delay);
-
         images_no_internet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -522,7 +503,7 @@ public class Admin_Profile extends AppCompatActivity {
     private void Fetch_Remaining_school_info() {
         try {
             DatabaseReference get_more_details = FirebaseDatabase.getInstance().getReference("schools").child(school_code);
-            get_more_details.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_more_details.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -587,6 +568,7 @@ public class Admin_Profile extends AppCompatActivity {
                             }
                         }
                         Fetch_Images_ID();
+                        Fetch_Facilities_IDS();
                     }
                 }
 
@@ -613,7 +595,7 @@ public class Admin_Profile extends AppCompatActivity {
         images_no_internet.setVisibility(View.GONE);
         try{
             DatabaseReference get_Image_urlID = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code);//.child(mauth.getCurrentUser().getUid());
-            get_Image_urlID.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_Image_urlID.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -636,8 +618,9 @@ public class Admin_Profile extends AppCompatActivity {
     }
 
     private void Fetch_Images_Url(final String key) {
+        imagesArray.clear();
         DatabaseReference getImageUrls = FirebaseDatabase.getInstance().getReference("images").child("school_images").child(school_code).child(key);
-        getImageUrls.addListenerForSingleValueEvent(new ValueEventListener() {
+        getImageUrls.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -656,7 +639,6 @@ public class Admin_Profile extends AppCompatActivity {
                     images_RecyclerView.setAdapter(images_Adapter);
                     images_Adapter.notifyDataSetChanged();
                     no_images.setVisibility(View.GONE);
-                    Fetch_Facilities_IDS();
                 }
             }
 
@@ -672,7 +654,7 @@ public class Admin_Profile extends AppCompatActivity {
         facilies_no_internet.setVisibility(View.GONE);
         try{
             DatabaseReference get_faciility_urlID = FirebaseDatabase.getInstance().getReference("images").child("facilities").child(school_code);//.child(mauth.getCurrentUser().getUid());
-            get_faciility_urlID.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_faciility_urlID.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -695,8 +677,9 @@ public class Admin_Profile extends AppCompatActivity {
     }
 
     private void Fetch_Facility_Url(final String key) {
+        facilitiesArray.clear();
         DatabaseReference getFacilityUrls = FirebaseDatabase.getInstance().getReference("images").child("facilities").child(school_code).child(key);
-        getFacilityUrls.addListenerForSingleValueEvent(new ValueEventListener() {
+        getFacilityUrls.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -710,7 +693,6 @@ public class Admin_Profile extends AppCompatActivity {
                         }
                         else{
 //                            Toast.makeText(getActivity(),"Couldn't fetch posts",Toast.LENGTH_LONG).show();
-
                         }
                     }
 

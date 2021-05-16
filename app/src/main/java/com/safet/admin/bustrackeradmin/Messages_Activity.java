@@ -65,7 +65,7 @@ public class Messages_Activity extends AppCompatActivity {
         try{
             DatabaseReference get_Driver_messages = FirebaseDatabase.getInstance().getReference("messages").child(school_id).child(parent_code);
 
-            get_Driver_messages.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_Driver_messages.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -89,7 +89,7 @@ public class Messages_Activity extends AppCompatActivity {
 
     private void Fetch_User_messages(String key) {
         DatabaseReference getmessages = FirebaseDatabase.getInstance().getReference("messages").child(school_id).child(parent_code).child(key);
-        getmessages.addListenerForSingleValueEvent(new ValueEventListener() {
+        getmessages.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

@@ -76,7 +76,7 @@ public class Registered_Drivers extends AppCompatActivity {
         try{
             DatabaseReference get_Driver_notifications = FirebaseDatabase.getInstance().getReference("drivers").child(school_id);
 
-            get_Driver_notifications.addListenerForSingleValueEvent(new ValueEventListener() {
+            get_Driver_notifications.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -100,7 +100,7 @@ public class Registered_Drivers extends AppCompatActivity {
 
     private void Fetch_Driver_Info(final String key) {
         DatabaseReference getdriver_info = FirebaseDatabase.getInstance().getReference("drivers").child(school_id).child(key);
-        getdriver_info.addListenerForSingleValueEvent(new ValueEventListener() {
+        getdriver_info.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -139,7 +139,7 @@ public class Registered_Drivers extends AppCompatActivity {
 
     private void getBusDetails(String schoolcode, String drivercode) {
         DatabaseReference school_details = FirebaseDatabase.getInstance().getReference("bus_details").child(schoolcode).child(drivercode);
-        school_details.addListenerForSingleValueEvent(new ValueEventListener() {
+        school_details.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
